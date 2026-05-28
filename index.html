@@ -65,10 +65,15 @@
       padding:11px 16px; border-radius:14px; font-weight:700; transition:.2s ease;
       border:1px solid transparent;
     }
-    .btn.primary{ background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%); 
-      color:#fff; 
-      box-shadow:0 10px 24px rgba(214,36,46,.20);}
-    .btn.secondary{background:#fff; color:var(--primary); border-color:#fdcfcf;}
+    .btn.primary{ background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%);
+      color:#fff;
+      box-shadow:0 10px 24px rgba(214,36,46,.20);
+    }
+    .btn.secondary{
+      background:#fff;
+      color:var(--primary);
+      border-color:#fdcfcf; /* был #cfddfb */
+    }
     .btn:hover{transform:translateY(-1px);}
     .steps{display:grid; gap:12px;}
     .step{
