@@ -364,7 +364,7 @@ const checklistGroups = [
   {
     title:'Объект и доказательства',
     items:[
-      'Выбран конкретный объект: аудитория, зона, рабочее место или организация.',
+      'Выбран конкретный объект: аудитория, зона, рабоче место или организация.',
       'Объяснено, почему проект не повторяет работы других студентов.',
       'Есть реальные фотографии текущего состояния объекта.',
       'Проблемы подтверждаются наблюдениями, а не только личными ощущениями.'
@@ -760,12 +760,28 @@ byId('clearBtn').addEventListener('click', () => {
   }
 });
 
+// === ГАРАНТИЯ ЗАПОЛНЕНИЯ ПАСПОРТА ===
+function forcePassportValues() {
+  document.getElementById('projectTitle').value = 'Модернизация аудитории 6107';
+  const objTypeSelect = document.getElementById('objectType');
+  for(let i = 0; i < objTypeSelect.options.length; i++) {
+    if(objTypeSelect.options[i].text === 'Учебная аудитория') {
+      objTypeSelect.selectedIndex = i;
+      break;
+    }
+  }
+  document.getElementById('roomNumber').value = 'Корпус ФЭМ / аудитория 6107';
+  document.getElementById('audience').value = 'Студенты, преподаватели';
+}
+
 loadDraft();
 renderTeam();
 renderEquipment();
 renderPhotos();
 renderVisuals();
 renderChecklist();
+// Принудительно применяем значения паспорта ПОСЛЕ всех загрузок
+forcePassportValues();
 </script>
 </body>
 </html>
