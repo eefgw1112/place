@@ -136,7 +136,7 @@
       <div class="summary">
         <div class="sum-card">
           <strong>Набрано баллов</strong>
-          <div class="big" id="sum">61</div>
+          <div class="big" id="sum">0</div>
         </div>
         <div class="sum-card">
           <strong>Максимум</strong>
@@ -144,7 +144,7 @@
         </div>
         <div class="sum-card">
           <strong>Процент</strong>
-          <div class="big" id="percent">66%</div>
+          <div class="big" id="percent">0%</div>
         </div>
         <div class="sum-card">
           <strong>Результат</strong>
@@ -308,6 +308,24 @@ data.forEach((cat, ci) => {
 });
 document.getElementById('max').textContent = maxScore;
 
+// Функция предустановки баллов: 61 балл (66%)
+function presetScores() {
+  // Сначала всем пунктам ставим 1 балл
+  document.querySelectorAll('.item').forEach((item) => {
+    const radio1 = item.querySelector('input[type="radio"][value="1"]');
+    if (radio1) radio1.checked = true;
+  });
+  // Затем первым 15 пунктам ставим 2 балла
+  const items = document.querySelectorAll('.item');
+  for (let i = 0; i < Math.min(15, items.length); i++) {
+    const radio2 = items[i].querySelector('input[type="radio"][value="2"]');
+    if (radio2) radio2.checked = true;
+  }
+}
+
+// Вызываем предустановку (если нет сохранённых данных, они будут использованы)
+presetScores();
+
 function updateSummary(){
   let sum = 0;
   document.querySelectorAll('input[type="radio"]:checked').forEach(el => sum += Number(el.value));
@@ -367,8 +385,8 @@ document.getElementById('saveBtn').addEventListener('click', () => {
 ['strengths','problems','improvements'].forEach(id => {
   document.getElementById(id).addEventListener('input', saveAll);
 });
-loadAll();
-updateSummary();
+loadAll();   // загружает сохранённые данные (если есть), но не перезаписывает preset, если данных нет
+updateSummary();  // обновляем отображение после всех установок
 </script>
 </body>
 </html>
