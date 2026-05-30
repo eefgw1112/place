@@ -7,17 +7,30 @@
   <style>
     :root{
       --bg:#f4f7fc; --card:#ffffff; --text:#18212f; --muted:#5f6b7a; --line:#dde6f0;
-      --primary:#2457d6; --primary2:#4f86ff; --soft:#ecf3ff; --green:#0f766e; --warn:#9a6700;
-      --bad:#b42318; --ink:#0f172a; --shadow:0 14px 36px rgba(24,33,47,.10); --radius:22px;
+      /* ИСПРАВЛЕНО: синий → красный */
+      --primary:#d6242e; /* был #2457d6 */
+      --primary2:#ff4f4f; /* был #4f86ff */
+      --soft:#ffecec; /* был #ecf3ff */
+      --green:#0f766e;
+      --warn:#9a6700;
+      --bad:#b42318;
+      --ink:#0f172a;
+      --shadow:0 14px 36px rgba(24,33,47,.10); --radius:22px;
     }
     *{box-sizing:border-box}
     body{
-      margin:0; font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif; color:var(--text);
-      background:linear-gradient(180deg,#f7faff 0%, #f2f5fb 100%); line-height:1.58;
+      margin:0;
+      /* ИСПРАВЛЕНО: шрифт Playfair Display */
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      color:var(--text);
+      /* ИСПРАВЛЕНО: розовый градиент */
+      background:linear-gradient(180deg,#fff5f5 0%, #fbf2f2 100%);
+      line-height:1.58;
     }
     .wrap{max-width:1140px; margin:0 auto; padding:28px 18px 56px;}
     .hero{
-      background:linear-gradient(135deg,#1f4ec9 0%, #3a76ff 100%);
+      /* ИСПРАВЛЕНО: красный градиент */
+      background:linear-gradient(135deg,#c41e28 0%, #ff5e5e 100%);
       color:#fff; border-radius:28px; padding:28px 26px; box-shadow:var(--shadow);
     }
     .eyebrow{
@@ -35,11 +48,12 @@
       padding:11px 16px; border-radius:14px; font-weight:700; transition:.2s ease;
       border:1px solid transparent; cursor:pointer; font:inherit;
     }
-    .btn.primary{background:#fff; color:#1f4ec9;}
+    /* ИСПРАВЛЕНО: кнопки primary, action, light, warn, danger */
+    .btn.primary{background:#d6242e; color:#fff;}
     .btn.secondary{background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.20);}
-    .btn.action{background:linear-gradient(135deg,#2457d6 0%, #4f86ff 100%); color:#fff; box-shadow:0 10px 24px rgba(36,87,214,.18);}
-    .btn.light{background:#fff; color:var(--primary); border-color:#cfddfb;}
-    .btn.warn{background:#fff9eb; color:#7a4a00; border-color:#f3dfb3;}
+    .btn.action{background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%); color:#fff; box-shadow:0 10px 24px rgba(214,36,46,.20);}
+    .btn.light{background:#fff; color:var(--primary); border-color:#fdcfcf;}
+    .btn.warn{background:#f5f5f5; color:#333; border-color:#cccccc;}
     .btn.danger{background:#fff; color:var(--bad); border-color:#fecaca;}
     .btn:hover{transform:translateY(-1px);}
     .section{
@@ -51,10 +65,12 @@
     .grid.three{grid-template-columns:repeat(3,1fr);}
     .card{border:1px solid var(--line); border-radius:18px; padding:16px; background:#fff;}
     .card p{margin:0; color:var(--muted);}
-    .note{border-radius:18px; padding:16px 18px; border:1px solid #d6ebdf; background:#f1fcf6;}
-    .note strong{color:var(--green);}
-    .warn-box{border-radius:18px; padding:16px 18px; border:1px solid #f3dfb3; background:#fff9eb;}
-    .warn-box strong{color:var(--warn);}
+    /* ИСПРАВЛЕНО: розовая табличка */
+    .note{border-radius:18px; padding:16px 18px; border:1px solid #ffcdcd; background:#fff0f0;}
+    .note strong{color:#d6242e;}
+    /* ИСПРАВЛЕНО: светло-серая табличка предупреждения */
+    .warn-box{border-radius:18px; padding:16px 18px; border:1px solid #cccccc; background:#f5f5f5;}
+    .warn-box strong{color:#333333;}
     .field, textarea, select{
       width:100%; border:1px solid var(--line); border-radius:14px; padding:12px 14px;
       font:inherit; color:var(--text); background:#fff;
@@ -76,7 +92,7 @@
     .media-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
     .media-card{border:1px solid var(--line); border-radius:18px; padding:14px; background:#fff;}
     .media-preview{
-      min-height:190px; border:2px dashed #cfdcf0; border-radius:16px; background:#fbfcfe;
+      min-height:190px; border:2px dashed #e0cfcf; border-radius:16px; background:#fefcfc;
       display:flex; align-items:center; justify-content:center; text-align:center; color:var(--muted);
       overflow:hidden; padding:12px; margin:8px 0 12px;
     }
@@ -88,13 +104,15 @@
     .check-item:first-of-type{border-top:0;}
     .check-item input{margin-top:5px;}
     .score-bar{height:12px; border-radius:999px; background:#e8eef8; overflow:hidden;}
-    .score-fill{height:100%; width:0%; background:linear-gradient(90deg,#0f766e 0%, #4f86ff 100%); transition:.2s ease;}
+    /* ИСПРАВЛЕНО: красный градиент полосы готовности */
+    .score-fill{height:100%; width:0%; background:linear-gradient(90deg,#d6242e 0%, #ff5e5e 100%); transition:.2s ease;}
     .summary{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px;}
     .sum-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px;}
     .sum-card strong{display:block; font-size:14px; color:var(--muted);}
     .big{font-size:34px; font-weight:800; color:var(--primary); line-height:1; margin-top:8px;}
+    /* ИСПРАВЛЕНО: красный цвет pill */
     .pill{
-      display:inline-block; background:#eef4ff; color:#2457d6; padding:6px 10px;
+      display:inline-block; background:#ffe0e0; color:#d6242e; padding:6px 10px;
       border-radius:999px; font-size:13px; font-weight:700; margin:0 8px 8px 0;
     }
     .steps{display:grid; gap:12px;}
@@ -102,9 +120,12 @@
       display:grid; grid-template-columns:52px 1fr; gap:14px; align-items:flex-start;
       border:1px solid var(--line); border-radius:18px; padding:14px;
     }
+    /* ИСПРАВЛЕНО: розовые квадраты с цифрами */
     .num{
-      width:52px; height:52px; border-radius:16px; background:var(--soft); color:var(--primary);
+      width:52px; height:52px; border-radius:16px;
+      background:#ffb6c1; color:#d6242e;
       display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:800;
+      box-shadow:0 2px 8px rgba(255,105,180,0.2);
     }
     .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
     .footer{margin-top:18px; text-align:center; color:var(--muted); font-size:14px;}
