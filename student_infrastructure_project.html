@@ -7,29 +7,26 @@
   <style>
     :root{
       --bg:#f4f7fc; --card:#ffffff; --text:#18212f; --muted:#5f6b7a; --line:#dde6f0;
-      /* ИСПРАВЛЕНО: синий → красный */
-      --primary:#d6242e; /* был #2457d6 */
-      --primary2:#ff4f4f; /* был #4f86ff */
-      --soft:#ffecec; /* был #ecf3ff */
+      --primary:#d6242e;
+      --primary2:#ff4f4f;
+      --soft:#ffecec;
       --green:#0f766e;
       --warn:#9a6700;
       --bad:#b42318;
       --ink:#0f172a;
-      --shadow:0 14px 36px rgba(24,33,47,.10); --radius:22px;
+      --shadow:0 14px 36px rgba(24,33,47,.10);
+      --radius:22px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      /* ИСПРАВЛЕНО: шрифт Playfair Display */
       font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
       color:var(--text);
-      /* ИСПРАВЛЕНО: розовый градиент */
       background:linear-gradient(180deg,#fff5f5 0%, #fbf2f2 100%);
       line-height:1.58;
     }
     .wrap{max-width:1140px; margin:0 auto; padding:28px 18px 56px;}
     .hero{
-      /* ИСПРАВЛЕНО: красный градиент */
       background:linear-gradient(135deg,#c41e28 0%, #ff5e5e 100%);
       color:#fff; border-radius:28px; padding:28px 26px; box-shadow:var(--shadow);
     }
@@ -48,7 +45,6 @@
       padding:11px 16px; border-radius:14px; font-weight:700; transition:.2s ease;
       border:1px solid transparent; cursor:pointer; font:inherit;
     }
-    /* ИСПРАВЛЕНО: кнопки primary, action, light, warn, danger */
     .btn.primary{background:#d6242e; color:#fff;}
     .btn.secondary{background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.20);}
     .btn.action{background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%); color:#fff; box-shadow:0 10px 24px rgba(214,36,46,.20);}
@@ -65,10 +61,8 @@
     .grid.three{grid-template-columns:repeat(3,1fr);}
     .card{border:1px solid var(--line); border-radius:18px; padding:16px; background:#fff;}
     .card p{margin:0; color:var(--muted);}
-    /* ИСПРАВЛЕНО: розовая табличка */
     .note{border-radius:18px; padding:16px 18px; border:1px solid #ffcdcd; background:#fff0f0;}
     .note strong{color:#d6242e;}
-    /* ИСПРАВЛЕНО: светло-серая табличка предупреждения */
     .warn-box{border-radius:18px; padding:16px 18px; border:1px solid #cccccc; background:#f5f5f5;}
     .warn-box strong{color:#333333;}
     .field, textarea, select{
@@ -104,13 +98,11 @@
     .check-item:first-of-type{border-top:0;}
     .check-item input{margin-top:5px;}
     .score-bar{height:12px; border-radius:999px; background:#e8eef8; overflow:hidden;}
-    /* ИСПРАВЛЕНО: красный градиент полосы готовности */
     .score-fill{height:100%; width:0%; background:linear-gradient(90deg,#d6242e 0%, #ff5e5e 100%); transition:.2s ease;}
     .summary{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px;}
     .sum-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px;}
     .sum-card strong{display:block; font-size:14px; color:var(--muted);}
     .big{font-size:34px; font-weight:800; color:var(--primary); line-height:1; margin-top:8px;}
-    /* ИСПРАВЛЕНО: красный цвет pill */
     .pill{
       display:inline-block; background:#ffe0e0; color:#d6242e; padding:6px 10px;
       border-radius:999px; font-size:13px; font-weight:700; margin:0 8px 8px 0;
@@ -120,7 +112,6 @@
       display:grid; grid-template-columns:52px 1fr; gap:14px; align-items:flex-start;
       border:1px solid var(--line); border-radius:18px; padding:14px;
     }
-    /* ИСПРАВЛЕНО: розовые квадраты с цифрами */
     .num{
       width:52px; height:52px; border-radius:16px;
       background:#ffb6c1; color:#d6242e;
@@ -459,12 +450,6 @@ function escapeHtml(value){
   }[char]));
 }
 
-function updateDynamicLabels(){
-  document.querySelectorAll('[data-dynamic-number]').forEach((el, index) => {
-    el.textContent = el.dataset.dynamicNumber + ' ' + (index + 1);
-  });
-}
-
 function renderTeam(){
   const list = byId('teamList');
   list.innerHTML = '';
@@ -473,7 +458,7 @@ function renderTeam(){
     row.className = 'dynamic-row';
     row.innerHTML = `
       <div class="row-head">
-        <div class="row-title" data-dynamic-number="Участник">Участник ${index + 1}</div>
+        <div class="row-title">Участник ${index + 1}</div>
         <button class="btn danger remove-btn" type="button" data-remove-team="${index}">Удалить</button>
       </div>
       <div class="mini-grid">
