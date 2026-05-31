@@ -7,28 +7,24 @@
   <style>
     :root{
       --bg:#f4f7fc; --card:#ffffff; --text:#18212f; --muted:#5f6b7a; --line:#dde6f0;
-      /* ИСПРАВЛЕНО: синий заменён на красный */
-      --primary:#d6242e; /* был #2457d6 */
-      --primary2:#ff4f4f; /* был #4f86ff */
-      --soft:#ffecec; /* был #ecf3ff */
-      --green:#0f766e; /* больше не используется */
-      --warn:#9a6700; /* не используется, заменяем на серый */
+      --primary:#d6242e;
+      --primary2:#ff4f4f;
+      --soft:#ffb6c1; /* розовые квадраты с цифрами */
+      --green:#0f766e;
+      --warn:#9a6700;
       --bad:#b42318;
       --shadow:0 14px 36px rgba(24,33,47,.10); --radius:22px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      /* ИСПРАВЛЕНО: изменён шрифт на Playfair Display */
       font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
       color:var(--text);
-      /* ИСПРАВЛЕНО: синий градиент фона на розовый */
       background:linear-gradient(180deg,#fff5f5 0%, #fbf2f2 100%);
       line-height:1.56;
     }
     .wrap{max-width:1120px; margin:0 auto; padding:28px 18px 56px;}
     .hero{
-      /* ИСПРАВЛЕНО: градиент шапки с синего на красный */
       background:linear-gradient(135deg,#c41e28 0%, #ff5e5e 100%);
       color:#fff; border-radius:28px; padding:28px 26px; box-shadow:var(--shadow);
     }
@@ -39,15 +35,12 @@
     }
     h1{margin:0; font-size:clamp(28px,4vw,42px); line-height:1.08;}
     .hero p{margin:14px 0 0; max-width:860px; font-size:17px; opacity:.98;}
-    .nav{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;
-    }
+    .nav{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
     .btn{
       text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
       padding:11px 16px; border-radius:14px; font-weight:700; transition:.2s ease;
       border:1px solid transparent;
     }
-    /* ИСПРАВЛЕНО: кнопка primary стала красной */
     .btn.primary{background:#d6242e; color:#fff;}
     .btn.secondary{background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.20);}
     .section{
@@ -56,7 +49,6 @@
     }
     .section h2{margin:0 0 10px; font-size:26px; line-height:1.15;}
     .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
-    /* ИСПРАВЛЕНО: блок score-box (голубой) стал розовым */
     .score-box{
       background:#fff0f0; border:1px solid #ffcdcd; color:#d6242e; border-radius:18px; padding:14px 16px;
     }
@@ -85,9 +77,7 @@
     .band{
       padding:12px 14px; border-radius:16px; font-weight:700;
     }
-    /* ИСПРАВЛЕНО: зелёный блок good стал розовым */
     .band.good{background:#fff0f0; color:#d6242e; border:1px solid #ffcdcd;}
-    /* ИСПРАВЛЕНО: жёлтый блок warn стал светло-серым */
     .band.warn{background:#f5f5f5; color:#333333; border:1px solid #cccccc;}
     .band.bad{background:#fef2f2; color:var(--bad); border:1px solid #fecaca;}
     textarea{
@@ -155,21 +145,20 @@
       <div class="cols" style="margin-top:16px;">
         <div>
           <h3>Три сильные стороны</h3>
-          <textarea id="strengths" placeholder="Устройство позволяет модернизировать компоненты, хороший монитор, бюджетная конфигурация."></textarea>
+          <textarea id="strengths">Эргономичное кресло с регулировками, быстрый SSD-накопитель, качественный монитор с матовым покрытием</textarea>
         </div>
         <div>
           <h3>Три проблемные зоны</h3>
-          <textarea id="problems" placeholder="Плохое освещение, блики от экрана, нехватка рабочего пространства."></textarea>
+          <textarea id="problems">Плохое освещение, блики от экрана, нехватка рабочего пространства</textarea>
         </div>
       </div>
 
       <div style="margin-top:14px;">
         <h3>Три улучшения с наибольшим эффектом</h3>
-        <textarea id="improvements" placeholder="Сменить лампу на более лучшее освещение, очистить рабочее пространство, поменять монитор на матовый экран."></textarea>
+        <textarea id="improvements">Установить дополнительное LED-освещение над рабочим столом, заменить монитор на модель с антибликовым покрытием, расширить стол или освободить пространство за счёт организации кабелей</textarea>
       </div>
 
       <div class="actions">
-        <!-- ИСПРАВЛЕНО: кнопка сохранения с красным градиентом -->
         <button class="btn primary" id="saveBtn" type="button" style="background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%); color:#fff;">Сохранить результаты</button>
         <a class="btn secondary" href="student_report_template.html" id="toReport">Перейти к шаблону отчёта</a>
       </div>
@@ -323,7 +312,6 @@ function presetScores() {
   }
 }
 
-// Вызываем предустановку (если нет сохранённых данных, они будут использованы)
 presetScores();
 
 function updateSummary(){
@@ -385,8 +373,8 @@ document.getElementById('saveBtn').addEventListener('click', () => {
 ['strengths','problems','improvements'].forEach(id => {
   document.getElementById(id).addEventListener('input', saveAll);
 });
-loadAll();   // загружает сохранённые данные (если есть), но не перезаписывает preset, если данных нет
-updateSummary();  // обновляем отображение после всех установок
+loadAll();
+updateSummary();
 </script>
 </body>
 </html>
