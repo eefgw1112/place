@@ -797,7 +797,6 @@ byId('clearBtn').addEventListener('click', () => {
   }
 });
 
-// === ГАРАНТИЯ ЗАПОЛНЕНИЯ ПАСПОРТА ===
 function forcePassportValues() {
   document.getElementById('projectTitle').value = 'Модернизация аудитории 6107';
   const objTypeSelect = document.getElementById('objectType');
@@ -813,6 +812,15 @@ function forcePassportValues() {
   document.getElementById('projectGoal').value = 'Цель: студентам будет удобно заниматься с новыми партами и телевизорами, с которых будет видно даже с последних парт, что написано на доске; производительность обучения станет выше с новым оборудованием для преподавателей, а с новой зоной для отдыха студенты будут всегда приходить вовремя на пары и будут совершенствовать свои навыки общения с сокурсниками.';
 }
 
+function setAllCheckboxes() {
+  const allCheckboxes = document.querySelectorAll('[data-check]');
+  allCheckboxes.forEach(cb => {
+    cb.checked = true;
+    state.checklist[cb.dataset.check] = true;
+  });
+  updateChecklistSummary();
+}
+
 loadDraft();
 renderTeam();
 renderEquipment();
@@ -820,6 +828,7 @@ renderPhotos();
 renderVisuals();
 renderChecklist();
 forcePassportValues();
+setAllCheckboxes();
 </script>
 </body>
 </html>
