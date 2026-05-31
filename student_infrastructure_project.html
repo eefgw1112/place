@@ -477,7 +477,16 @@ let state = {
       caption: 'Общий вид аудитории',
       finding: 'Не хватает розеток, провода не организованы.'
     },
-    {path:'', caption:'', finding:''}
+    {
+      path: 'images/IMG_1258.jpeg',
+      caption: 'Состояние досок и экранов',
+      finding: 'Мел неудобно писать, проектор даёт тусклое изображение.'
+    },
+    {
+      path: 'images/IMG_1259.jpeg',
+      caption: 'Рабочее место преподавателя',
+      finding: 'Не хватает современного ПК и удобного кресла.'
+    }
   ],
   visuals:[
     {path:'', prompt:'', purpose:'', criteria:''},
@@ -558,7 +567,6 @@ function renderPhotos(){
   state.photos.forEach((photo, index) => {
     const card = document.createElement('div');
     card.className = 'media-card';
-    // Если есть путь к фото, показываем его, иначе – текст-заглушку
     const previewContent = photo.path 
       ? `<img src="${escapeHtml(photo.path)}" alt="Фото ${index+1}" style="max-width:100%; max-height:200px; border-radius:12px;" />`
       : 'Предпросмотр фотографии';
