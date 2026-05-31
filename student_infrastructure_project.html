@@ -285,7 +285,7 @@
 
     <section class="section">
       <h2>7. AI-визуализации будущего пространства</h2>
-      <p class="lead">Добавьте не менее 5 визуализаций. Для каждой укажите промпт, назначение изображения и что именно оно помогает доказать. Можно использовать ИИ-генератор, графический редактор или собственную схему.</p>
+      <p class="lead">Добавьте не менее 4 визуализаций. Для каждой укажите промпт, назначение изображения и что именно оно помогает доказать. Можно использовать ИИ-генератор, графический редактор или собственную схему.</p>
       <div id="visualList" class="media-grid"></div>
       <div class="actions">
         <button class="btn action" id="addVisualBtn" type="button">+ Добавить визуализацию</button>
@@ -316,7 +316,7 @@
             <li><strong>audit.html</strong> - фотофиксация, проблемы и результаты чек-листов;</li>
             <li><strong>equipment.html</strong> - закупка, смета, обоснование оборудования;</li>
             <li><strong>ergonomics.html</strong> - планировка, рабочие места, зона отдыха, серверный узел;</li>
-            <li><strong>visuals.html</strong> - минимум 5 AI-визуализаций с промптами;</li>
+            <li><strong>visuals.html</strong> - минимум 4 AI-визуализаций с промптами;</li>
             <li><strong>reflection.html</strong> - личные выводы участников и вклад команды.</li>
           </ul>
         </div>
@@ -409,7 +409,7 @@ const checklistGroups = [
   {
     title:'Визуализация и публикация',
     items:[
-      'Добавлено не менее 5 визуализаций будущего пространства.',
+      'Добавлено не менее 4 визуализаций будущего пространства.',
       'Для каждой визуализации указан промпт или метод создания.',
       'Итоговый проект оформлен как многостраничный HTML-сайт.',
       'Сайт опубликован в публичном репозитории через GitHub Pages.'
@@ -488,12 +488,31 @@ let state = {
       finding: 'Не хватает современного ПК, удобного кресла и стола'
     }
   ],
-  visuals:[
-    {path:'', prompt:'', purpose:'', criteria:''},
-    {path:'', prompt:'', purpose:'', criteria:''},
-    {path:'', prompt:'', purpose:'', criteria:''},
-    {path:'', prompt:'', purpose:'', criteria:''},
-    {path:'', prompt:'', purpose:'', criteria:''}
+  visuals: [
+    {
+      path: 'images/IMG_1266.jpeg',
+      prompt: 'Промпт: современная аудитория с интерактивной доской и зоной отдыха',
+      purpose: 'Показать будущий дизайн аудитории',
+      criteria: 'Визуализация демонстрирует улучшение пространства'
+    },
+    {
+      path: 'images/IMG_1267.jpeg',
+      prompt: 'Промпт: эргономичные парты и хорошее освещение',
+      purpose: 'Иллюстрация новых парт и освещения',
+      criteria: 'Понятно, как решится проблема с видимостью доски'
+    },
+    {
+      path: 'images/IMG_1268.jpeg',
+      prompt: 'Промпт: зона отдыха с мягкой мебелью и розетками',
+      purpose: 'Показать новую зону отдыха для студентов',
+      criteria: 'Демонстрирует решение проблемы отсутствия отдыха'
+    },
+    {
+      path: 'images/IMG_1269.jpeg',
+      prompt: 'Промпт: современное рабочее место преподавателя с ПК и удобным креслом',
+      purpose: 'Визуализация рабочего места преподавателя после модернизации',
+      criteria: 'Показывает необходимое оборудование и эргономику'
+    }
   ],
   checklist:{}
 };
@@ -594,12 +613,15 @@ function renderVisuals(){
   state.visuals.forEach((visual, index) => {
     const card = document.createElement('div');
     card.className = 'media-card';
+    const previewContent = visual.path 
+      ? `<img src="${escapeHtml(visual.path)}" alt="Визуализация ${index+1}" style="max-width:100%; max-height:200px; border-radius:12px;" />`
+      : 'Предпросмотр визуализации';
     card.innerHTML = `
       <div class="row-head">
         <h3>AI-визуализация ${index + 1}</h3>
         <button class="btn danger remove-btn" type="button" data-remove-visual="${index}">Удалить</button>
       </div>
-      <div class="media-preview" data-visual-preview="${index}">Предпросмотр визуализации</div>
+      <div class="media-preview" data-visual-preview="${index}">${previewContent}</div>
       <input class="file-input" type="file" accept="image/*" data-visual-file="${index}" />
       <label class="caption" style="margin-top:10px;">Путь к файлу для публикации</label>
       <input class="field" data-visual="${index}" data-field="path" type="text" value="${escapeHtml(visual.path)}" placeholder="images/future-zone-1.jpg" />
@@ -696,7 +718,7 @@ function loadDraft(){
         ...state,
         ...saved.dynamic,
         photos: saved.dynamic.photos && saved.dynamic.photos.length ? saved.dynamic.photos : state.photos,
-        visuals: saved.dynamic.visuals && saved.dynamic.visuals.length >= 5 ? saved.dynamic.visuals : state.visuals
+        visuals: saved.dynamic.visuals && saved.dynamic.visuals.length ? saved.dynamic.visuals : state.visuals
       };
     }
   } catch(e){}
@@ -761,13 +783,13 @@ document.addEventListener('click', event => {
     }
   }
   if(target.matches('[data-remove-visual]')){
-    if(state.visuals.length > 5){
+    if(state.visuals.length > 4){
       captureState();
       state.visuals.splice(Number(target.dataset.removeVisual), 1);
       renderVisuals();
       saveDraft();
     } else {
-      alert('В задании должно остаться не менее 5 визуализаций.');
+      alert('В задании должно остаться не менее 4 визуализаций.');
     }
   }
 });
