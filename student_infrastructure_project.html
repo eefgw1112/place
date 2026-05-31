@@ -209,7 +209,7 @@
 
     <section class="section">
       <h2>2. Команда и обязанности</h2>
-      <p class="lead">Работать можно индивидуально или командой до 3 человек. Даже в команде каждый участник должен оставить собственный вывод и показать личный вклад.</p>
+      <p class="lead">Работать можно индивидуально или командой до 5 человек. Каждый участник оставляет личный вывод и показывает вклад.</p>
       <div id="teamList" class="row-list"></div>
       <div class="actions">
         <button class="btn action" id="addMemberBtn" type="button">+ Добавить участника</button>
@@ -445,6 +445,12 @@ let state = {
       role: 'Аудит',
       duties: 'Опрос студентов о проблемной аудитории',
       conclusion: 'Проведение опросов и анализ потребностей студентов показали, насколько важно учитывать реальные пожелания пользователей при проектировании учебных пространств. Я научилась выявлять скрытые проблемы и формулировать требования, которые действительно повышают комфорт и эффективность обучения.'
+    },
+    {
+      name: 'Иванова Дарья Владленовна',
+      role: 'Аудит',
+      duties: 'Опрос студентов о проблемной аудитории',
+      conclusion: 'Анализ обратной связи от студентов позволил выявить неочевидные проблемы, такие как недостаточная освещённость и шум. Я научилась систематизировать данные и превращать их в конкретные требования для проекта, что повысило обоснованность наших предложений.'
     }
   ],
   equipment:[{name:'', specs:'', qty:'', price:'', reason:'', priority:'Рекомендуемая'}],
@@ -489,7 +495,7 @@ function renderTeam(){
     `;
     list.appendChild(row);
   });
-  byId('addMemberBtn').disabled = state.team.length >= 3;
+  byId('addMemberBtn').disabled = state.team.length >= 5;
 }
 
 function renderEquipment(){
@@ -732,12 +738,12 @@ document.addEventListener('click', event => {
 
 byId('addMemberBtn').addEventListener('click', () => {
   captureState();
-  if(state.team.length < 3){
+  if(state.team.length < 5){
     state.team.push({name:'', duties:'', role:'', conclusion:''});
     renderTeam();
     saveDraft();
   } else {
-    alert('Команда может включать не более 3 человек.');
+    alert('Команда может включать не более 5 человек.');
   }
 });
 
@@ -801,7 +807,6 @@ renderEquipment();
 renderPhotos();
 renderVisuals();
 renderChecklist();
-// Принудительно применяем значения паспорта ПОСЛЕ всех загрузок
 forcePassportValues();
 </script>
 </body>
