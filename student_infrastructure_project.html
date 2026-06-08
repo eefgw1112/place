@@ -6,7 +6,8 @@
   <title>Проект ИТ-инфраструктуры и рабочего пространства</title>
   <style>
     :root{
-      --bg:#f4f7fc; --card:#ffffff; --text:#18212f; --muted:#5f6b7a; --line:#dde6f0;
+      --bg:#f4f7fc; --card:#fffaf8; /* изменено: слегка розоватый фон карточек */
+      --text:#18212f; --muted:#5f6b7a; --line:#f0e0e0; /* чуть розоватая линия */
       --primary:#d6242e;
       --primary2:#ff4f4f;
       --soft:#ffecec;
@@ -14,7 +15,7 @@
       --warn:#9a6700;
       --bad:#b42318;
       --ink:#0f172a;
-      --shadow:0 14px 36px rgba(24,33,47,.10);
+      --shadow:0 14px 36px rgba(214,36,46,.08); /* розоватая тень */
       --radius:22px;
     }
     *{box-sizing:border-box}
@@ -176,23 +177,23 @@
     .btn:hover{transform:translateY(-2px);}
     .section{
       margin-top:18px; background:var(--card); border-radius:var(--radius);
-      box-shadow:var(--shadow); border:1px solid #edf2f8; padding:24px 22px;
+      box-shadow:var(--shadow); border:1px solid #f0e0e0; padding:24px 22px;
       transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
     .section:hover{
       transform:translateY(-2px);
-      box-shadow:0 18px 40px rgba(24,33,47,.12);
+      box-shadow:0 18px 40px rgba(214,36,46,.10);
     }
     .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
     .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
     .grid.three{grid-template-columns:repeat(3,1fr);}
     .card{
-      border:1px solid var(--line); border-radius:18px; padding:16px; background:#fff;
+      border:1px solid #f0e0e0; border-radius:18px; padding:16px; background:#fffaf8;
       transition:transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s ease, border-color 0.2s ease;
     }
     .card:hover{
       transform:translateY(-8px) scale(1.01);
-      box-shadow:0 24px 40px rgba(0,0,0,0.12);
+      box-shadow:0 24px 40px rgba(214,36,46,0.12);
       border-color:#ffcdcd;
     }
     .card p{margin:0; color:var(--muted);}
@@ -211,8 +212,8 @@
     .warn-box{border-radius:18px; padding:16px 18px; border:1px solid #cccccc; background:#f5f5f5;}
     .warn-box strong{color:#333333;}
     .field, textarea, select{
-      width:100%; border:1px solid var(--line); border-radius:14px; padding:12px 14px;
-      font:inherit; color:var(--text); background:#fff;
+      width:100%; border:1px solid #f0e0e0; border-radius:14px; padding:12px 14px;
+      font:inherit; color:var(--text); background:#fffaf8;
     }
     textarea{min-height:116px; resize:vertical;}
     .small{min-height:86px;}
@@ -221,13 +222,13 @@
     .form-grid .wide{grid-column:1 / -1;}
     .row-list{display:grid; gap:12px;}
     .dynamic-row{
-      border:1px solid var(--line); border-radius:18px; padding:14px; background:#fff;
+      border:1px solid #f0e0e0; border-radius:18px; padding:14px; background:#fffaf8;
       display:grid; gap:12px;
       transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
     .dynamic-row:hover{
       transform:translateX(4px);
-      box-shadow:0 6px 14px rgba(0,0,0,0.05);
+      box-shadow:0 6px 14px rgba(214,36,46,0.08);
     }
     .row-head{display:flex; align-items:center; justify-content:space-between; gap:10px;}
     .row-title{font-weight:800; color:var(--primary);}
@@ -235,12 +236,12 @@
     .two-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
     .media-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
     .media-card{
-      border:1px solid var(--line); border-radius:18px; padding:14px; background:#fff;
+      border:1px solid #f0e0e0; border-radius:18px; padding:14px; background:#fffaf8;
       transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
     .media-card:hover{
       transform:translateY(-4px);
-      box-shadow:0 12px 24px rgba(0,0,0,0.08);
+      box-shadow:0 12px 24px rgba(214,36,46,0.08);
     }
     .media-preview{
       width:100%;
@@ -272,14 +273,14 @@
     }
     .check-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
     .check-card{
-      border:1px solid var(--line); border-radius:18px; padding:14px; background:#fff;
+      border:1px solid #f0e0e0; border-radius:18px; padding:14px; background:#fffaf8;
       transition:transform 0.2s ease;
     }
     .check-card:hover{
       transform:translateY(-3px);
     }
     .check-card h3{font-size:18px;}
-    .check-item{display:flex; gap:9px; align-items:flex-start; padding:8px 0; border-top:1px dashed #e7edf5;}
+    .check-item{display:flex; gap:9px; align-items:flex-start; padding:8px 0; border-top:1px dashed #f0e0e0;}
     .check-item:first-of-type{border-top:0;}
     .check-item input{
       margin-top:5px;
@@ -288,11 +289,11 @@
     .check-item input:hover{
       transform:scale(1.1);
     }
-    .score-bar{height:12px; border-radius:999px; background:#e8eef8; overflow:hidden;}
+    .score-bar{height:12px; border-radius:999px; background:#f0e0e0; overflow:hidden;}
     .score-fill{height:100%; width:0%; background:linear-gradient(90deg,#d6242e 0%, #ff5e5e 100%); transition:.2s ease;}
     .summary{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px;}
     .sum-card{
-      background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px;
+      background:#fffaf8; border:1px solid #f0e0e0; border-radius:18px; padding:16px;
       transition:transform 0.2s ease;
     }
     .sum-card:hover{
@@ -312,12 +313,13 @@
     .steps{display:grid; gap:12px;}
     .step{
       display:grid; grid-template-columns:52px 1fr; gap:14px; align-items:flex-start;
-      border:1px solid var(--line); border-radius:18px; padding:14px;
+      border:1px solid #f0e0e0; border-radius:18px; padding:14px;
       transition:all 0.25s ease;
+      background:#fffaf8;
     }
     .step:hover{
       border-color:#ffb6c1;
-      background:#fffafc;
+      background:#fff5f0;
       transform:translateX(6px);
       box-shadow:0 8px 20px rgba(214,36,46,0.08);
     }
