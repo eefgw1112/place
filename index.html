@@ -6,11 +6,11 @@
   <title>Практическая работа: учебная экосистема</title>
   <style>
     :root{
-      --bg:#0a0a1a; --card:#111128; --text:#e0e0ff; --muted:#8888aa; --line:#222244;
-      --primary:#ff3366; --primary2:#ff6699;
+      --bg:#f4f7fc; --card:#ffffff; --text:#18212f; --muted:#5f6b7a; --line:#dde6f0;
+      --primary:#d6242e; --primary2:#ff4f4f;
       --soft:#ffb6c1;
       --green:#0f766e;
-      --shadow:0 14px 36px rgba(0,0,0,.4); --radius:22px;
+      --shadow:0 14px 36px rgba(24,33,47,.10); --radius:22px;
     }
     *{box-sizing:border-box}
     body{
@@ -19,12 +19,12 @@
       font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
       color:var(--text);
       position:relative;
-      background: radial-gradient(ellipse at 20% 30%, #0d0d2b, #050510);
+      background: linear-gradient(145deg, #fff0f0 0%, #ffe0e0 50%, #ffd0d0 100%);
       line-height:1.58;
       overflow-x:hidden;
     }
     
-    /* Звёздный фон */
+    /* ФОНОВОЕ ИЗОБРАЖЕНИЕ из папки images */
     body::before{
       content:"";
       position:fixed;
@@ -32,20 +32,16 @@
       left:0;
       width:100%;
       height:100%;
-      background-image:radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 70px 150px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 150px 80px, #fff, rgba(0,0,0,0)),
-        radial-gradient(3px 3px at 300px 400px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 500px 200px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 800px 600px, #fff, rgba(0,0,0,0));
+      background-image:url('images/artem-mikhailovich.jpg');
+      background-size:cover;
+      background-position:center;
       background-repeat:no-repeat;
-      background-size:200px 200px;
-      opacity:0.6;
+      opacity:0.15;
       pointer-events:none;
       z-index:0;
     }
     
-    /* Сетка как в Roswell */
+    /* Шумовая текстура поверх изображения */
     body::after{
       content:"";
       position:fixed;
@@ -53,14 +49,13 @@
       left:0;
       width:100%;
       height:100%;
-      background-image:linear-gradient(rgba(100,100,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(100,100,255,0.03) 1px, transparent 1px);
-      background-size:40px 40px;
+      background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDMwIDMwIj48Y2lyY2xlIGN4PSIxNSIgY3k9IjE1IiByPSIxIiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDYiLz48L3N2Zz4=');
+      background-repeat:repeat;
       pointer-events:none;
       z-index:0;
     }
     
-    /* Анимированные градиенты (неоновые) */
+    /* Анимированные градиенты */
     .animated-bg{
       position:fixed;
       top:0;
@@ -76,10 +71,9 @@
       left:-20%;
       width:80%;
       height:80%;
-      background:radial-gradient(circle, rgba(255,51,102,0.25) 0%, rgba(255,51,102,0) 70%);
+      background:radial-gradient(circle, rgba(255,140,140,0.4) 0%, rgba(255,100,100,0) 70%);
       border-radius:50%;
       animation:float1 18s ease-in-out infinite;
-      filter:blur(60px);
     }
     .gradient-2{
       position:absolute;
@@ -87,10 +81,9 @@
       right:-10%;
       width:70%;
       height:70%;
-      background:radial-gradient(circle, rgba(100,80,255,0.3) 0%, rgba(100,80,255,0) 70%);
+      background:radial-gradient(circle, rgba(255,180,180,0.35) 0%, rgba(255,120,120,0) 70%);
       border-radius:50%;
       animation:float2 22s ease-in-out infinite;
-      filter:blur(60px);
     }
     .gradient-3{
       position:absolute;
@@ -98,10 +91,9 @@
       left:30%;
       width:60%;
       height:60%;
-      background:radial-gradient(circle, rgba(255,51,102,0.2) 0%, rgba(255,51,102,0) 70%);
+      background:radial-gradient(circle, rgba(214,36,46,0.15) 0%, rgba(214,36,46,0) 70%);
       border-radius:50%;
       animation:float3 25s ease-in-out infinite;
-      filter:blur(60px);
     }
     
     @keyframes float1{
@@ -120,7 +112,7 @@
       100%{transform:translate(0,0) scale(1);}
     }
     
-    /* Плавающие частицы */
+    /* Плавающие круги (частицы) */
     .floating-circles{
       position:fixed;
       top:0;
@@ -132,17 +124,16 @@
     }
     .circle{
       position:absolute;
-      background:rgba(255,51,102,0.15);
+      background:rgba(255,200,200,0.3);
       border-radius:50%;
-      filter:blur(40px);
       animation:drift 20s infinite linear;
     }
-    .circle:nth-child(1){width:300px;height:300px;top:10%;left:-10%;opacity:0.5;animation-duration:25s;}
-    .circle:nth-child(2){width:200px;height:200px;bottom:15%;right:-5%;opacity:0.4;animation-duration:30s;animation-delay:-5s;}
-    .circle:nth-child(3){width:350px;height:350px;top:40%;left:60%;opacity:0.3;animation-duration:35s;animation-delay:-10s;}
-    .circle:nth-child(4){width:150px;height:150px;top:70%;left:20%;opacity:0.35;animation-duration:22s;animation-delay:-3s;}
-    .circle:nth-child(5){width:250px;height:250px;top:20%;right:20%;opacity:0.25;animation-duration:28s;animation-delay:-7s;}
-    .circle:nth-child(6){width:180px;height:180px;bottom:30%;left:40%;opacity:0.3;animation-duration:32s;}
+    .circle:nth-child(1){width:250px;height:250px;top:10%;left:-5%;opacity:0.4;animation-duration:25s;}
+    .circle:nth-child(2){width:180px;height:180px;bottom:15%;right:5%;opacity:0.35;animation-duration:30s;animation-delay:-5s;}
+    .circle:nth-child(3){width:300px;height:300px;top:40%;left:60%;opacity:0.25;animation-duration:35s;animation-delay:-10s;}
+    .circle:nth-child(4){width:120px;height:120px;top:70%;left:20%;opacity:0.3;animation-duration:22s;animation-delay:-3s;}
+    .circle:nth-child(5){width:200px;height:200px;top:20%;right:20%;opacity:0.2;animation-duration:28s;animation-delay:-7s;}
+    .circle:nth-child(6){width:150px;height:150px;bottom:30%;left:40%;opacity:0.25;animation-duration:32s;}
     
     @keyframes drift{
       0%{transform:translate(0,0) rotate(0deg);}
@@ -159,78 +150,69 @@
       z-index:2;
     }
     .hero{
-      background:linear-gradient(135deg, rgba(255,51,102,0.2) 0%, rgba(100,80,255,0.2) 100%);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,51,102,0.3);
+      background:linear-gradient(135deg,#c41e28 0%, #ff5e5e 100%);
       color:#fff; border-radius:30px; padding:30px 28px; box-shadow:var(--shadow);
       position:relative; overflow:hidden;
       transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
     .hero:hover{
       transform:translateY(-3px);
-      box-shadow:0 20px 40px rgba(255,51,102,0.2);
-      border-color:rgba(255,51,102,0.5);
+      box-shadow:0 20px 40px rgba(214,36,46,0.25);
     }
     .hero:before{
       content:""; position:absolute; right:-80px; bottom:-80px; width:240px; height:240px;
-      border-radius:50%; background:rgba(255,51,102,0.1);
+      border-radius:50%; background:rgba(255,255,255,.12);
       transition:transform 0.3s ease;
     }
     .hero:after{
       content:""; position:absolute; right:18%; top:18px; width:120px; height:120px;
-      border-radius:50%; background:rgba(100,80,255,0.1);
+      border-radius:50%; background:rgba(255,255,255,.08);
       transition:transform 0.3s ease;
     }
     .eyebrow{
       display:inline-block; padding:7px 12px; border-radius:999px;
-      background:rgba(255,51,102,0.2); border:1px solid rgba(255,51,102,0.4);
+      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18);
       font-size:13px; font-weight:700; letter-spacing:.02em; margin-bottom:14px;
       transition:background 0.2s ease, transform 0.2s ease;
     }
     .hero:hover .eyebrow{
-      background:rgba(255,51,102,0.3);
+      background:rgba(255,255,255,.22);
       transform:translateX(3px);
     }
     h1{margin:0; font-size:clamp(30px,4vw,46px); line-height:1.08;}
-    .hero p{margin:14px 0 0; max-width:780px; font-size:17px; opacity:.9;}
+    .hero p{margin:14px 0 0; max-width:780px; font-size:17px; opacity:.98;}
     .section{
-      margin-top:18px; background:rgba(17,17,40,0.8);
-      backdrop-filter:blur(5px);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow); border:1px solid rgba(100,80,255,0.2);
-      padding:24px 22px;
+      margin-top:18px; background:var(--card); border-radius:var(--radius);
+      box-shadow:var(--shadow); border:1px solid #edf2f8; padding:24px 22px;
       transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
     .section:hover{
       transform:translateY(-2px);
-      box-shadow:0 18px 40px rgba(0,0,0,.3);
-      border-color:rgba(255,51,102,0.3);
+      box-shadow:0 18px 40px rgba(24,33,47,.12);
     }
     .section h2{margin:0 0 10px; font-size:26px; line-height:1.15;}
     .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
     .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
     .card{
-      border:1px solid rgba(100,80,255,0.2); border-radius:20px; padding:18px 18px 16px;
-      background:rgba(20,20,45,0.6);
-      backdrop-filter:blur(4px);
+      border:1px solid var(--line); border-radius:20px; padding:18px 18px 16px; background:#fff;
       transition:transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s ease, border-color 0.2s ease;
     }
     .card:hover{
       transform:translateY(-8px) scale(1.01);
-      box-shadow:0 24px 40px rgba(0,0,0,0.4);
-      border-color:#ff3366;
+      box-shadow:0 24px 40px rgba(0,0,0,0.12);
+      border-color:#ffcdcd;
     }
     .card h3{margin:0 0 8px; font-size:20px;}
     .card p{margin:0 0 14px; color:var(--muted);}
     .pill{
-      display:inline-block; background:rgba(255,51,102,0.2); 
-      color:#ff6699; 
+      display:inline-block; background:#ffe0e0; 
+      color:#d6242e; 
       padding:6px 10px;
       border-radius:999px; font-size:13px; font-weight:700; margin-bottom:10px;
       transition:background 0.2s ease, transform 0.15s ease;
     }
     .card:hover .pill{
-      background:rgba(255,51,102,0.4);
+      background:#ffcccc;
       transform:scale(1.02);
     }
     .btns{display:flex; gap:10px; flex-wrap:wrap;}
@@ -241,62 +223,62 @@
       cursor:pointer;
     }
     .btn.primary{
-      background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%);
+      background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%);
       color:#fff;
-      box-shadow:0 10px 24px rgba(255,51,102,.3);
+      box-shadow:0 10px 24px rgba(214,36,46,.20);
     }
     .btn.primary:hover{
       transform:translateY(-3px) scale(1.02);
-      box-shadow:0 16px 28px rgba(255,51,102,0.5);
-      filter:brightness(1.05);
+      box-shadow:0 16px 28px rgba(214,36,46,0.3);
+      filter:brightness(1.03);
     }
     .btn.secondary{
-      background:rgba(20,20,45,0.8);
-      color:#ff6699;
-      border-color:rgba(255,51,102,0.4);
+      background:#fff;
+      color:var(--primary);
+      border-color:#fdcfcf;
     }
     .btn.secondary:hover{
-      background:rgba(255,51,102,0.2);
+      background:#fff5f5;
       transform:translateY(-2px);
-      border-color:#ff3366;
-      box-shadow:0 6px 14px rgba(255,51,102,0.2);
+      border-color:#d6242e;
+      box-shadow:0 6px 14px rgba(214,36,46,0.1);
     }
     .steps{display:grid; gap:12px;}
     .step{
       display:grid; grid-template-columns:52px 1fr; gap:14px; align-items:flex-start;
-      border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
+      border:1px solid var(--line); border-radius:18px; padding:14px;
       transition:all 0.25s ease;
-      background:rgba(17,17,40,0.5);
     }
     .step:hover{
-      border-color:#ff3366;
-      background:rgba(30,30,60,0.7);
+      border-color:#ffb6c1;
+      background:#fffafc;
       transform:translateX(6px);
-      box-shadow:0 8px 20px rgba(255,51,102,0.15);
+      box-shadow:0 8px 20px rgba(214,36,46,0.08);
     }
     .num{
-      width:52px; height:52px; border-radius:16px; background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%);
-      color:#fff;
+      width:52px; height:52px; border-radius:16px; background:var(--soft); 
+      color:var(--primary);
       display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:800;
-      box-shadow:0 2px 8px rgba(255,51,102,0.3);
+      box-shadow:0 2px 8px rgba(255,105,180,0.2);
       transition:all 0.2s ease;
     }
     .step:hover .num{
       transform:scale(1.05);
-      box-shadow:0 4px 14px rgba(255,51,102,0.5);
+      background:#ffa5b9;
+      box-shadow:0 4px 14px rgba(255,105,180,0.4);
     }
     .note{
       border-radius:18px; padding:16px 18px;
-      border:1px solid rgba(255,51,102,0.3);
-      background:rgba(255,51,102,0.1);
+      border:1px solid #ffcdcd;
+      background:#fff0f0;
       transition:all 0.25s ease;
     }
     .note:hover{
-      background:rgba(255,51,102,0.15);
+      background:#ffe8e8;
       transform:translateY(-3px);
-      box-shadow:0 12px 24px rgba(255,51,102,0.1);
+      box-shadow:0 12px 24px rgba(214,36,46,0.08);
     }
-    .note strong{color:#ff6699;}
+    .note strong{color:#d6242e;}
     .footer{
       margin-top:18px; text-align:center; color:var(--muted); font-size:14px;
       transition:opacity 0.2s ease;
@@ -308,13 +290,13 @@
   </style>
 </head>
 <body>
-  <!-- Анимированные фоновые градиенты (неоновые) -->
+  <!-- Анимированные фоновые градиенты -->
   <div class="animated-bg">
     <div class="gradient-1"></div>
     <div class="gradient-2"></div>
     <div class="gradient-3"></div>
   </div>
-  <!-- Плавающие частицы -->
+  <!-- Плавающие круги -->
   <div class="floating-circles">
     <div class="circle"></div>
     <div class="circle"></div>
@@ -407,15 +389,15 @@
   </div>
 
   <script>
-    // эффект движения фоновых частиц при движении мыши (параллакс)
+    // эффект движения фоновых кругов при движении мыши (параллакс)
     document.addEventListener('mousemove', (e) => {
       const x = e.clientX / window.innerWidth;
       const y = e.clientY / window.innerHeight;
       const circles = document.querySelectorAll('.circle');
       circles.forEach((circle, i) => {
-        const speed = 0.05 + (i * 0.008);
-        const moveX = (x - 0.5) * 60 * speed;
-        const moveY = (y - 0.5) * 60 * speed;
+        const speed = 0.03 + (i * 0.005);
+        const moveX = (x - 0.5) * 40 * speed;
+        const moveY = (y - 0.5) * 40 * speed;
         circle.style.transform = `translate(${moveX}px, ${moveY}px)`;
       });
     });
