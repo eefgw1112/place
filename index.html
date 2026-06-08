@@ -130,26 +130,44 @@
       width:140px;
       height:140px;
       border-radius:50%;
-      background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg');
-      background-size:cover;
-      background-position:center;
+      background: radial-gradient(circle at 30% 35%, #f5f0d0, #e8dcb0, #d4c490);
       box-shadow:0 0 20px rgba(255,240,200,0.5), 0 0 40px rgba(255,220,120,0.3);
       z-index:0;
       pointer-events:none;
       animation:moonFloat 8s ease-in-out infinite;
       transition:transform 0.1s ease-out;
+      overflow:hidden;
     }
-    
+    /* Кратеры на луне */
+    .moon::before{
+      content:"";
+      position:absolute;
+      top:20px;
+      left:30px;
+      width:25px;
+      height:25px;
+      background:rgba(160,140,100,0.4);
+      border-radius:50%;
+      box-shadow:inset -2px -2px 5px rgba(0,0,0,0.2);
+    }
     .moon::after{
       content:"";
       position:absolute;
-      top:-20px;
-      left:-20px;
-      right:-20px;
-      bottom:-20px;
+      bottom:25px;
+      right:35px;
+      width:18px;
+      height:18px;
+      background:rgba(160,140,100,0.35);
       border-radius:50%;
-      background:radial-gradient(circle, rgba(255,240,180,0.2), transparent 70%);
-      pointer-events:none;
+    }
+    .moon .crater{
+      position:absolute;
+      top:70px;
+      left:85px;
+      width:15px;
+      height:15px;
+      background:rgba(160,140,100,0.35);
+      border-radius:50%;
     }
     
     @keyframes moonFloat{
@@ -158,157 +176,197 @@
       100%{transform:translateY(0px) translateX(0px);}
     }
     
-    /* Плавающие частицы */
-    .floating-circles{
+    /* РАКЕТА, ЛЕТЯЩАЯ К ЛУНЕ */
+    .rocket{
       position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      z-index:-1;
-      pointer-events:none;
-    }
-    .circle{
-      position:absolute;
-      background:rgba(255,51,102,0.15);
-      border-radius:50%;
-      filter:blur(40px);
-      animation:drift 20s infinite linear;
-    }
-    .circle:nth-child(1){width:300px;height:300px;top:10%;left:-10%;opacity:0.5;animation-duration:25s;}
-    .circle:nth-child(2){width:200px;height:200px;bottom:15%;right:-5%;opacity:0.4;animation-duration:30s;animation-delay:-5s;}
-    .circle:nth-child(3){width:350px;height:350px;top:40%;left:60%;opacity:0.3;animation-duration:35s;animation-delay:-10s;}
-    .circle:nth-child(4){width:150px;height:150px;top:70%;left:20%;opacity:0.35;animation-duration:22s;animation-delay:-3s;}
-    .circle:nth-child(5){width:250px;height:250px;top:20%;right:20%;opacity:0.25;animation-duration:28s;animation-delay:-7s;}
-    .circle:nth-child(6){width:180px;height:180px;bottom:30%;left:40%;opacity:0.3;animation-duration:32s;}
-    
-    @keyframes drift{
-      0%{transform:translate(0,0) rotate(0deg);}
-      33%{transform:translate(2%,-2%) rotate(120deg);}
-      66%{transform:translate(-1%,1.5%) rotate(240deg);}
-      100%{transform:translate(0,0) rotate(360deg);}
-    }
-    
-    /* Падающие звёзды */
-    .shooting-stars{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      z-index:0;
-      overflow:hidden;
-    }
-    .shooting-star{
-      position:absolute;
-      width:2px;
+      bottom:15%;
+      left:10%;
+      width:80px;
       height:80px;
-      background:linear-gradient(180deg, #fff, rgba(255,255,255,0));
-      border-radius:50%;
-      opacity:0;
-      animation:shoot 3s linear infinite;
-      filter:blur(1px);
+      z-index:1;
+      animation:flyToMoon 12s ease-in-out infinite;
+      filter:drop-shadow(0 0 10px rgba(255,100,100,0.5));
     }
-    .shooting-star::before{
+    .rocket-body{
+      width:40px;
+      height:80px;
+      background:linear-gradient(135deg, #e0e0e0, #a0a0a0);
+      border-radius:50% 50% 30% 30%;
+      position:relative;
+      margin-left:20px;
+    }
+    .rocket-nose{
+      position:absolute;
+      top:-15px;
+      left:10px;
+      width:20px;
+      height:25px;
+      background:#ff4444;
+      border-radius:50% 50% 0 0;
+    }
+    .rocket-window{
+      position:absolute;
+      top:25px;
+      left:13px;
+      width:14px;
+      height:14px;
+      background:#88ccff;
+      border-radius:50%;
+      border:2px solid #335;
+    }
+    .rocket-fins{
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:80px;
+      height:20px;
+    }
+    .rocket-fins::before{
       content:"";
       position:absolute;
-      top:0;
-      left:-2px;
-      width:6px;
-      height:6px;
-      background:#fff;
-      border-radius:50%;
-      box-shadow:0 0 10px #fff, 0 0 20px rgba(255,51,102,0.5);
+      bottom:0;
+      left:0;
+      width:20px;
+      height:15px;
+      background:#cc4444;
+      clip-path:polygon(0% 0%, 100% 100%, 0% 100%);
     }
-    @keyframes shoot{
+    .rocket-fins::after{
+      content:"";
+      position:absolute;
+      bottom:0;
+      right:0;
+      width:20px;
+      height:15px;
+      background:#cc4444;
+      clip-path:polygon(100% 0%, 0% 100%, 100% 100%);
+    }
+    .rocket-fire{
+      position:absolute;
+      bottom:-12px;
+      left:18px;
+      width:24px;
+      height:15px;
+      background:linear-gradient(180deg, #ff6600, #ffcc00);
+      border-radius:0 0 50% 50%;
+      animation:fireFlicker 0.1s infinite alternate;
+    }
+    @keyframes flyToMoon{
+      0%{
+        transform:translate(0, 0) rotate(35deg);
+        left:5%;
+        bottom:10%;
+      }
+      30%{
+        transform:translate(20vw, -20vh) rotate(25deg);
+      }
+      60%{
+        transform:translate(50vw, -40vh) rotate(15deg);
+      }
+      100%{
+        transform:translate(75vw, -50vh) rotate(0deg);
+        left:80%;
+        bottom:70%;
+      }
+    }
+    @keyframes fireFlicker{
+      0%{opacity:0.8; height:12px;}
+      100%{opacity:1; height:18px;}
+    }
+    
+    /* СПУТНИК НА ОРБИТЕ */
+    .satellite{
+      position:fixed;
+      top:20%;
+      right:15%;
+      width:50px;
+      height:50px;
+      animation:orbit 15s linear infinite;
+      filter:drop-shadow(0 0 8px rgba(200,200,255,0.5));
+    }
+    .sat-body{
+      width:20px;
+      height:20px;
+      background:#d0d0e0;
+      border-radius:5px;
+      position:relative;
+      margin:15px auto;
+      box-shadow:0 0 5px #88aaff;
+    }
+    .sat-panel-left{
+      position:absolute;
+      top:5px;
+      left:-25px;
+      width:25px;
+      height:10px;
+      background:#88aaff;
+      border-radius:2px;
+    }
+    .sat-panel-right{
+      position:absolute;
+      top:5px;
+      right:-25px;
+      width:25px;
+      height:10px;
+      background:#88aaff;
+      border-radius:2px;
+    }
+    .sat-antenna{
+      position:absolute;
+      top:-12px;
+      left:8px;
+      width:4px;
+      height:12px;
+      background:#ffcc88;
+    }
+    .sat-antenna::before{
+      content:"⚡";
+      position:absolute;
+      top:-10px;
+      left:-3px;
+      font-size:10px;
+      animation:spark 0.5s infinite alternate;
+    }
+    @keyframes orbit{
+      0%{transform:rotate(0deg) translateX(120px) rotate(0deg);}
+      100%{transform:rotate(360deg) translateX(120px) rotate(-360deg);}
+    }
+    @keyframes spark{
+      0%{opacity:0.3;}
+      100%{opacity:1; text-shadow:0 0 5px #ffff00;}
+    }
+    
+    /* МЕТЕОРЫ */
+    .meteor{
+      position:fixed;
+      background:linear-gradient(135deg, #fff, #ffcc66, #ff8844);
+      border-radius:0 0 0 50%;
+      opacity:0;
+      animation:meteorFall linear infinite;
+      z-index:0;
+      box-shadow:0 0 15px rgba(255,200,100,0.6);
+    }
+    .meteor1{width:3px;height:60px;top:-5%;left:20%;animation-duration:1.8s;animation-delay:0s;}
+    .meteor2{width:2px;height:40px;top:-10%;left:60%;animation-duration:2.5s;animation-delay:1s;}
+    .meteor3{width:4px;height:80px;top:-3%;left:80%;animation-duration:1.5s;animation-delay:0.5s;}
+    .meteor4{width:2px;height:35px;top:-8%;left:40%;animation-duration:2.2s;animation-delay:1.5s;}
+    .meteor5{width:5px;height:100px;top:-2%;left:10%;animation-duration:2s;animation-delay:0.8s;}
+    .meteor6{width:2px;height:45px;top:-6%;left:90%;animation-duration:1.9s;animation-delay:2s;}
+    @keyframes meteorFall{
       0%{
         transform:translateX(0) translateY(0) rotate(45deg);
-        opacity:0;
-      }
-      10%{
         opacity:1;
       }
       80%{
         opacity:0.8;
       }
       100%{
-        transform:translateX(-400px) translateY(400px) rotate(45deg);
+        transform:translateX(-300px) translateY(600px) rotate(45deg);
         opacity:0;
       }
     }
-    .shooting-star:nth-child(1){top:10%; left:80%; animation-delay:0s; animation-duration:2.5s; height:60px;}
-    .shooting-star:nth-child(2){top:30%; left:60%; animation-delay:1.2s; animation-duration:3s; height:100px;}
-    .shooting-star:nth-child(3){top:50%; left:90%; animation-delay:2.5s; animation-duration:2.8s; height:70px;}
-    .shooting-star:nth-child(4){top:70%; left:40%; animation-delay:0.8s; animation-duration:3.2s; height:90px;}
-    .shooting-star:nth-child(5){top:20%; left:20%; animation-delay:3s; animation-duration:2.2s; height:50px;}
-    .shooting-star:nth-child(6){top:80%; left:70%; animation-delay:1.8s; animation-duration:3.5s; height:80px;}
-    .shooting-star:nth-child(7){top:40%; left:10%; animation-delay:4s; animation-duration:2.7s; height:65px;}
-    .shooting-star:nth-child(8){top:60%; left:50%; animation-delay:0.5s; animation-duration:3.8s; height:110px;}
-    .shooting-star:nth-child(9){top:15%; left:95%; animation-delay:2.2s; animation-duration:2.9s; height:55px;}
-    .shooting-star:nth-child(10){top:85%; left:30%; animation-delay:3.5s; animation-duration:3.1s; height:75px;}
-    .shooting-star:nth-child(11){top:5%; left:45%; animation-delay:1s; animation-duration:2.6s; height:85px;}
-    .shooting-star:nth-child(12){top:55%; left:85%; animation-delay:2.8s; animation-duration:3.3s; height:95px;}
     
-    .wrap{
-      max-width:1120px;
-      margin:0 auto;
-      padding:28px 18px 56px;
-      position:relative;
-      z-index:2;
-    }
-    .hero{
-      background:linear-gradient(135deg, rgba(255,51,102,0.2) 0%, rgba(100,80,255,0.2) 100%);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,51,102,0.3);
-      color:#fff; border-radius:30px; padding:30px 28px; box-shadow:var(--shadow);
-      position:relative; overflow:hidden;
-      transition:transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .hero:hover{
-      transform:translateY(-3px);
-      box-shadow:0 20px 40px rgba(255,51,102,0.2);
-      border-color:rgba(255,51,102,0.5);
-    }
-    .hero:before{
-      content:""; position:absolute; right:-80px; bottom:-80px; width:240px; height:240px;
-      border-radius:50%; background:rgba(255,51,102,0.1);
-      transition:transform 0.3s ease;
-    }
-    .hero:after{
-      content:""; position:absolute; right:18%; top:18px; width:120px; height:120px;
-      border-radius:50%; background:rgba(100,80,255,0.1);
-      transition:transform 0.3s ease;
-    }
-    .eyebrow{
-      display:inline-block; padding:7px 12px; border-radius:999px;
-      background:rgba(255,51,102,0.2); border:1px solid rgba(255,51,102,0.4);
-      font-size:13px; font-weight:700; letter-spacing:.02em; margin-bottom:14px;
-      transition:background 0.2s ease, transform 0.2s ease;
-    }
-    .hero:hover .eyebrow{
-      background:rgba(255,51,102,0.3);
-      transform:translateX(3px);
-    }
-    h1{margin:0; font-size:clamp(30px,4vw,46px); line-height:1.08;}
-    .hero p{margin:14px 0 0; max-width:780px; font-size:17px; opacity:.9;}
-    .section{
-      margin-top:18px; background:rgba(17,17,40,0.8);
-      backdrop-filter:blur(5px);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow); border:1px solid rgba(100,80,255,0.2);
-      padding:24px 22px;
-      transition:transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .section:hover{
-      transform:translateY(-2px);
-      box-shadow:0 18px 40px rgba(0,0,0,.3);
-      border-color:rgba(255,51,102,0.3);
-    }
-    .section h2{margin:0 0 10px; font-size:26px; line-height:1.15;}
-    .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
-    
-    /* КОСМИЧЕСКИЙ МАРШРУТ - планеты с текстом при наведении */
+    /* Планеты (встроенные SVG-иконки) */
     .planets-orbit{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
@@ -332,20 +390,37 @@
       transition:all 0.3s ease;
       box-shadow:0 0 15px rgba(255,255,255,0.3);
       z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+      color:white;
+      text-shadow:0 0 5px black;
     }
     .planet-icon:hover{
       transform:scale(1.15);
-      box-shadow:0 0 30px rgba(255,255,255,0.6), 0 0 20px rgba(255,51,102,0.4);
+      box-shadow:0 0 30px rgba(255,255,255,0.6);
     }
-    /* Планеты - надёжные изображения с CDN */
-    .planet-mercury{background-image:url('https://cdn.pixabay.com/photo/2016/10/20/18/35/mercury-1759005_640.jpg');}
-    .planet-mars{background-image:url('https://cdn.pixabay.com/photo/2011/12/13/14/31/mars-11015_640.jpg');}
-    .planet-saturn{background-image:url('https://cdn.pixabay.com/photo/2013/07/18/10/56/saturn-163503_640.jpg');}
-    .planet-earth{background-image:url('https://cdn.pixabay.com/photo/2011/12/14/12/21/earth-11015_640.jpg');}
-    .planet-jupiter{background-image:url('https://cdn.pixabay.com/photo/2016/10/20/18/35/jupiter-1759005_640.jpg');}
-    .planet-venus{background-image:url('https://cdn.pixabay.com/photo/2016/10/20/18/35/venus-1759005_640.jpg');}
+    /* Планеты с цветами */
+    .planet-mercury{background: radial-gradient(circle at 30% 35%, #c0c0c0, #888888);}
+    .planet-mars{background: radial-gradient(circle at 30% 35%, #ff6633, #aa3311);}
+    .planet-saturn{background: radial-gradient(circle at 30% 35%, #f0e0a0, #c0a050); position:relative;}
+    .planet-saturn::after{
+      content:"";
+      position:absolute;
+      width:110px;
+      height:20px;
+      border-radius:50%;
+      background:rgba(200,180,100,0.5);
+      top:30px;
+      left:-15px;
+      transform:rotate(-15deg);
+      box-shadow:0 0 5px rgba(200,180,100,0.8);
+    }
+    .planet-earth{background: radial-gradient(circle at 30% 35%, #4488ff, #2244aa);}
+    .planet-jupiter{background: radial-gradient(circle at 30% 35%, #d4a06a, #a07040);}
+    .planet-venus{background: radial-gradient(circle at 30% 35%, #ffcc88, #cc9955);}
     
-    /* Текст, появляющийся при наведении */
     .planet-info{
       position:absolute;
       bottom:calc(100% + 15px);
@@ -396,42 +471,56 @@
       box-shadow:0 4px 12px rgba(255,51,102,0.4);
     }
     
-    /* Стрелка-указатель */
-    .planet-info::before{
-      content:"";
-      position:absolute;
-      top:100%;
-      left:50%;
-      transform:translateX(-50%);
-      border-width:8px;
-      border-style:solid;
-      border-color:rgba(255,51,102,0.4) transparent transparent transparent;
+    .wrap{
+      max-width:1120px;
+      margin:0 auto;
+      padding:28px 18px 56px;
+      position:relative;
+      z-index:2;
     }
-    
+    .hero{
+      background:linear-gradient(135deg, rgba(255,51,102,0.2) 0%, rgba(100,80,255,0.2) 100%);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,51,102,0.3);
+      color:#fff; border-radius:30px; padding:30px 28px; box-shadow:var(--shadow);
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hero:hover{
+      transform:translateY(-3px);
+      box-shadow:0 20px 40px rgba(255,51,102,0.2);
+    }
+    .section{
+      margin-top:18px; background:rgba(17,17,40,0.8);
+      backdrop-filter:blur(5px);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow); border:1px solid rgba(100,80,255,0.2);
+      padding:24px 22px;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .section:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 40px rgba(0,0,0,.3);
+      border-color:rgba(255,51,102,0.3);
+    }
+    .section h2{margin:0 0 10px; font-size:26px; line-height:1.15;}
+    .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
     .note{
       border-radius:18px; padding:16px 18px;
       border:1px solid rgba(255,51,102,0.3);
       background:rgba(255,51,102,0.1);
       transition:all 0.25s ease;
     }
-    .note:hover{
-      background:rgba(255,51,102,0.15);
-      transform:translateY(-3px);
-      box-shadow:0 12px 24px rgba(255,51,102,0.1);
-    }
     .note strong{color:#ff6699;}
     .footer{
       margin-top:18px; text-align:center; color:var(--muted); font-size:14px;
       transition:opacity 0.2s ease;
     }
-    .footer:hover{
-      opacity:0.7;
-    }
     @media (max-width:900px){
       .moon{width:90px;height:90px;top:20px;right:20px;}
       .planet-icon{width:60px;height:60px;}
-      .planet-info{width:190px;}
-      .planets-orbit{grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));}
+      .planet-saturn::after{width:80px;left:-10px;}
+      .rocket{width:50px;height:50px;}
+      .satellite{transform:scale(0.7);}
     }
   </style>
 </head>
@@ -442,31 +531,35 @@
     <div class="gradient-3"></div>
   </div>
   
-  <div class="moon"></div>
+  <!-- ЛУНА -->
+  <div class="moon"><div class="crater"></div></div>
   
-  <div class="floating-circles">
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
+  <!-- РАКЕТА, ЛЕТЯЩАЯ К ЛУНЕ -->
+  <div class="rocket">
+    <div class="rocket-body">
+      <div class="rocket-nose"></div>
+      <div class="rocket-window"></div>
+      <div class="rocket-fins"></div>
+      <div class="rocket-fire"></div>
+    </div>
   </div>
   
-  <div class="shooting-stars">
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
+  <!-- СПУТНИК -->
+  <div class="satellite">
+    <div class="sat-body">
+      <div class="sat-panel-left"></div>
+      <div class="sat-panel-right"></div>
+      <div class="sat-antenna"></div>
+    </div>
   </div>
+  
+  <!-- МЕТЕОРЫ -->
+  <div class="meteor meteor1"></div>
+  <div class="meteor meteor2"></div>
+  <div class="meteor meteor3"></div>
+  <div class="meteor meteor4"></div>
+  <div class="meteor meteor5"></div>
+  <div class="meteor meteor6"></div>
 
   <div class="wrap">
     <section class="hero">
@@ -479,54 +572,48 @@
       <h2>Маршрут работы</h2>
       <p class="lead">Наведите курсор на планету, чтобы узнать, какой этап её ждёт</p>
       <div class="planets-orbit">
-        <!-- Меркурий -->
         <div class="planet-card">
-          <div class="planet-icon planet-mercury"></div>
+          <div class="planet-icon planet-mercury">☿</div>
           <div class="planet-info">
             <h4>Меркурий</h4>
             <p>Откройте инструкцию: как редактировать HTML-файлы и безопасно использовать ИИ</p>
             <a class="planet-link" href="student_html_guide.html">Открыть инструкцию →</a>
           </div>
         </div>
-        <!-- Марс -->
         <div class="planet-card">
-          <div class="planet-icon planet-mars"></div>
+          <div class="planet-icon planet-mars">♂</div>
           <div class="planet-info">
             <h4>Марс</h4>
             <p>Пройдите интерактивный чек-лист для оценки рабочего места</p>
             <a class="planet-link" href="student_checklist_interactive.html">Открыть чек-лист →</a>
           </div>
         </div>
-        <!-- Сатурн -->
         <div class="planet-card">
-          <div class="planet-icon planet-saturn"></div>
+          <div class="planet-icon planet-saturn">♄</div>
           <div class="planet-info">
             <h4>Сатурн</h4>
             <p>Соберите отчёт: перенесите результаты анализа и оформите работу</p>
             <a class="planet-link" href="student_report_template.html">Открыть шаблон отчёта →</a>
           </div>
         </div>
-        <!-- Земля -->
         <div class="planet-card">
-          <div class="planet-icon planet-earth"></div>
+          <div class="planet-icon planet-earth">🌍</div>
           <div class="planet-info">
             <h4>Земля</h4>
             <p>Подготовьте проект улучшения пространства: закупка оборудования, эргономика</p>
             <a class="planet-link" href="student_infrastructure_project.html">Открыть проектное задание →</a>
           </div>
         </div>
-        <!-- Юпитер -->
         <div class="planet-card">
-          <div class="planet-icon planet-jupiter"></div>
+          <div class="planet-icon planet-jupiter">♃</div>
           <div class="planet-info">
             <h4>Юпитер</h4>
             <p>Что должно получиться: осмысленный аудит и проект улучшения</p>
             <a class="planet-link" href="student_checklist_interactive.html#result">Перейти к итоговому блоку →</a>
           </div>
         </div>
-        <!-- Венера -->
         <div class="planet-card">
-          <div class="planet-icon planet-venus"></div>
+          <div class="planet-icon planet-venus">♀</div>
           <div class="planet-info">
             <h4>Венера</h4>
             <p>Как создать репозиторий и выложить сайт на GitHub Pages</p>
@@ -545,7 +632,6 @@
   </div>
 
   <script>
-    // эффект движения фоновых частиц при движении мыши (параллакс)
     document.addEventListener('mousemove', (e) => {
       const x = e.clientX / window.innerWidth;
       const y = e.clientY / window.innerHeight;
@@ -559,8 +645,8 @@
       
       const moon = document.querySelector('.moon');
       if(moon){
-        const moonMoveX = (x - 0.5) * 15;
-        const moonMoveY = (y - 0.5) * 10;
+        const moonMoveX = (x - 0.5) * 12;
+        const moonMoveY = (y - 0.5) * 8;
         moon.style.transform = `translate(${moonMoveX}px, ${moonMoveY}px)`;
       }
     });
