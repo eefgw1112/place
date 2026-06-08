@@ -271,6 +271,9 @@
     .media-preview img:hover{
       transform:scale(1.02);
     }
+    .file-input{
+      display:none;
+    }
     .check-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
     .check-card{
       border:1px solid #f0e0e0; border-radius:18px; padding:14px; background:#fffaf8;
@@ -451,7 +454,6 @@
       <h2>2. Команда и обязанности</h2>
       <p class="lead">Работать можно индивидуально или командой до 6 человек. Каждый участник оставляет личный вывод и показывает вклад.</p>
       <div id="teamList" class="row-list"></div>
-      <!-- КНОПКА "ДОБАВИТЬ УЧАСТНИКА" УБРАНА -->
     </section>
 
     <section class="section">
@@ -471,14 +473,12 @@
       <h2>4. Полевой аудит и реальные фотографии</h2>
       <p class="lead">Посетите выбранное место лично. Добавьте фотографии текущего состояния, подписи и выводы. Файлы не сохраняются внутри страницы автоматически, поэтому для публикации положите изображения в папку images и укажите относительные пути.</p>
       <div id="photoList" class="media-grid"></div>
-      <!-- КНОПКА "ДОБАВИТЬ ФОТО" УБРАНА -->
     </section>
 
     <section class="section">
       <h2>5. Проект закупки оборудования</h2>
       <p class="lead">Подбирайте оборудование под задачи пользователей, а не просто по максимальным характеристикам. Каждая позиция должна иметь назначение, краткое обоснование и ориентировочную цену.</p>
       <div id="equipmentList" class="row-list"></div>
-      <!-- КНОПКА "ДОБАВИТЬ ПОЗИЦИЮ" УБРАНА -->
       <div class="grid" style="margin-top:14px;">
         <div class="card">
           <h3>Решения без бюджета или с минимальными затратами</h3>
@@ -521,7 +521,6 @@
       <h2>7. AI-визуализации будущего пространства</h2>
       <p class="lead">Добавьте не менее 4 визуализаций. Для каждой укажите промпт, назначение изображения и что именно оно помогает доказать. Можно использовать ИИ-генератор, графический редактор или собственную схему.</p>
       <div id="visualList" class="media-grid"></div>
-      <!-- КНОПКА "ДОБАВИТЬ ВИЗУАЛИЗАЦИЮ" УБРАНА -->
     </section>
 
     <section class="section">
@@ -601,7 +600,6 @@
       <div class="note" style="margin-top:14px;"><strong>Хорошая защита проекта</strong> соединяет реальные наблюдения, фотографии, смету, ограничения помещения, потребности пользователей и понятный эффект от внедрения.</div>
       <div class="actions">
         <button class="btn action" id="saveBtn" type="button">Сохранить черновик</button>
-        <button class="btn light" id="printBtn" type="button">Сохранить как PDF / печать</button>
         <button class="btn warn" id="clearBtn" type="button">Очистить черновик</button>
       </div>
     </section>
@@ -684,37 +682,37 @@ let state = {
       name: 'Плеханов Вячеслав Витальевич',
       role: 'HTML',
       duties: 'Написание кода с исправлением',
-      conclusion: 'В ходе работы над проектом я научился применять современные подходы к вёрстке и адаптивному дизайну, а также понял важность эргономики и правильной организации кода для удобства поддержки проекта.'
+      conclusion: 'Честно говоря, я раньше думал, что вёрстка — это просто «накидать теги». Но когда мы начали этот проект, я понял, как много зависит от правильной структуры и адаптивности. Теперь я сам удивляюсь, как круто, когда сайт красиво смотрится и на ноутбуке, и на телефоне. Ещё я научился не бояться ошибок в коде — браузер и консоль стали моими лучшими друзьями :)'
     },
     {
       name: 'Быков Роман Павлович',
       role: 'HTML',
       duties: 'Написание кода с исправлением',
-      conclusion: 'Участие в проекте позволило мне глубже понять принципы командной разработки и организации совместной работы над кодом, а также осознать ценность чистоты и структурированности HTML-документов для долгосрочного сопровождения.'
+      conclusion: 'До этого проекта я думал, что HTML — это скучно и просто. Но когда мы делали эту страницу с кучей динамических блоков, я понял, как важно всё структурировать. И ещё — работать в команде оказалось сложнее, чем одному, но зато когда мы вместе исправляли баги, это было реально кайфово. Теперь я точно знаю, что хочу углубляться во фронтенд.'
     },
     {
       name: 'Дорохова Ульяна Алексеевна',
       role: 'Аудит',
       duties: 'Опрос студентов о проблемной аудитории',
-      conclusion: 'Проведение опросов и анализ потребностей студентов показали, насколько важно учитывать реальные пожелания пользователей при проектировании учебных пространств. Я научилась выявлять скрытые проблемы и формулировать требования, которые действительно повышают комфорт и эффективность обучения.'
+      conclusion: 'Оказалось, что студенты очень хотят перемен! Когда я ходила по группе и спрашивала, что их бесит в аудитории 6107, многие сразу начинали перечислять: «свет ужасный», «розеток нет», «парты неудобные». Я и не знала, что люди так переживают из-за этих мелочей. Было приятно, что нас поддержали. Теперь я вижу, что даже небольшой опрос может дать много ценной информации.'
     },
     {
       name: 'Иванова Дарья Владленовна',
       role: 'Аудит',
       duties: 'Опрос студентов о проблемной аудитории',
-      conclusion: 'Анализ обратной связи от студентов позволил выявить неочевидные проблемы, такие как недостаточная освещённость и шум. Я научилась систематизировать данные и превращать их в конкретные требования для проекта, что повысило обоснованность наших предложений.'
+      conclusion: 'Самое интересное в моей работе было заметить, что одни и те же проблемы называют совершенно разные люди. Например, про плохое освещение говорили и старшекурсники, и первокурсники. Это помогло нам не распыляться, а сфокусироваться на действительно важных вещах. Я научилась анализировать обратную связь и отличать личные капризы от системных проблем. Очень полезный опыт.'
     },
     {
       name: 'Зворыгина Эвелина',
       role: 'Смета',
       duties: 'Расчёт стоимости каждого нового оборудования',
-      conclusion: 'Составление сметы научило меня находить баланс между бюджетом и необходимыми характеристиками оборудования. Я освоила методику оценки стоимости владения, учёта расходников и модернизации, что позволило сделать проект реалистичным и экономически обоснованным.'
+      conclusion: 'Если честно, я никогда не думала, что составление сметы — это так увлекательно! Пришлось облазить кучу сайтов, сравнить цены, подумать, где можно сэкономить, а где лучше не жадничать. Я поняла, что дешёвое не всегда плохое, а дорогое не всегда хорошее. Теперь я могу прикинуть бюджет для любого ремонта или закупки — это реально полезный навык в жизни.'
     },
     {
       name: 'Шаботина Екатерина Олеговна',
       role: 'Дизайн',
       duties: 'Редактирование фоток в AI',
-      conclusion: 'Работа с AI-редактированием фотографий открыла для меня новые возможности визуализации проектных решений. Я научилась быстро обрабатывать изображения, создавать качественные коллажи «до/после» и подбирать стили, которые наилучшим образом демонстрируют преимущества предлагаемых изменений. Это помогло сделать презентацию проекта более наглядной и убедительной.'
+      conclusion: 'Честно, я первый раз так плотно работала с нейросетями для обработки фото. Это магия! Я научилась за пару минут убирать мусор с фотографий, улучшать освещение и даже создавать картинки «как будет выглядеть» с помощью промптов. Правда, иногда результат был смешной — например, диваны вырастали до потолка, но когда подбираешь правильные слова, получается очень круто. Я теперь фанат ИИ-инструментов.'
     }
   ],
   equipment: [
@@ -885,7 +883,6 @@ function renderTeam(){
     row.innerHTML = `
       <div class="row-head">
         <div class="row-title">Участник ${index + 1}</div>
-        <!-- КНОПКА УДАЛЕНИЯ УБРАНА -->
       </div>
       <div class="mini-grid">
         <div><label class="caption">ФИО</label><input class="field" data-team="${index}" data-field="name" type="text" value="${escapeHtml(member.name)}" placeholder="Фамилия Имя" /></div>
@@ -907,7 +904,6 @@ function renderEquipment(){
     row.innerHTML = `
       <div class="row-head">
         <div class="row-title">Позиция закупки ${index + 1}</div>
-        <!-- КНОПКА УДАЛЕНИЯ УБРАНА -->
       </div>
       <div class="mini-grid">
         <div><label class="caption">Оборудование</label><input class="field" data-equipment="${index}" data-field="name" type="text" value="${escapeHtml(item.name)}" placeholder="Монитор, кресло, SSD, ИБП" /></div>
@@ -940,10 +936,8 @@ function renderPhotos(){
     card.innerHTML = `
       <div class="row-head">
         <h3>Фото текущего состояния ${index + 1}</h3>
-        <!-- КНОПКА УДАЛЕНИЯ УБРАНА -->
       </div>
       <div class="media-preview" data-photo-preview="${index}">${previewContent}</div>
-      <input class="file-input" type="file" accept="image/*" data-photo-file="${index}" />
       <label class="caption" style="margin-top:10px;">Путь к файлу для публикации</label>
       <input class="field" data-photo="${index}" data-field="path" type="text" value="${escapeHtml(photo.path)}" placeholder="images/auditory-before-1.jpg" />
       <label class="caption" style="margin-top:10px;">Подпись</label>
@@ -967,10 +961,8 @@ function renderVisuals(){
     card.innerHTML = `
       <div class="row-head">
         <h3>AI-визуализация ${index + 1}</h3>
-        <!-- КНОПКА УДАЛЕНИЯ УБРАНА -->
       </div>
       <div class="media-preview" data-visual-preview="${index}">${previewContent}</div>
-      <input class="file-input" type="file" accept="image/*" data-visual-file="${index}" />
       <label class="caption" style="margin-top:10px;">Путь к файлу для публикации</label>
       <input class="field" data-visual="${index}" data-field="path" type="text" value="${escapeHtml(visual.path)}" placeholder="images/future-zone-1.jpg" />
       <label class="caption" style="margin-top:10px;">Промпт или метод создания</label>
@@ -1072,17 +1064,6 @@ function loadDraft(){
   } catch(e){}
 }
 
-function previewImage(input, previewSelector){
-  const file = input.files && input.files[0];
-  const preview = document.querySelector(previewSelector);
-  if(!file || !preview) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    preview.innerHTML = `<img src="${reader.result}" alt="Предпросмотр" style="width:100%; height:auto; max-height:200px; object-fit:contain; border-radius:12px;" />`;
-  };
-  reader.readAsDataURL(file);
-}
-
 document.addEventListener('input', event => {
   if(event.target.matches('input, textarea, select')){
     saveDraft();
@@ -1096,27 +1077,15 @@ document.addEventListener('change', event => {
     updateChecklistSummary();
     saveDraft();
   }
-  if(target.matches('[data-photo-file]')){
-    previewImage(target, `[data-photo-preview="${target.dataset.photoFile}"]`);
-  }
-  if(target.matches('[data-visual-file]')){
-    previewImage(target, `[data-visual-preview="${target.dataset.visualFile}"]`);
-  }
 });
 
 document.addEventListener('click', event => {
-  const target = event.target;
   // Удаление элементов отключено
 });
 
 byId('saveBtn').addEventListener('click', () => {
   saveDraft();
   alert('Черновик сохранён в браузере.');
-});
-
-byId('printBtn').addEventListener('click', () => {
-  saveDraft();
-  window.print();
 });
 
 byId('clearBtn').addEventListener('click', () => {
