@@ -8,7 +8,7 @@
     :root{
       --bg:#f4f7fc; --card:#ffffff; --text:#18212f; --muted:#5f6b7a; --line:#dde6f0;
       --primary:#d6242e; --primary2:#ff4f4f;
-      --soft:#ffb6c1; /* ИСПРАВЛЕНО: розовый фон для квадратов с цифрами */
+      --soft:#ffb6c1;
       --green:#0f766e;
       --shadow:0 14px 36px rgba(24,33,47,.10); --radius:22px;
     }
@@ -17,41 +17,67 @@
       margin:0; font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
       color:var(--text);
       background:
-         radial-gradient(circle at top right, rgba(255,79,79,.18), transparent 30%),
-        radial-gradient(circle at left center, rgba(214,36,46,.10), transparent 28%),
-        linear-gradient(180deg,#fff5f5 0%, #fbf2f2 100%);
+        radial-gradient(circle at 0% 0%, rgba(255,79,79,0.15), transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(214,36,46,0.12), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(255,200,200,0.08), transparent 60%),
+        repeating-linear-gradient(45deg, rgba(214,36,46,0.02) 0px, rgba(214,36,46,0.02) 2px, transparent 2px, transparent 8px),
+        linear-gradient(135deg, #fff0f0 0%, #ffe4e4 100%);
       line-height:1.58;
+      min-height:100vh;
     }
     .wrap{max-width:1120px; margin:0 auto; padding:28px 18px 56px;}
     .hero{
       background:linear-gradient(135deg,#c41e28 0%, #ff5e5e 100%);
       color:#fff; border-radius:30px; padding:30px 28px; box-shadow:var(--shadow);
       position:relative; overflow:hidden;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hero:hover{
+      transform:translateY(-3px);
+      box-shadow:0 20px 40px rgba(214,36,46,0.25);
     }
     .hero:before{
       content:""; position:absolute; right:-80px; bottom:-80px; width:240px; height:240px;
-      border-radius:50%; background:rgba(255,255,255,.10);
+      border-radius:50%; background:rgba(255,255,255,.12);
+      transition:transform 0.3s ease, right 0.3s ease, bottom 0.3s ease;
     }
     .hero:after{
       content:""; position:absolute; right:18%; top:18px; width:120px; height:120px;
       border-radius:50%; background:rgba(255,255,255,.08);
+      transition:transform 0.3s ease, right 0.3s ease, top 0.3s ease;
     }
     .eyebrow{
       display:inline-block; padding:7px 12px; border-radius:999px;
       background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18);
       font-size:13px; font-weight:700; letter-spacing:.02em; margin-bottom:14px;
+      transition:background 0.2s ease, transform 0.2s ease;
+    }
+    .hero:hover .eyebrow{
+      background:rgba(255,255,255,.22);
+      transform:translateX(3px);
     }
     h1{margin:0; font-size:clamp(30px,4vw,46px); line-height:1.08;}
     .hero p{margin:14px 0 0; max-width:780px; font-size:17px; opacity:.98;}
     .section{
       margin-top:18px; background:var(--card); border-radius:var(--radius);
       box-shadow:var(--shadow); border:1px solid #edf2f8; padding:24px 22px;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .section:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 40px rgba(24,33,47,.12);
     }
     .section h2{margin:0 0 10px; font-size:26px; line-height:1.15;}
     .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
     .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
     .card{
       border:1px solid var(--line); border-radius:20px; padding:18px 18px 16px; background:#fff;
+      transition:transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s ease, border-color 0.2s ease;
+    }
+    .card:hover{
+      transform:translateY(-8px) scale(1.01);
+      box-shadow:0 24px 40px rgba(0,0,0,0.12);
+      border-color:#ffcdcd;
     }
     .card h3{margin:0 0 8px; font-size:20px;}
     .card p{margin:0 0 14px; color:var(--muted);}
@@ -60,41 +86,84 @@
       color:#d6242e; 
       padding:6px 10px;
       border-radius:999px; font-size:13px; font-weight:700; margin-bottom:10px;
+      transition:background 0.2s ease, transform 0.15s ease;
+    }
+    .card:hover .pill{
+      background:#ffcccc;
+      transform:scale(1.02);
     }
     .btns{display:flex; gap:10px; flex-wrap:wrap;}
     .btn{
       text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
-      padding:11px 16px; border-radius:14px; font-weight:700; transition:.2s ease;
+      padding:11px 16px; border-radius:14px; font-weight:700; transition:all 0.25s ease;
       border:1px solid transparent;
+      cursor:pointer;
     }
-    .btn.primary{ background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%);
+    .btn.primary{
+      background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%);
       color:#fff;
       box-shadow:0 10px 24px rgba(214,36,46,.20);
+    }
+    .btn.primary:hover{
+      transform:translateY(-3px) scale(1.02);
+      box-shadow:0 16px 28px rgba(214,36,46,0.3);
+      filter:brightness(1.03);
     }
     .btn.secondary{
       background:#fff;
       color:var(--primary);
       border-color:#fdcfcf;
     }
-    .btn:hover{transform:translateY(-1px);}
+    .btn.secondary:hover{
+      background:#fff5f5;
+      transform:translateY(-2px);
+      border-color:#d6242e;
+      box-shadow:0 6px 14px rgba(214,36,46,0.1);
+    }
+    .btn:hover{transform:translateY(-2px);}
     .steps{display:grid; gap:12px;}
     .step{
       display:grid; grid-template-columns:52px 1fr; gap:14px; align-items:flex-start;
       border:1px solid var(--line); border-radius:18px; padding:14px;
+      transition:all 0.25s ease;
+    }
+    .step:hover{
+      border-color:#ffb6c1;
+      background:#fffafc;
+      transform:translateX(6px);
+      box-shadow:0 8px 20px rgba(214,36,46,0.08);
     }
     .num{
       width:52px; height:52px; border-radius:16px; background:var(--soft); 
       color:var(--primary);
       display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:800;
-      box-shadow:0 2px 8px rgba(255,105,180,0.2); /* лёгкая розовая тень */
+      box-shadow:0 2px 8px rgba(255,105,180,0.2);
+      transition:all 0.2s ease;
+    }
+    .step:hover .num{
+      transform:scale(1.05);
+      background:#ffa5b9;
+      box-shadow:0 4px 14px rgba(255,105,180,0.4);
     }
     .note{
       border-radius:18px; padding:16px 18px;
       border:1px solid #ffcdcd;
       background:#fff0f0;
+      transition:all 0.25s ease;
+    }
+    .note:hover{
+      background:#ffe8e8;
+      transform:translateY(-3px);
+      box-shadow:0 12px 24px rgba(214,36,46,0.08);
     }
     .note strong{color:#d6242e;}
-    .footer{margin-top:18px; text-align:center; color:var(--muted); font-size:14px;}
+    .footer{
+      margin-top:18px; text-align:center; color:var(--muted); font-size:14px;
+      transition:opacity 0.2s ease;
+    }
+    .footer:hover{
+      opacity:0.7;
+    }
     @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
   </style>
 </head>
@@ -180,5 +249,37 @@
 
     <div class="footer">Работайте последовательно: инструкция → чек-лист → отчёт → проект → публикация.</div>
   </div>
+
+  <script>
+    // Эффект движения фоновых кругов при движении мыши
+    const hero = document.querySelector('.hero');
+    if(hero) {
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        const before = hero.querySelector(':before') || (() => {
+          const b = document.createElement('style');
+          return null;
+        })();
+        // перемещаем псевдоэлементы с помощью CSS переменных
+        const offsetX = (x - 0.5) * 20;
+        const offsetY = (y - 0.5) * 20;
+        hero.style.setProperty('--before-x', offsetX + 'px');
+        hero.style.setProperty('--before-y', offsetY + 'px');
+      });
+    }
+    // динамическое обновление позиций псевдоэлементов через style
+    const style = document.createElement('style');
+    style.textContent = `
+      .hero:before {
+        transform: translate(var(--before-x, 0px), var(--before-y, 0px));
+      }
+      .hero:after {
+        transform: translate(calc(var(--before-x, 0px) * -0.5), calc(var(--before-y, 0px) * -0.5));
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>
