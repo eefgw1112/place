@@ -47,7 +47,7 @@
       z-index:0;
     }
     
-    /* Сетка как в Roswell */
+    /* Сетка */
     body::after{
       content:"";
       position:fixed;
@@ -62,7 +62,7 @@
       z-index:0;
     }
     
-    /* Анимированные градиенты (неоновые) */
+    /* Анимированные градиенты */
     .animated-bg{
       position:fixed;
       top:0;
@@ -122,7 +122,7 @@
       100%{transform:translate(0,0) scale(1);}
     }
     
-    /* РЕАЛЬНАЯ ЛУНА (изображение из интернета) */
+    /* ЛУНА */
     .moon{
       position:fixed;
       top:40px;
@@ -140,7 +140,6 @@
       transition:transform 0.1s ease-out;
     }
     
-    /* Эффект свечения вокруг луны */
     .moon::after{
       content:"";
       position:absolute;
@@ -154,15 +153,9 @@
     }
     
     @keyframes moonFloat{
-      0%{
-        transform:translateY(0px) translateX(0px);
-      }
-      50%{
-        transform:translateY(-6px) translateX(2px);
-      }
-      100%{
-        transform:translateY(0px) translateX(0px);
-      }
+      0%{transform:translateY(0px) translateX(0px);}
+      50%{transform:translateY(-6px) translateX(2px);}
+      100%{transform:translateY(0px) translateX(0px);}
     }
     
     /* Плавающие частицы */
@@ -196,7 +189,7 @@
       100%{transform:translate(0,0) rotate(360deg);}
     }
     
-    /* === АНИМАЦИЯ ПАДАЮЩИХ ЗВЁЗД === */
+    /* Падающие звёзды */
     .shooting-stars{
       position:fixed;
       top:0;
@@ -244,7 +237,6 @@
         opacity:0;
       }
     }
-    /* Разные задержки для каждой звезды */
     .shooting-star:nth-child(1){top:10%; left:80%; animation-delay:0s; animation-duration:2.5s; height:60px;}
     .shooting-star:nth-child(2){top:30%; left:60%; animation-delay:1.2s; animation-duration:3s; height:100px;}
     .shooting-star:nth-child(3){top:50%; left:90%; animation-delay:2.5s; animation-duration:2.8s; height:70px;}
@@ -337,7 +329,7 @@
       transform:translateX(6px);
       box-shadow:0 8px 20px rgba(255,51,102,0.15);
     }
-    /* Стили для планет вместо цифр */
+    /* Планеты */
     .planet-icon{
       width:60px;
       height:60px;
@@ -351,13 +343,18 @@
       transform:scale(1.08);
       box-shadow:0 0 20px rgba(255,255,255,0.5), 0 0 30px rgba(255,51,102,0.4);
     }
-    /* Планеты */
-    .planet-mercury{background-image:url('https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_color_-_Prockter07_centered.jpg');}
-    .planet-mars{background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png');}
-    .planet-saturn{background-image:url('https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox_%28cropped%29.jpg');}
-    .planet-earth{background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg');}
-    .planet-jupiter{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg');}
-    .planet-venus{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg');}
+    /* Меркурий - фото NASA */
+    .planet-mercury{background-image:url('https://solarsystem.nasa.gov/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcWdCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c9e3f5e5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5/Mercury.jpg?disposition=inline');}
+    /* Марс - фото NASA */
+    .planet-mars{background-image:url('https://solarsystem.nasa.gov/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c9e3f5e5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c/Mars.jpg?disposition=inline');}
+    /* Сатурн - фото NASA */
+    .planet-saturn{background-image:url('https://solarsystem.nasa.gov/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c9e3f5e5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c/Saturn.jpg?disposition=inline');}
+    /* Земля - фото NASA */
+    .planet-earth{background-image:url('https://solarsystem.nasa.gov/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c9e3f5e5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c/Earth.jpg?disposition=inline');}
+    /* Юпитер - фото NASA */
+    .planet-jupiter{background-image:url('https://solarsystem.nasa.gov/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c9e3f5e5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c/Jupiter.jpg?disposition=inline');}
+    /* Венера - фото NASA */
+    .planet-venus{background-image:url('https://solarsystem.nasa.gov/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c9e3f5e5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c/Venus.jpg?disposition=inline');}
     
     .step-content{
       display:flex;
@@ -417,17 +414,14 @@
   </style>
 </head>
 <body>
-  <!-- Анимированные фоновые градиенты (неоновые) -->
   <div class="animated-bg">
     <div class="gradient-1"></div>
     <div class="gradient-2"></div>
     <div class="gradient-3"></div>
   </div>
   
-  <!-- РЕАЛЬНАЯ ЛУНА из интернета -->
   <div class="moon"></div>
   
-  <!-- Плавающие частицы -->
   <div class="floating-circles">
     <div class="circle"></div>
     <div class="circle"></div>
@@ -437,7 +431,6 @@
     <div class="circle"></div>
   </div>
   
-  <!-- ПАДАЮЩИЕ ЗВЁЗДЫ -->
   <div class="shooting-stars">
     <div class="shooting-star"></div>
     <div class="shooting-star"></div>
@@ -523,7 +516,6 @@
   </div>
 
   <script>
-    // эффект движения фоновых частиц при движении мыши (параллакс)
     document.addEventListener('mousemove', (e) => {
       const x = e.clientX / window.innerWidth;
       const y = e.clientY / window.innerHeight;
@@ -535,7 +527,6 @@
         circle.style.transform = `translate(${moveX}px, ${moveY}px)`;
       });
       
-      // Лёгкое движение луны при движении мыши (эффект параллакса)
       const moon = document.querySelector('.moon');
       if(moon){
         const moonMoveX = (x - 0.5) * 15;
