@@ -122,62 +122,35 @@
       100%{transform:translate(0,0) scale(1);}
     }
     
-    /* ЛУНА */
+    /* РЕАЛЬНАЯ ЛУНА (изображение из интернета) */
     .moon{
       position:fixed;
       top:40px;
       right:40px;
-      width:120px;
-      height:120px;
-      background:radial-gradient(circle at 35% 35%, #fff9e0, #ffe4a0, #ffcc80);
+      width:140px;
+      height:140px;
       border-radius:50%;
-      box-shadow:0 0 20px rgba(255,230,150,0.8), 0 0 40px rgba(255,200,100,0.4), 0 0 80px rgba(255,180,80,0.2);
+      background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg');
+      background-size:cover;
+      background-position:center;
+      box-shadow:0 0 20px rgba(255,240,200,0.5), 0 0 40px rgba(255,220,120,0.3), 0 0 80px rgba(255,200,80,0.15);
       z-index:0;
       pointer-events:none;
-      animation:moonGlow 4s ease-in-out infinite, moonFloat 6s ease-in-out infinite;
+      animation:moonFloat 8s ease-in-out infinite;
+      transition:transform 0.1s ease-out;
     }
-    /* Кратеры на луне */
-    .moon::before{
-      content:"";
-      position:absolute;
-      top:25px;
-      left:30px;
-      width:25px;
-      height:25px;
-      background:rgba(180,150,100,0.3);
-      border-radius:50%;
-      box-shadow:inset -2px -2px 5px rgba(0,0,0,0.2);
-    }
+    
+    /* Эффект свечения вокруг луны */
     .moon::after{
       content:"";
       position:absolute;
-      bottom:30px;
-      right:25px;
-      width:18px;
-      height:18px;
-      background:rgba(180,150,100,0.25);
+      top:-20px;
+      left:-20px;
+      right:-20px;
+      bottom:-20px;
       border-radius:50%;
-    }
-    .moon .crater{
-      position:absolute;
-      top:65px;
-      left:70px;
-      width:15px;
-      height:15px;
-      background:rgba(180,150,100,0.3);
-      border-radius:50%;
-    }
-    
-    @keyframes moonGlow{
-      0%{
-        box-shadow:0 0 20px rgba(255,230,150,0.8), 0 0 40px rgba(255,200,100,0.4);
-      }
-      50%{
-        box-shadow:0 0 30px rgba(255,245,180,1), 0 0 60px rgba(255,220,120,0.6), 0 0 100px rgba(255,200,80,0.3);
-      }
-      100%{
-        box-shadow:0 0 20px rgba(255,230,150,0.8), 0 0 40px rgba(255,200,100,0.4);
-      }
+      background:radial-gradient(circle, rgba(255,240,180,0.2), transparent 70%);
+      pointer-events:none;
     }
     
     @keyframes moonFloat{
@@ -185,7 +158,7 @@
         transform:translateY(0px) translateX(0px);
       }
       50%{
-        transform:translateY(-8px) translateX(3px);
+        transform:translateY(-6px) translateX(2px);
       }
       100%{
         transform:translateY(0px) translateX(0px);
@@ -433,7 +406,7 @@
       opacity:0.7;
     }
     @media (max-width:900px){
-      .moon{width:80px;height:80px;top:20px;right:20px;}
+      .moon{width:90px;height:90px;top:20px;right:20px;}
     }
   </style>
 </head>
@@ -445,10 +418,8 @@
     <div class="gradient-3"></div>
   </div>
   
-  <!-- ЛУНА в правом верхнем углу -->
-  <div class="moon">
-    <div class="crater"></div>
-  </div>
+  <!-- РЕАЛЬНАЯ ЛУНА из интернета -->
+  <div class="moon"></div>
   
   <!-- Плавающие частицы -->
   <div class="floating-circles">
