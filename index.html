@@ -322,7 +322,7 @@
     }
     .step{
       display:grid;
-      grid-template-columns:52px 1fr;
+      grid-template-columns:60px 1fr;
       gap:14px;
       align-items:flex-start;
       border:1px solid rgba(100,80,255,0.2);
@@ -337,24 +337,28 @@
       transform:translateX(6px);
       box-shadow:0 8px 20px rgba(255,51,102,0.15);
     }
-    .num{
-      width:52px;
-      height:52px;
-      border-radius:16px;
-      background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%);
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:22px;
-      font-weight:800;
-      box-shadow:0 2px 8px rgba(255,51,102,0.3);
-      transition:all 0.2s ease;
+    /* Стили для планет вместо цифр */
+    .planet-icon{
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      background-size:cover;
+      background-position:center;
+      box-shadow:0 0 10px rgba(255,255,255,0.3), 0 0 20px rgba(255,51,102,0.2);
+      transition:all 0.3s ease;
     }
-    .step:hover .num{
-      transform:scale(1.05);
-      box-shadow:0 4px 14px rgba(255,51,102,0.5);
+    .step:hover .planet-icon{
+      transform:scale(1.08);
+      box-shadow:0 0 20px rgba(255,255,255,0.5), 0 0 30px rgba(255,51,102,0.4);
     }
+    /* Планеты */
+    .planet-mercury{background-image:url('https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_color_-_Prockter07_centered.jpg');}
+    .planet-mars{background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png');}
+    .planet-saturn{background-image:url('https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox_%28cropped%29.jpg');}
+    .planet-earth{background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg');}
+    .planet-jupiter{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg');}
+    .planet-venus{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg');}
+    
     .step-content{
       display:flex;
       flex-direction:column;
@@ -407,6 +411,8 @@
     }
     @media (max-width:900px){
       .moon{width:90px;height:90px;top:20px;right:20px;}
+      .step{grid-template-columns:50px 1fr;}
+      .planet-icon{width:50px;height:50px;}
     }
   </style>
 </head>
@@ -458,49 +464,49 @@
       <h2>Маршрут работы</h2>
       <div class="steps">
         <div class="step">
-          <div class="num">1</div>
+          <div class="planet-icon planet-mercury"></div>
           <div class="step-content">
-            <h3>Откройте инструкцию</h3>
+            <h3>Меркурий → Откройте инструкцию</h3>
             <p class="lead">Посмотрите, как редактировать HTML-файлы, какие редакторы использовать и как безопасно применять ИИ как помощника.</p>
             <a class="step-link" href="student_html_guide.html">Открыть инструкцию →</a>
           </div>
         </div>
         <div class="step">
-          <div class="num">2</div>
+          <div class="planet-icon planet-mars"></div>
           <div class="step-content">
-            <h3>Пройдите интерактивный чек-лист</h3>
+            <h3>Марс → Пройдите интерактивный чек-лист</h3>
             <p class="lead">Оцените рабочее место по шкале 0–1–2, получите итоговый балл и зафиксируйте сильные стороны, проблемы и улучшения.</p>
             <a class="step-link" href="student_checklist_interactive.html">Открыть чек-лист →</a>
           </div>
         </div>
         <div class="step">
-          <div class="num">3</div>
+          <div class="planet-icon planet-saturn"></div>
           <div class="step-content">
-            <h3>Соберите отчёт</h3>
+            <h3>Сатурн → Соберите отчёт</h3>
             <p class="lead">Откройте шаблон отчёта, перенесите результаты анализа, добавьте визуальные материалы и оформите итоговую работу.</p>
             <a class="step-link" href="student_report_template.html">Открыть шаблон отчёта →</a>
           </div>
         </div>
         <div class="step">
-          <div class="num">4</div>
+          <div class="planet-icon planet-earth"></div>
           <div class="step-content">
-            <h3>Подготовьте проект улучшения пространства</h3>
+            <h3>Земля → Подготовьте проект улучшения пространства</h3>
             <p class="lead">Выберите аудиторию, рабочую зону или организацию, спроектируйте закупку оборудования, эргономику, зону отдыха и элементы ИТ-инфраструктуры.</p>
             <a class="step-link" href="student_infrastructure_project.html">Открыть проектное задание →</a>
           </div>
         </div>
         <div class="step">
-          <div class="num">5</div>
+          <div class="planet-icon planet-jupiter"></div>
           <div class="step-content">
-            <h3>Что должно получиться</h3>
+            <h3>Юпитер → Что должно получиться</h3>
             <p class="lead">На выходе у вас будет осмысленный аудит рабочего пространства, собственная цифровая страница и проект улучшения, который можно защитить и опубликовать.</p>
             <a class="step-link" href="student_checklist_interactive.html#result">Перейти к итоговому блоку →</a>
           </div>
         </div>
         <div class="step">
-          <div class="num">6</div>
+          <div class="planet-icon planet-venus"></div>
           <div class="step-content">
-            <h3>Как создать репозиторий и выложить сайт</h3>
+            <h3>Венера → Как создать репозиторий и выложить сайт</h3>
             <p class="lead">Отдельная инструкция по GitHub Pages: как создать репозиторий, загрузить HTML-файлы и получить публичную ссылку на свой сайт бесплатно.</p>
             <a class="step-link" href="student_publish_site_guide.html">Открыть инструкцию по публикации →</a>
           </div>
