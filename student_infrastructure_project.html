@@ -460,11 +460,13 @@
     .footer:hover{
       opacity:0.7;
     }
-    /* Стиль для квадрата с фото участника 1 */
+    /* Стиль для квадрата с фото участника — общий для всех */
     .member-photo-square {
       width: 70px;
       height: 70px;
-      background: url('Cosmos/IMG_1418.jpeg') center / cover no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       border-radius: 18px;
       box-shadow: 0 6px 14px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,51,102,0.3);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -594,7 +596,7 @@
 
     <section class="section">
       <h2>2. Команда и обязанности</h2>
-      <p class="lead">Работать можно индивидуально или командой до 6 человек. Каждый участник оставляет личный вывод и показывает вклад. Для первого участника добавлен квадрат с фото на фоне (Cosmos/IMG_1418.jpeg).</p>
+      <p class="lead">Работать можно индивидуально или командой до 6 человек. Каждый участник оставляет личный вывод и показывает вклад. Для каждого участника добавлен квадрат с личным фоновым изображением (папка Cosmos).</p>
       <div id="teamList" class="row-list"></div>
     </section>
 
@@ -898,25 +900,31 @@ function escapeHtml(value){
   }[char]));
 }
 
-// Рендер команды с добавлением квадрата с фотографией для первого участника
+// Рендер команды: для каждого участника свой квадрат с фоновым фото
 function renderTeam(){
   const list = byId('teamList');
   list.innerHTML = '';
+  // Массив путей к фото для каждого участника (0..5)
+  const photoPaths = [
+    'Cosmos/IMG_1418.jpeg',
+    'Cosmos/IMG_1416.webp',
+    'Cosmos/IMG_1419.jpeg',
+    'Cosmos/IMG_1420.jpeg',
+    'Cosmos/IMG_1423.jpeg',
+    'Cosmos/IMG_1424.jpeg'
+  ];
+  
   state.team.forEach((member, index) => {
     const row = document.createElement('div');
     row.className = 'dynamic-row';
-    let headerHtml = '';
-    if(index === 0) {
-      // Для первого участника добавляем квадрат с фото на фоне
-      headerHtml = `<div class="row-head">
-                      <div class="member-photo-square" title="Фото участника (фон)"></div>
-                      <div class="row-title">Участник ${index + 1}</div>
-                    </div>`;
-    } else {
-      headerHtml = `<div class="row-head">
-                      <div class="row-title">Участник ${index + 1}</div>
-                    </div>`;
-    }
+    const photoUrl = photoPaths[index] || '';
+    // Создаём блок row-head с квадратом и заголовком
+    const headerHtml = `
+      <div class="row-head">
+        <div class="member-photo-square" style="background-image: url('${escapeHtml(photoUrl)}');" title="Фото участника"></div>
+        <div class="row-title">Участник ${index + 1}</div>
+      </div>
+    `;
     row.innerHTML = `
       ${headerHtml}
       <div class="mini-grid">
