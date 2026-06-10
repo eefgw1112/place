@@ -153,7 +153,7 @@
       100%{transform:translate(0,0) rotate(360deg);}
     }
     
-    /* === НОВЫЕ ПАДАЮЩИЕ ЗВЁЗДЫ (как в примере) === */
+    /* Падающие звёзды */
     .shooting-stars{
       position:fixed;
       top:0;
@@ -201,7 +201,6 @@
         opacity:0;
       }
     }
-    /* Разные задержки и скорости для каждой звезды */
     .shooting-star:nth-child(1){top:10%; left:80%; animation-delay:0s; animation-duration:2.5s; height:60px;}
     .shooting-star:nth-child(2){top:30%; left:60%; animation-delay:1.2s; animation-duration:3s; height:100px;}
     .shooting-star:nth-child(3){top:50%; left:90%; animation-delay:2.5s; animation-duration:2.8s; height:70px;}
@@ -232,34 +231,35 @@
       transition:transform 0.1s ease-out;
     }
     
-    /* КРУГОВОЕ РАСПОЛОЖЕНИЕ ПЛАНЕТ */
+    /* УМЕНЬШЕННЫЙ КРУГОВОЙ МАРШРУТ */
     .planets-orbit{
       position:relative;
-      width:500px;
-      height:500px;
-      margin:50px auto;
+      width:400px;
+      height:400px;
+      margin:30px auto;
       display:flex;
       justify-content:center;
       align-items:center;
     }
-    /* СОЛНЦЕ В ЦЕНТРЕ (локальный файл) */
+    /* СОЛНЦЕ В ЦЕНТРЕ (уменьшено) */
     .orbit-center{
       position:absolute;
-      width:100px;
-      height:100px;
+      width:80px;
+      height:80px;
       border-radius:50%;
       background-image:url('Cosmos/IMG_1415.jpeg');
       background-size:cover;
       background-position:center;
-      box-shadow:0 0 30px rgba(255,200,50,0.6);
+      box-shadow:0 0 25px rgba(255,200,50,0.6);
       left:50%;
       top:50%;
       transform:translate(-50%, -50%);
       z-index:1;
     }
+    /* Карточка планеты (уменьшена) */
     .planet-card{
       position:absolute;
-      width:90px;
+      width:80px;
       cursor:pointer;
       transition:box-shadow 0.2s ease;
       z-index:2;
@@ -267,9 +267,10 @@
     .planet-card:hover{
       filter:drop-shadow(0 0 8px rgba(255,255,255,0.4));
     }
+    /* Иконка планеты (уменьшена) */
     .planet-icon{
-      width:80px;
-      height:80px;
+      width:70px;
+      height:70px;
       border-radius:50%;
       background-size:cover;
       background-position:center;
@@ -282,22 +283,22 @@
     }
     .planet-name{
       text-align:center;
-      margin-top:8px;
-      font-size:14px;
+      margin-top:6px;
+      font-size:13px;
       font-weight:600;
       color:#ffccaa;
       text-shadow:0 0 5px rgba(0,0,0,0.5);
     }
     
-    /* Позиции планет по кругу (радиус 200px) */
-    .planet1{top:50%; left:50%; transform:translate(-50%, -50%) translate(0, -220px);}
-    .planet2{top:50%; left:50%; transform:translate(-50%, -50%) translate(190px, -110px);}
-    .planet3{top:50%; left:50%; transform:translate(-50%, -50%) translate(190px, 110px);}
-    .planet4{top:50%; left:50%; transform:translate(-50%, -50%) translate(0, 220px);}
-    .planet5{top:50%; left:50%; transform:translate(-50%, -50%) translate(-190px, 110px);}
-    .planet6{top:50%; left:50%; transform:translate(-50%, -50%) translate(-190px, -110px);}
+    /* Позиции планет по кругу (радиус уменьшен с 220px до 170px) */
+    .planet1{top:50%; left:50%; transform:translate(-50%, -50%) translate(0, -170px);}
+    .planet2{top:50%; left:50%; transform:translate(-50%, -50%) translate(147px, -85px);}
+    .planet3{top:50%; left:50%; transform:translate(-50%, -50%) translate(147px, 85px);}
+    .planet4{top:50%; left:50%; transform:translate(-50%, -50%) translate(0, 170px);}
+    .planet5{top:50%; left:50%; transform:translate(-50%, -50%) translate(-147px, 85px);}
+    .planet6{top:50%; left:50%; transform:translate(-50%, -50%) translate(-147px, -85px);}
     
-    /* ПЛАНЕТЫ */
+    /* ПЛАНЕТЫ (без изменений) */
     .planet-mercury{background-image:url('Cosmos/IMG_1430.webp');}
     .planet-mars{background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png');}
     .planet-saturn{background-image:url('Cosmos/IMG_1411.jpeg');}
@@ -305,18 +306,18 @@
     .planet-jupiter{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg');}
     .planet-venus{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg');}
     
-    /* Карточка с информацией при наведении */
+    /* Карточка с информацией при наведении (чуть смещена) */
     .planet-info{
       position:absolute;
-      bottom:calc(100% + 10px);
+      bottom:calc(100% + 8px);
       left:50%;
       transform:translateX(-50%);
-      width:180px;
+      width:170px;
       background:rgba(20,20,60,0.95);
       backdrop-filter:blur(10px);
       border:1px solid rgba(255,51,102,0.4);
       border-radius:12px;
-      padding:10px;
+      padding:8px;
       opacity:0;
       visibility:hidden;
       transition:all 0.3s ease;
@@ -329,8 +330,8 @@
       visibility:visible;
     }
     .planet-info h4{
-      margin:0 0 5px;
-      font-size:16px;
+      margin:0 0 4px;
+      font-size:15px;
       color:#ff6699;
     }
     .planet-info p{
@@ -386,9 +387,11 @@
     }
     @media (max-width:900px){
       .moon{width:90px;height:90px;top:20px;right:20px;}
-      .planets-orbit{width:320px;height:320px; transform:scale(0.7);}
-      .planet-card{transform-origin:center;}
-      .orbit-center{width:70px;height:70px;}
+      .planets-orbit{width:280px;height:280px; margin:20px auto; transform:scale(0.9);}
+      .orbit-center{width:60px;height:60px;}
+      .planet-icon{width:55px;height:55px;}
+      .planet-card{width:65px;}
+      .planet-name{font-size:11px;}
     }
   </style>
 </head>
@@ -409,20 +412,12 @@
     <div class="circle"></div>
   </div>
   
-  <!-- НОВЫЕ ПАДАЮЩИЕ ЗВЁЗДЫ (вместо старых метеоров) -->
+  <!-- Падающие звёзды -->
   <div class="shooting-stars">
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
+    <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+    <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+    <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+    <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
   </div>
 
   <!-- ЛУНА -->
