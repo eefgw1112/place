@@ -3,95 +3,330 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Интерактивный чек-лист</title>
+  <title>Интерактивный чек-лист (Roswell style)</title>
   <style>
     :root{
-      --bg:#f4f7fc; --card:#ffffff; --text:#18212f; --muted:#5f6b7a; --line:#dde6f0;
-      --primary:#d6242e;
-      --primary2:#ff4f4f;
+      --bg:#0a0a1a; --card:#111128; --text:#e0e0ff; --muted:#8888aa; --line:#222244;
+      --primary:#ff3366; --primary2:#ff6699;
       --soft:#ffb6c1;
       --green:#0f766e;
       --warn:#9a6700;
       --bad:#b42318;
-      --shadow:0 14px 36px rgba(24,33,47,.10); --radius:22px;
+      --shadow:0 14px 36px rgba(0,0,0,.4); --radius:22px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
       color:var(--text);
-      background:linear-gradient(180deg,#fff5f5 0%, #fbf2f2 100%);
+      background: radial-gradient(ellipse at 20% 30%, #0d0d2b, #050510);
       line-height:1.56;
+      overflow-x:hidden;
+      position:relative;
     }
-    .wrap{max-width:1120px; margin:0 auto; padding:28px 18px 56px;}
+    
+    /* Звёздный фон (статичные звёзды) */
+    body::before{
+      content:"";
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background-image:radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 70px 150px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 150px 80px, #fff, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 300px 400px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 500px 200px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 800px 600px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 1000px 300px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 900px 800px, #fff, rgba(0,0,0,0));
+      background-repeat:no-repeat;
+      background-size:200px 200px;
+      opacity:0.6;
+      pointer-events:none;
+      z-index:0;
+    }
+    
+    /* Сетка */
+    body::after{
+      content:"";
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background-image:linear-gradient(rgba(100,100,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100,100,255,0.03) 1px, transparent 1px);
+      background-size:40px 40px;
+      pointer-events:none;
+      z-index:0;
+    }
+    
+    /* Анимированные градиенты */
+    .animated-bg{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      z-index:-2;
+      overflow:hidden;
+    }
+    .gradient-1{
+      position:absolute;
+      top:-30%;
+      left:-20%;
+      width:80%;
+      height:80%;
+      background:radial-gradient(circle, rgba(255,51,102,0.25) 0%, rgba(255,51,102,0) 70%);
+      border-radius:50%;
+      animation:float1 18s ease-in-out infinite;
+      filter:blur(60px);
+    }
+    .gradient-2{
+      position:absolute;
+      bottom:-20%;
+      right:-10%;
+      width:70%;
+      height:70%;
+      background:radial-gradient(circle, rgba(100,80,255,0.3) 0%, rgba(100,80,255,0) 70%);
+      border-radius:50%;
+      animation:float2 22s ease-in-out infinite;
+      filter:blur(60px);
+    }
+    .gradient-3{
+      position:absolute;
+      top:40%;
+      left:30%;
+      width:60%;
+      height:60%;
+      background:radial-gradient(circle, rgba(255,51,102,0.2) 0%, rgba(255,51,102,0) 70%);
+      border-radius:50%;
+      animation:float3 25s ease-in-out infinite;
+      filter:blur(60px);
+    }
+    
+    @keyframes float1{
+      0%{transform:translate(0,0) scale(1);}
+      50%{transform:translate(5%,3%) scale(1.05);}
+      100%{transform:translate(0,0) scale(1);}
+    }
+    @keyframes float2{
+      0%{transform:translate(0,0) scale(1);}
+      50%{transform:translate(-4%,-6%) scale(1.08);}
+      100%{transform:translate(0,0) scale(1);}
+    }
+    @keyframes float3{
+      0%{transform:translate(0,0) scale(1);}
+      50%{transform:translate(3%,-4%) scale(1.1);}
+      100%{transform:translate(0,0) scale(1);}
+    }
+    
+    /* Падающие звёзды */
+    .shooting-stars{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
+    }
+    .shooting-star{
+      position:absolute;
+      width:2px;
+      height:80px;
+      background:linear-gradient(180deg, #fff, rgba(255,255,255,0));
+      border-radius:50%;
+      opacity:0;
+      animation:shoot 3s linear infinite;
+      filter:blur(1px);
+    }
+    .shooting-star::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:-2px;
+      width:6px;
+      height:6px;
+      background:#fff;
+      border-radius:50%;
+      box-shadow:0 0 10px #fff, 0 0 20px rgba(255,51,102,0.5);
+    }
+    @keyframes shoot{
+      0%{
+        transform:translateX(0) translateY(0) rotate(45deg);
+        opacity:0;
+      }
+      10%{
+        opacity:1;
+      }
+      80%{
+        opacity:0.8;
+      }
+      100%{
+        transform:translateX(-400px) translateY(400px) rotate(45deg);
+        opacity:0;
+      }
+    }
+    .shooting-star:nth-child(1){top:10%; left:80%; animation-delay:0s; animation-duration:2.5s; height:60px;}
+    .shooting-star:nth-child(2){top:30%; left:60%; animation-delay:1.2s; animation-duration:3s; height:100px;}
+    .shooting-star:nth-child(3){top:50%; left:90%; animation-delay:2.5s; animation-duration:2.8s; height:70px;}
+    .shooting-star:nth-child(4){top:70%; left:40%; animation-delay:0.8s; animation-duration:3.2s; height:90px;}
+    .shooting-star:nth-child(5){top:20%; left:20%; animation-delay:3s; animation-duration:2.2s; height:50px;}
+    .shooting-star:nth-child(6){top:80%; left:70%; animation-delay:1.8s; animation-duration:3.5s; height:80px;}
+    .shooting-star:nth-child(7){top:40%; left:10%; animation-delay:4s; animation-duration:2.7s; height:65px;}
+    .shooting-star:nth-child(8){top:60%; left:50%; animation-delay:0.5s; animation-duration:3.8s; height:110px;}
+    .shooting-star:nth-child(9){top:15%; left:95%; animation-delay:2.2s; animation-duration:2.9s; height:55px;}
+    .shooting-star:nth-child(10){top:85%; left:30%; animation-delay:3.5s; animation-duration:3.1s; height:75px;}
+    .shooting-star:nth-child(11){top:5%; left:45%; animation-delay:1s; animation-duration:2.6s; height:85px;}
+    .shooting-star:nth-child(12){top:55%; left:85%; animation-delay:2.8s; animation-duration:3.3s; height:95px;}
+    
+    /* ЗЕМЛЯ в правом верхнем углу */
+    .earth{
+      position:fixed;
+      top:40px;
+      right:40px;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg');
+      background-size:cover;
+      background-position:center;
+      box-shadow:0 0 20px rgba(100,150,255,0.5), 0 0 40px rgba(80,120,255,0.3);
+      z-index:0;
+      pointer-events:none;
+      transition:transform 0.1s ease-out;
+    }
+    
+    .wrap{
+      max-width:1120px;
+      margin:0 auto;
+      padding:28px 18px 56px;
+      position:relative;
+      z-index:2;
+    }
     .hero{
-      background:linear-gradient(135deg,#c41e28 0%, #ff5e5e 100%);
+      background:linear-gradient(135deg, rgba(255,51,102,0.2) 0%, rgba(100,80,255,0.2) 100%);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,51,102,0.3);
       color:#fff; border-radius:28px; padding:28px 26px; box-shadow:var(--shadow);
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hero:hover{
+      transform:translateY(-3px);
+      box-shadow:0 20px 40px rgba(255,51,102,0.2);
     }
     .eyebrow{
       display:inline-block; padding:7px 12px; border-radius:999px;
-      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,51,102,0.2); border:1px solid rgba(255,51,102,0.4);
       font-size:13px; font-weight:700; letter-spacing:.02em; margin-bottom:14px;
+      transition:background 0.2s ease, transform 0.2s ease;
+    }
+    .hero:hover .eyebrow{
+      background:rgba(255,51,102,0.3);
+      transform:translateX(3px);
     }
     h1{margin:0; font-size:clamp(28px,4vw,42px); line-height:1.08;}
     .hero p{margin:14px 0 0; max-width:860px; font-size:17px; opacity:.98;}
     .nav{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
     .btn{
       text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
-      padding:11px 16px; border-radius:14px; font-weight:700; transition:.2s ease;
+      padding:11px 16px; border-radius:14px; font-weight:700; transition:all 0.25s ease;
       border:1px solid transparent;
     }
-    .btn.primary{background:#d6242e; color:#fff;}
-    .btn.secondary{background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.20);}
+    .btn.primary{background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%); color:#fff;}
+    .btn.secondary{background:rgba(20,20,45,0.8); color:#ff6699; border-color:rgba(255,51,102,0.4);}
+    .btn.secondary:hover{background:rgba(255,51,102,0.2); transform:translateY(-2px);}
+    .btn.primary:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(255,51,102,0.4);}
     .section{
-      margin-top:18px; background:var(--card); border-radius:var(--radius);
-      box-shadow:var(--shadow); border:1px solid #edf2f8; padding:24px 22px;
+      margin-top:18px; background:rgba(17,17,40,0.8);
+      backdrop-filter:blur(5px);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow); border:1px solid rgba(100,80,255,0.2);
+      padding:24px 22px;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .section:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 40px rgba(0,0,0,.3);
+      border-color:rgba(255,51,102,0.3);
     }
     .section h2{margin:0 0 10px; font-size:26px; line-height:1.15;}
     .lead{margin:0 0 14px; color:var(--muted); font-size:16px;}
     .score-box{
-      background:#fff0f0; border:1px solid #ffcdcd; color:#d6242e; border-radius:18px; padding:14px 16px;
+      background:rgba(255,51,102,0.15); border:1px solid rgba(255,51,102,0.4);
+      color:#ffccaa; border-radius:18px; padding:14px 16px;
     }
     .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
     .cat{
-      border:1px solid var(--line); border-radius:18px; padding:16px; background:#fff;
+      border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:16px;
+      background:rgba(20,20,45,0.5);
+      transition:transform 0.2s ease, border-color 0.2s;
+    }
+    .cat:hover{
+      transform:translateY(-4px);
+      border-color:#ff3366;
     }
     .cat h3{margin:0 0 8px; font-size:19px;}
     .subtitle{color:var(--muted); margin:0 0 12px; font-size:14px;}
-    .item{padding:12px 0; border-top:1px dashed #e7edf5;}
+    .item{padding:12px 0; border-top:1px dashed rgba(100,80,255,0.3);}
     .item:first-of-type{border-top:none}
     .item .txt{margin-bottom:8px;}
     .scale{display:flex; gap:8px; flex-wrap:wrap;}
     .scale label{
       display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px;
-      background:#f7f9fc; border:1px solid #e3eaf3; cursor:pointer; font-size:14px;
+      background:rgba(30,30,60,0.8); border:1px solid rgba(100,80,255,0.4); cursor:pointer; font-size:14px;
+      transition:all 0.2s;
     }
+    .scale label:hover{background:rgba(255,51,102,0.2); border-color:#ff3366;}
     .summary{
       display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px;
     }
     .sum-card{
-      background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px;
+      background:rgba(20,20,45,0.7); border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:16px;
+      transition:transform 0.2s;
     }
+    .sum-card:hover{transform:translateY(-3px);}
     .sum-card strong{display:block; font-size:14px; color:var(--muted);}
-    .big{font-size:34px; font-weight:800; color:var(--primary); line-height:1; margin-top:8px;}
+    .big{font-size:34px; font-weight:800; color:#ff6699; line-height:1; margin-top:8px;}
     .band{
       padding:12px 14px; border-radius:16px; font-weight:700;
     }
-    .band.good{background:#fff0f0; color:#d6242e; border:1px solid #ffcdcd;}
-    .band.warn{background:#f5f5f5; color:#333333; border:1px solid #cccccc;}
-    .band.bad{background:#fef2f2; color:var(--bad); border:1px solid #fecaca;}
+    .band.good{background:rgba(255,51,102,0.15); color:#ff6699; border:1px solid #ff3366;}
+    .band.warn{background:rgba(80,80,120,0.3); color:#cccccc; border:1px solid #8888aa;}
+    .band.bad{background:rgba(180,35,24,0.2); color:#ff8888; border:1px solid #b42318;}
     textarea{
-      width:100%; min-height:110px; resize:vertical; border:1px solid var(--line); border-radius:14px;
-      padding:12px 14px; font:inherit; color:var(--text); background:#fff;
+      width:100%; min-height:110px; resize:vertical; border:1px solid rgba(100,80,255,0.3); border-radius:14px;
+      padding:12px 14px; font:inherit; color:var(--text); background:rgba(20,20,45,0.8);
     }
     .cols{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
     .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
     @media (max-width:960px){
       .grid,.summary,.cols{grid-template-columns:1fr;}
+      .earth{width:90px;height:90px;top:20px;right:20px;}
     }
   </style>
 </head>
 <body>
+  <!-- Анимированные фоновые градиенты -->
+  <div class="animated-bg">
+    <div class="gradient-1"></div>
+    <div class="gradient-2"></div>
+    <div class="gradient-3"></div>
+  </div>
+  <!-- Падающие звёзды -->
+  <div class="shooting-stars">
+    <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+    <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+    <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+    <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
+  </div>
+  <!-- ЗЕМЛЯ в правом верхнем углу -->
+  <div class="earth"></div>
+
   <div class="wrap">
     <section class="hero">
       <div class="eyebrow">Интерактивный чек-лист</div>
@@ -124,22 +359,10 @@
     <section class="section" id="result">
       <h2>Итоговая оценка</h2>
       <div class="summary">
-        <div class="sum-card">
-          <strong>Набрано баллов</strong>
-          <div class="big" id="sum">0</div>
-        </div>
-        <div class="sum-card">
-          <strong>Максимум</strong>
-          <div class="big" id="max">0</div>
-        </div>
-        <div class="sum-card">
-          <strong>Процент</strong>
-          <div class="big" id="percent">0%</div>
-        </div>
-        <div class="sum-card">
-          <strong>Результат</strong>
-          <div id="bandWrap" style="margin-top:8px;"></div>
-        </div>
+        <div class="sum-card"><strong>Набрано баллов</strong><div class="big" id="sum">0</div></div>
+        <div class="sum-card"><strong>Максимум</strong><div class="big" id="max">0</div></div>
+        <div class="sum-card"><strong>Процент</strong><div class="big" id="percent">0%</div></div>
+        <div class="sum-card"><strong>Результат</strong><div id="bandWrap" style="margin-top:8px;"></div></div>
       </div>
 
       <div class="cols" style="margin-top:16px;">
@@ -159,7 +382,7 @@
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="saveBtn" type="button" style="background:linear-gradient(135deg,#d6242e 0%, #ff5e5e 100%); color:#fff;">Сохранить результаты</button>
+        <button class="btn primary" id="saveBtn" type="button">Сохранить результаты</button>
         <a class="btn secondary" href="student_report_template.html" id="toReport">Перейти к шаблону отчёта</a>
       </div>
     </section>
@@ -297,21 +520,17 @@ data.forEach((cat, ci) => {
 });
 document.getElementById('max').textContent = maxScore;
 
-// Функция предустановки баллов: 61 балл (66%)
 function presetScores() {
-  // Сначала всем пунктам ставим 1 балл
   document.querySelectorAll('.item').forEach((item) => {
     const radio1 = item.querySelector('input[type="radio"][value="1"]');
     if (radio1) radio1.checked = true;
   });
-  // Затем первым 15 пунктам ставим 2 балла
   const items = document.querySelectorAll('.item');
   for (let i = 0; i < Math.min(15, items.length); i++) {
     const radio2 = items[i].querySelector('input[type="radio"][value="2"]');
     if (radio2) radio2.checked = true;
   }
 }
-
 presetScores();
 
 function updateSummary(){
@@ -375,6 +594,18 @@ document.getElementById('saveBtn').addEventListener('click', () => {
 });
 loadAll();
 updateSummary();
+
+// Параллакс-эффект для Земли
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+  const earth = document.querySelector('.earth');
+  if(earth){
+    const moveX = (x - 0.5) * 15;
+    const moveY = (y - 0.5) * 10;
+    earth.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  }
+});
 </script>
 </body>
 </html>
