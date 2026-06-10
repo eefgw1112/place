@@ -203,12 +203,12 @@
       position:absolute;
       width:90px;
       cursor:pointer;
-      transition:all 0.3s ease;
+      transition:box-shadow 0.2s ease;
       z-index:2;
     }
+    /* Убрали transform:scale при наведении */
     .planet-card:hover{
-      transform:scale(1.1);
-      filter:drop-shadow(0 0 15px rgba(255,255,255,0.5));
+      filter:drop-shadow(0 0 8px rgba(255,255,255,0.4));
     }
     .planet-icon{
       width:80px;
@@ -216,9 +216,13 @@
       border-radius:50%;
       background-size:cover;
       background-position:center;
-      box-shadow:0 0 15px rgba(255,255,255,0.3);
-      transition:all 0.3s ease;
+      box-shadow:0 0 10px rgba(255,255,255,0.2);
+      transition:box-shadow 0.2s ease;
       margin:0 auto;
+    }
+    /* Убрали увеличение при наведении на иконку */
+    .planet-icon:hover{
+      box-shadow:0 0 15px rgba(255,255,255,0.5);
     }
     .planet-name{
       text-align:center;
@@ -237,13 +241,13 @@
     .planet5{top:50%; left:50%; transform:translate(-50%, -50%) translate(-190px, 110px);}
     .planet6{top:50%; left:50%; transform:translate(-50%, -50%) translate(-190px, -110px);}
     
-    /* Реальные изображения планет (изменены Меркурий и Сатурн) */
-    .planet-mercury{background-image:url('https://cdn.pixabay.com/photo/2016/10/20/18/35/mercury-1759005_640.jpg');}
-    .planet-mars{background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png');}
-    .planet-saturn{background-image:url('https://cdn.pixabay.com/photo/2013/07/18/10/56/saturn-163503_640.jpg');}
-    .planet-earth{background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg');}
-    .planet-jupiter{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg');}
-    .planet-venus{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg');}
+    /* ПЛАНЕТЫ ИЗ ЛОКАЛЬНОЙ ПАПКИ Cosmos */
+    .planet-mercury{background-image:url('Cosmos/mercury.jpg');}
+    .planet-mars{background-image:url('Cosmos/mars.jpg');}
+    .planet-saturn{background-image:url('Cosmos/saturn.jpg');}
+    .planet-earth{background-image:url('Cosmos/earth.jpg');}
+    .planet-jupiter{background-image:url('Cosmos/jupiter.jpg');}
+    .planet-venus{background-image:url('Cosmos/venus.jpg');}
     
     /* Карточка с информацией при наведении */
     .planet-info{
