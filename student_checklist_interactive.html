@@ -201,6 +201,23 @@
       transition:transform 0.1s ease-out;
     }
     
+    /* НОВАЯ ПЛАНЕТА в левом нижнем углу */
+    .planet-left-bottom{
+      position:fixed;
+      bottom:30px;
+      left:30px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background-image:url('Cosmos/IMG_1412.webp');
+      background-size:cover;
+      background-position:center;
+      box-shadow:0 0 20px rgba(150,200,255,0.4), 0 0 40px rgba(100,150,200,0.2);
+      z-index:0;
+      pointer-events:none;
+      transition:transform 0.1s ease-out;
+    }
+    
     .wrap{
       max-width:1120px;
       margin:0 auto;
@@ -307,6 +324,7 @@
     @media (max-width:960px){
       .grid,.summary,.cols{grid-template-columns:1fr;}
       .mars{width:90px;height:90px;top:20px;right:20px;}
+      .planet-left-bottom{width:80px;height:80px;bottom:15px;left:15px;}
     }
   </style>
 </head>
@@ -326,6 +344,8 @@
   </div>
   <!-- МАРС в правом верхнем углу -->
   <div class="mars"></div>
+  <!-- НОВАЯ ПЛАНЕТА в левом нижнем углу -->
+  <div class="planet-left-bottom"></div>
 
   <div class="wrap">
     <section class="hero">
@@ -595,7 +615,7 @@ document.getElementById('saveBtn').addEventListener('click', () => {
 loadAll();
 updateSummary();
 
-// Параллакс-эффект для Марса
+// Параллакс-эффект для Марса и новой планеты
 document.addEventListener('mousemove', (e) => {
   const x = e.clientX / window.innerWidth;
   const y = e.clientY / window.innerHeight;
@@ -604,6 +624,12 @@ document.addEventListener('mousemove', (e) => {
     const moveX = (x - 0.5) * 15;
     const moveY = (y - 0.5) * 10;
     mars.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  }
+  const newPlanet = document.querySelector('.planet-left-bottom');
+  if(newPlanet){
+    const moveX = (x - 0.5) * 12;
+    const moveY = (y - 0.5) * 8;
+    newPlanet.style.transform = `translate(${moveX}px, ${moveY}px)`;
   }
 });
 </script>
