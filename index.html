@@ -122,7 +122,7 @@
       100%{transform:translate(0,0) scale(1);}
     }
     
-    /* ЛУНА */
+    /* ЛУНА (локальный файл) */
     .moon{
       position:fixed;
       top:40px;
@@ -130,7 +130,7 @@
       width:140px;
       height:140px;
       border-radius:50%;
-      background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg');
+      background-image:url('Cosmos/IMG_1414.webp');
       background-size:cover;
       background-position:center;
       box-shadow:0 0 20px rgba(255,240,200,0.5), 0 0 40px rgba(255,220,120,0.3);
@@ -179,25 +179,20 @@
       justify-content:center;
       align-items:center;
     }
+    /* СОЛНЦЕ В ЦЕНТРЕ (локальный файл) */
     .orbit-center{
       position:absolute;
       width:100px;
       height:100px;
-      background:radial-gradient(circle, rgba(255,200,100,0.3), transparent);
       border-radius:50%;
+      background-image:url('Cosmos/IMG_1415.jpeg');
+      background-size:cover;
+      background-position:center;
+      box-shadow:0 0 30px rgba(255,200,50,0.6);
       left:50%;
       top:50%;
       transform:translate(-50%, -50%);
       z-index:1;
-    }
-    .orbit-center::before{
-      content:"⭐";
-      position:absolute;
-      font-size:40px;
-      left:50%;
-      top:50%;
-      transform:translate(-50%, -50%);
-      opacity:0.6;
     }
     .planet-card{
       position:absolute;
@@ -206,7 +201,6 @@
       transition:box-shadow 0.2s ease;
       z-index:2;
     }
-    /* Убрали transform:scale при наведении */
     .planet-card:hover{
       filter:drop-shadow(0 0 8px rgba(255,255,255,0.4));
     }
@@ -220,7 +214,6 @@
       transition:box-shadow 0.2s ease;
       margin:0 auto;
     }
-    /* Убрали увеличение при наведении на иконку */
     .planet-icon:hover{
       box-shadow:0 0 15px rgba(255,255,255,0.5);
     }
@@ -241,13 +234,13 @@
     .planet5{top:50%; left:50%; transform:translate(-50%, -50%) translate(-190px, 110px);}
     .planet6{top:50%; left:50%; transform:translate(-50%, -50%) translate(-190px, -110px);}
     
-    /* ПЛАНЕТЫ ИЗ ЛОКАЛЬНОЙ ПАПКИ Cosmos */
-    .planet-mercury{background-image:url('Cosmos/mercury.jpg');}
-    .planet-mars{background-image:url('Cosmos/mars.jpg');}
-    .planet-saturn{background-image:url('Cosmos/saturn.jpg');}
-    .planet-earth{background-image:url('Cosmos/earth.jpg');}
-    .planet-jupiter{background-image:url('Cosmos/jupiter.jpg');}
-    .planet-venus{background-image:url('Cosmos/venus.jpg');}
+    /* ПЛАНЕТЫ: Сатурн – локальный файл, остальные – из интернета */
+    .planet-mercury{background-image:url('https://cdn.pixabay.com/photo/2016/10/20/18/35/mercury-1759005_640.jpg');}
+    .planet-mars{background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png');}
+    .planet-saturn{background-image:url('Cosmos/IMG_1411.jpeg');}
+    .planet-earth{background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg');}
+    .planet-jupiter{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg');}
+    .planet-venus{background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg');}
     
     /* Карточка с информацией при наведении */
     .planet-info{
@@ -332,6 +325,7 @@
       .moon{width:90px;height:90px;top:20px;right:20px;}
       .planets-orbit{width:320px;height:320px; transform:scale(0.7);}
       .planet-card{transform-origin:center;}
+      .orbit-center{width:70px;height:70px;}
     }
   </style>
 </head>
@@ -342,7 +336,7 @@
     <div class="gradient-3"></div>
   </div>
   
-  <!-- ЛУНА -->
+  <!-- ЛУНА (локальная) -->
   <div class="moon"></div>
   
   <!-- МЕТЕОРЫ -->
@@ -365,6 +359,7 @@
       <p class="lead">Нажмите на планету, чтобы перейти к соответствующему этапу</p>
       
       <div class="planets-orbit">
+        <!-- СОЛНЦЕ В ЦЕНТРЕ -->
         <div class="orbit-center"></div>
         
         <!-- Меркурий - Инструкция -->
@@ -387,7 +382,7 @@
           </div>
         </div>
         
-        <!-- Сатурн - Шаблон отчёта -->
+        <!-- Сатурн - Шаблон отчёта (локальное изображение) -->
         <div class="planet-card planet3" data-link="student_report_template.html">
           <div class="planet-icon planet-saturn"></div>
           <div class="planet-name">Сатурн</div>
