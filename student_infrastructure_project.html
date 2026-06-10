@@ -340,8 +340,8 @@
     .row-head{display:flex; align-items:center; gap:15px; margin-bottom:6px;}
     .row-title{font-weight:800; color:#ff6699; font-size:1.1rem;}
     
-    /* Общий стиль квадрата участника */
-    .member-photo-square {
+    /* Стиль квадрата участника с фото */
+    .member-photo {
       width: 70px;
       height: 70px;
       border-radius: 18px;
@@ -358,13 +358,13 @@
       font-weight: bold;
       color: white;
       text-shadow: 0 1px 2px black;
+      background-color: #2a2a4a; /* fallback цвет */
     }
-    .member-photo-square:hover {
+    .member-photo:hover {
       transform: scale(1.02);
       box-shadow: 0 8px 18px rgba(255,51,102,0.4);
     }
-    /* Для участников без фото — градиентный фон */
-    .member-photo-square.fallback {
+    .member-photo.fallback {
       background: linear-gradient(135deg, #ff3366, #882244);
     }
     
@@ -470,7 +470,7 @@
     }
     .footer:hover{opacity:0.7;}
     @media (max-width: 640px){
-      .member-photo-square { width: 55px; height: 55px; font-size: 22px; }
+      .member-photo { width: 55px; height: 55px; font-size: 22px; }
       .row-head { gap: 10px; }
     }
     @media (max-width: 960px){
@@ -542,7 +542,7 @@
 
     <section class="section">
       <h2>2. Команда и обязанности</h2>
-      <p class="lead">Для второго участника (Быков Роман Павлович) добавлен квадрат с фоновым изображением <code>Cosmos/IMG_1416.webp</code>. Остальные участники — цветные заглушки с инициалами.</p>
+      <p class="lead">Каждому участнику соответствует фотография из папки <code>Cosmos</code> (при отсутствии файла отобразятся инициалы).</p>
       <div id="teamList" class="row-list"></div>
     </section>
 
@@ -674,39 +674,69 @@ let state = {
 function byId(id){ return document.getElementById(id); }
 function escapeHtml(v){ return String(v||'').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
+// Массив путей к фото для каждого участника (индексы 0..5)
+const memberPhotoPaths = [
+  'Cosmos/IMG_1416.webp',  // участник 1
+  'Cosmos/IMG_1416.webp',  // участник 2 (по условию такая же)
+  'Cosmos/IMG_1419.jpeg',  // участник 3
+  'Cosmos/IMG_1420.jpeg',  // участник 4
+  'Cosmos/IMG_1423.jpeg',  // участник 5
+  'Cosmos/IMG_1424.jpeg'   // участник 6
+];
+const memberInitials = ['ВП','РБ','УД','ДИ','ЗЭ','КШ'];
+
 function renderTeam(){
   const list = byId('teamList');
   list.innerHTML = '';
-  const initials = ['ВП','РБ','УД','ДИ','ЗЭ','КШ'];
-  state.team.forEach((m, i) => {
+  state.team.forEach((member, idx) => {
     const row = document.createElement('div');
     row.className = 'dynamic-row';
-    // Для второго участника (индекс 1) устанавливаем фоновое изображение
-    let squareStyle = '';
-    let squareClass = 'member-photo-square';
-    if (i === 1) {
-      squareStyle = `style="background-image: url('Cosmos/IMG_1416.webp'); background-size: cover; background-position: center;"`;
-      // не добавляем класс fallback, так как есть картинка
-    } else {
-      squareClass += ' fallback';
-      squareStyle = `style="display: flex; align-items: center; justify-content: center;"`;
+    const photoUrl = memberPhotoPaths[idx];
+    // Создаём div с фоновым изображением и обработчиком ошибки
+    const squareDiv = document.createElement('div');
+    squareDiv.className = 'member-photo';
+    squareDiv.style.backgroundImage = `url('${escapeHtml(photoUrl)}')`;
+    squareDiv.style.backgroundSize = 'cover';
+    squareDiv.style.backgroundPosition = 'center';
+    squareDiv.title = `Фото: ${member.name}`;
+    // Обработчик ошибки: если фото не загрузилось, показываем инициалы и градиент
+    squareDiv.onerror = function() {
+      this.style.backgroundImage = 'none';
+      this.classList.add('fallback');
+      this.textContent = memberInitials[idx];
+      this.style.display = 'flex';
+      this.style.alignItems = 'center';
+      this.style.justifyContent = 'center';
+      this.style.fontSize = '28px';
+      this.style.fontWeight = 'bold';
+    };
+    // Для синхронного отображения: если изображение уже кешировано и загружено, то текст не нужен
+    // Но если загрузится позже, то onerror сработает. Также проверим complete.
+    if (squareDiv.complete && (squareDiv.naturalWidth === 0 || squareDiv.naturalHeight === 0)) {
+      squareDiv.onerror();
     }
-    const squareHtml = i === 1 
-      ? `<div class="${squareClass}" ${squareStyle} title="Фото участника"></div>`
-      : `<div class="${squareClass} fallback" ${squareStyle}>${initials[i]}</div>`;
     
-    row.innerHTML = `
-      <div class="row-head">
-        ${squareHtml}
-        <div class="row-title">Участник ${i+1}</div>
-      </div>
-      <div class="mini-grid">
-        <div><label class="caption">ФИО</label><input class="field" data-team="${i}" data-field="name" value="${escapeHtml(m.name)}"></div>
-        <div><label class="caption">Роль</label><input class="field" data-team="${i}" data-field="role" value="${escapeHtml(m.role)}"></div>
-        <div><label class="caption">Зона ответственности</label><input class="field" data-team="${i}" data-field="duties" value="${escapeHtml(m.duties)}"></div>
-      </div>
-      <div><label class="caption">Личный вывод</label><textarea class="small" data-team="${i}" data-field="conclusion">${escapeHtml(m.conclusion)}</textarea></div>
+    const rowHead = document.createElement('div');
+    rowHead.className = 'row-head';
+    rowHead.appendChild(squareDiv);
+    const titleSpan = document.createElement('div');
+    titleSpan.className = 'row-title';
+    titleSpan.textContent = `Участник ${idx+1}`;
+    rowHead.appendChild(titleSpan);
+    
+    const miniGrid = document.createElement('div');
+    miniGrid.className = 'mini-grid';
+    miniGrid.innerHTML = `
+      <div><label class="caption">ФИО</label><input class="field" data-team="${idx}" data-field="name" value="${escapeHtml(member.name)}"></div>
+      <div><label class="caption">Роль</label><input class="field" data-team="${idx}" data-field="role" value="${escapeHtml(member.role)}"></div>
+      <div><label class="caption">Зона ответственности</label><input class="field" data-team="${idx}" data-field="duties" value="${escapeHtml(member.duties)}"></div>
     `;
+    const conclusionDiv = document.createElement('div');
+    conclusionDiv.innerHTML = `<label class="caption">Личный вывод</label><textarea class="small" data-team="${idx}" data-field="conclusion">${escapeHtml(member.conclusion)}</textarea>`;
+    
+    row.appendChild(rowHead);
+    row.appendChild(miniGrid);
+    row.appendChild(conclusionDiv);
     list.appendChild(row);
   });
 }
