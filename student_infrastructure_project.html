@@ -857,7 +857,8 @@ let state = {
     {path:'images/IMG_1258.jpeg', caption:'Отсутствие зоны отдыха', finding:'Нет зоны отдыха для студентов и преподавателя'},
     {path:'images/IMG_1257.jpeg', caption:'Отсутствие зоны отдыха (другой ракурс)', finding:'Нет зоны отдыха для студентов и преподавателей (другой ракурс)'},
     {path:'images/IMG_1259.jpeg', caption:'Общий вид аудитории', finding:'Неудобные парты, не видно доски с дальних парт'},
-    {path:'images/IMG_1256.jpeg', caption:'Рабочее место преподавателя', finding:'Не хватает современного ПК, удобного кресла и стола'}
+    {path:'images/IMG_1256.jpeg', caption:'Рабочее место преподавателя', finding:'Не хватает современного ПК, удобного кресла и стола'},
+    {path:'images/IMG_1425.jpeg', caption:'Рабочее место студентов', finding:'Неудобные условия для обучения'}
   ],
   visuals: [
     {path:'images/IMG_1266.jpeg', prompt:'Модное преподавательское место', purpose:'Иллюстрация нового рабочего места', criteria:'Демонстрирует улучшение'},
@@ -868,25 +869,32 @@ let state = {
   checklist:{}
 };
 
-function byId(id){ return document.getElementById(id); }
-function escapeHtml(v){ return String(v||'').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c])); }
+function byId(id){
+  return document.getElementById(id);
+}
+
+function escapeHtml(value){
+  return String(value || '').replace(/[&<>"']/g, char => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[char]));
+}
 
 function renderTeam(){
   const list = byId('teamList');
   list.innerHTML = '';
-  state.team.forEach((m,i)=>{
+  state.team.forEach((member, index) => {
     const row = document.createElement('div');
     row.className = 'dynamic-row';
     row.innerHTML = `
       <div class="row-head">
-        <div class="row-title">Участник ${i+1}</div>
+        <div class="row-title">Участник ${index + 1}</div>
       </div>
       <div class="mini-grid">
-        <div><label class="caption">ФИО</label><input class="field" data-team="${i}" data-field="name" value="${escapeHtml(m.name)}"></div>
-        <div><label class="caption">Роль в проекте</label><input class="field" data-team="${i}" data-field="role" value="${escapeHtml(m.role)}"></div>
-        <div><label class="caption">Зона ответственности</label><input class="field" data-team="${i}" data-field="duties" value="${escapeHtml(m.duties)}"></div>
+        <div><label class="caption">ФИО</label><input class="field" data-team="${index}" data-field="name" type="text" value="${escapeHtml(member.name)}" placeholder="Фамилия Имя" /></div>
+        <div><label class="caption">Роль в проекте</label><input class="field" data-team="${index}" data-field="role" type="text" value="${escapeHtml(member.role)}" placeholder="Аудит, смета, дизайн, HTML" /></div>
+        <div><label class="caption">Зона ответственности</label><input class="field" data-team="${index}" data-field="duties" type="text" value="${escapeHtml(member.duties)}" placeholder="Что именно сделал участник" /></div>
       </div>
-      <div><label class="caption">Личный вывод участника</label><textarea data-team="${i}" data-field="conclusion">${escapeHtml(m.conclusion)}</textarea></div>
+      <div><label class="caption">Личный вывод участника</label><textarea class="small" data-team="${index}" data-field="conclusion" placeholder="Что участник понял о выбранном пространстве, закупке, эргономике или инфраструктуре.">${escapeHtml(member.conclusion)}</textarea></div>
     `;
     list.appendChild(row);
   });
@@ -895,21 +903,27 @@ function renderTeam(){
 function renderEquipment(){
   const list = byId('equipmentList');
   list.innerHTML = '';
-  state.equipment.forEach((item,i)=>{
+  state.equipment.forEach((item, index) => {
     const row = document.createElement('div');
     row.className = 'dynamic-row';
     row.innerHTML = `
-      <div class="row-head"><div class="row-title">Позиция закупки ${i+1}</div></div>
+      <div class="row-head">
+        <div class="row-title">Позиция закупки ${index + 1}</div>
+      </div>
       <div class="mini-grid">
-        <div><label class="caption">Оборудование</label><input class="field" data-equipment="${i}" data-field="name" value="${escapeHtml(item.name)}"></div>
-        <div><label class="caption">Характеристики</label><input class="field" data-equipment="${i}" data-field="specs" value="${escapeHtml(item.specs)}"></div>
-        <div><label class="caption">Приоритет</label><select data-equipment="${i}" data-field="priority"><option${item.priority==='Обязательная'?' selected':''}>Обязательная</option><option${item.priority==='Рекомендуемая'?' selected':''}>Рекомендуемая</option><option${item.priority==='Желательная'?' selected':''}>Желательная</option></select></div>
+        <div><label class="caption">Оборудование</label><input class="field" data-equipment="${index}" data-field="name" type="text" value="${escapeHtml(item.name)}" placeholder="Монитор, кресло, SSD, ИБП" /></div>
+        <div><label class="caption">Характеристики</label><input class="field" data-equipment="${index}" data-field="specs" type="text" value="${escapeHtml(item.specs)}" placeholder="Ключевые параметры без лишней рекламы" /></div>
+        <div><label class="caption">Приоритет</label><select data-equipment="${index}" data-field="priority">
+          <option${item.priority === 'Обязательная' ? ' selected' : ''}>Обязательная</option>
+          <option${item.priority === 'Рекомендуемая' ? ' selected' : ''}>Рекомендуемая</option>
+          <option${item.priority === 'Желательная' ? ' selected' : ''}>Желательная</option>
+        </select></div>
       </div>
       <div class="two-grid">
-        <div><label class="caption">Количество</label><input class="field" data-equipment="${i}" data-field="qty" value="${escapeHtml(item.qty)}"></div>
-        <div><label class="caption">Цена</label><input class="field" data-equipment="${i}" data-field="price" value="${escapeHtml(item.price)}"></div>
+        <div><label class="caption">Количество</label><input class="field" data-equipment="${index}" data-field="qty" type="text" value="${escapeHtml(item.qty)}" placeholder="Например: 12 шт." /></div>
+        <div><label class="caption">Ориентировочная цена</label><input class="field" data-equipment="${index}" data-field="price" type="text" value="${escapeHtml(item.price)}" placeholder="Например: 8 000 руб. за единицу" /></div>
       </div>
-      <div><label class="caption">Обоснование</label><textarea data-equipment="${i}" data-field="reason">${escapeHtml(item.reason)}</textarea></div>
+      <div><label class="caption">Обоснование</label><textarea class="small" data-equipment="${index}" data-field="reason" placeholder="Какая проблема решается, почему параметры достаточны и почему нет переплаты.">${escapeHtml(item.reason)}</textarea></div>
     `;
     list.appendChild(row);
   });
@@ -918,19 +932,23 @@ function renderEquipment(){
 function renderPhotos(){
   const list = byId('photoList');
   list.innerHTML = '';
-  state.photos.forEach((photo,i)=>{
+  state.photos.forEach((photo, index) => {
     const card = document.createElement('div');
     card.className = 'media-card';
-    const previewContent = photo.path ? `<img src="${escapeHtml(photo.path)}" alt="Фото ${i+1}" style="width:100%; height:auto; max-height:200px; object-fit:contain;">` : 'Предпросмотр фотографии';
+    const previewContent = photo.path 
+      ? `<img src="${escapeHtml(photo.path)}" alt="Фото ${index+1}" style="width:100%; height:auto; max-height:200px; object-fit:contain; border-radius:12px;" />`
+      : 'Предпросмотр фотографии';
     card.innerHTML = `
-      <div class="row-head"><h3>Фото текущего состояния ${i+1}</h3></div>
-      <div class="media-preview" data-photo-preview="${i}">${previewContent}</div>
-      <label class="caption">Путь к файлу для публикации</label>
-      <input class="field" data-photo="${i}" data-field="path" value="${escapeHtml(photo.path)}">
-      <label class="caption">Подпись</label>
-      <input class="field" data-photo="${i}" data-field="caption" value="${escapeHtml(photo.caption)}">
-      <label class="caption">Вывод по фото</label>
-      <textarea data-photo="${i}" data-field="finding">${escapeHtml(photo.finding)}</textarea>
+      <div class="row-head">
+        <h3>Фото текущего состояния ${index + 1}</h3>
+      </div>
+      <div class="media-preview" data-photo-preview="${index}">${previewContent}</div>
+      <label class="caption" style="margin-top:10px;">Путь к файлу для публикации</label>
+      <input class="field" data-photo="${index}" data-field="path" type="text" value="${escapeHtml(photo.path)}" placeholder="images/auditory-before-1.jpg" />
+      <label class="caption" style="margin-top:10px;">Подпись</label>
+      <input class="field" data-photo="${index}" data-field="caption" type="text" value="${escapeHtml(photo.caption)}" placeholder="Что изображено на фото" />
+      <label class="caption" style="margin-top:10px;">Вывод по фото</label>
+      <textarea class="small" data-photo="${index}" data-field="finding" placeholder="Какая проблема или особенность подтверждается этим фото.">${escapeHtml(photo.finding)}</textarea>
     `;
     list.appendChild(card);
   });
@@ -939,21 +957,25 @@ function renderPhotos(){
 function renderVisuals(){
   const list = byId('visualList');
   list.innerHTML = '';
-  state.visuals.forEach((vis,i)=>{
+  state.visuals.forEach((visual, index) => {
     const card = document.createElement('div');
     card.className = 'media-card';
-    const previewContent = vis.path ? `<img src="${escapeHtml(vis.path)}" alt="Визуализация ${i+1}" style="width:100%; height:auto; max-height:200px; object-fit:contain;">` : 'Предпросмотр визуализации';
+    const previewContent = visual.path 
+      ? `<img src="${escapeHtml(visual.path)}" alt="Визуализация ${index+1}" style="width:100%; height:auto; max-height:200px; object-fit:contain; border-radius:12px;" />`
+      : 'Предпросмотр визуализации';
     card.innerHTML = `
-      <div class="row-head"><h3>AI-визуализация ${i+1}</h3></div>
-      <div class="media-preview" data-visual-preview="${i}">${previewContent}</div>
-      <label class="caption">Путь к файлу для публикации</label>
-      <input class="field" data-visual="${i}" data-field="path" value="${escapeHtml(vis.path)}">
-      <label class="caption">Промпт или метод создания</label>
-      <textarea data-visual="${i}" data-field="prompt">${escapeHtml(vis.prompt)}</textarea>
-      <label class="caption">Назначение визуализации</label>
-      <input class="field" data-visual="${i}" data-field="purpose" value="${escapeHtml(vis.purpose)}">
-      <label class="caption">Что доказывает изображение</label>
-      <textarea data-visual="${i}" data-field="criteria">${escapeHtml(vis.criteria)}</textarea>
+      <div class="row-head">
+        <h3>AI-визуализация ${index + 1}</h3>
+      </div>
+      <div class="media-preview" data-visual-preview="${index}">${previewContent}</div>
+      <label class="caption" style="margin-top:10px;">Путь к файлу для публикации</label>
+      <input class="field" data-visual="${index}" data-field="path" type="text" value="${escapeHtml(visual.path)}" placeholder="images/future-zone-1.jpg" />
+      <label class="caption" style="margin-top:10px;">Промпт или метод создания</label>
+      <textarea class="small" data-visual="${index}" data-field="prompt" placeholder="Опишите промпт, модель или способ создания визуализации.">${escapeHtml(visual.prompt)}</textarea>
+      <label class="caption" style="margin-top:10px;">Назначение визуализации</label>
+      <input class="field" data-visual="${index}" data-field="purpose" type="text" value="${escapeHtml(visual.purpose)}" placeholder="Например: показать новую рассадку и свет" />
+      <label class="caption" style="margin-top:10px;">Что доказывает изображение</label>
+      <textarea class="small" data-visual="${index}" data-field="criteria" placeholder="Какая проектная идея становится понятнее благодаря изображению.">${escapeHtml(visual.criteria)}</textarea>
     `;
     list.appendChild(card);
   });
@@ -962,11 +984,17 @@ function renderVisuals(){
 function renderChecklist(){
   const box = byId('qualityChecklist');
   box.innerHTML = '';
-  let idx=0;
-  checklistGroups.forEach(g=>{
+  let absoluteIndex = 0;
+  checklistGroups.forEach(group => {
     const card = document.createElement('div');
     card.className = 'check-card';
-    card.innerHTML = `<h3>${g.title}</h3>` + g.items.map(text=>{const key='check_'+idx++; return `<label class="check-item"><input type="checkbox" data-check="${key}" ${state.checklist[key]?'checked':''}><span>${text}</span></label>`;}).join('');
+    const items = group.items.map(text => {
+      const key = 'check_' + absoluteIndex;
+      absoluteIndex += 1;
+      const checked = state.checklist[key] ? ' checked' : '';
+      return `<label class="check-item"><input type="checkbox" data-check="${key}"${checked}><span>${text}</span></label>`;
+    }).join('');
+    card.innerHTML = `<h3>${group.title}</h3>${items}`;
     box.appendChild(card);
   });
   updateChecklistSummary();
@@ -975,32 +1003,48 @@ function renderChecklist(){
 function updateChecklistSummary(){
   const all = document.querySelectorAll('[data-check]');
   const checked = document.querySelectorAll('[data-check]:checked');
-  const total = all.length, done = checked.length, percent = total?Math.round(done/total*100):0;
+  const total = all.length;
+  const done = checked.length;
+  const percent = total ? Math.round(done / total * 100) : 0;
   byId('doneCount').textContent = done;
   byId('totalCount').textContent = total;
-  byId('readyPercent').textContent = percent+'%';
-  byId('scoreFill').style.width = percent+'%';
+  byId('readyPercent').textContent = percent + '%';
+  byId('scoreFill').style.width = percent + '%';
   let status = 'Начните заполнение';
-  if(percent>=90) status='Готово к защите';
-  else if(percent>=70) status='Почти готово';
-  else if(percent>=45) status='Нужна доработка';
-  else if(percent>0) status='Соберите доказательства';
+  if(percent >= 90) status = 'Готово к защите';
+  else if(percent >= 70) status = 'Почти готово';
+  else if(percent >= 45) status = 'Нужна доработка';
+  else if(percent > 0) status = 'Соберите доказательства';
   byId('readyStatus').textContent = status;
 }
 
 function captureState(){
-  document.querySelectorAll('[data-team]').forEach(el=>state.team[Number(el.dataset.team)][el.dataset.field]=el.value);
-  document.querySelectorAll('[data-equipment]').forEach(el=>state.equipment[Number(el.dataset.equipment)][el.dataset.field]=el.value);
-  document.querySelectorAll('[data-photo]').forEach(el=>state.photos[Number(el.dataset.photo)][el.dataset.field]=el.value);
-  document.querySelectorAll('[data-visual]').forEach(el=>state.visuals[Number(el.dataset.visual)][el.dataset.field]=el.value);
-  document.querySelectorAll('[data-check]').forEach(el=>state.checklist[el.dataset.check]=el.checked);
+  document.querySelectorAll('[data-team]').forEach(el => {
+    state.team[Number(el.dataset.team)][el.dataset.field] = el.value;
+  });
+  document.querySelectorAll('[data-equipment]').forEach(el => {
+    state.equipment[Number(el.dataset.equipment)][el.dataset.field] = el.value;
+  });
+  document.querySelectorAll('[data-photo]').forEach(el => {
+    state.photos[Number(el.dataset.photo)][el.dataset.field] = el.value;
+  });
+  document.querySelectorAll('[data-visual]').forEach(el => {
+    state.visuals[Number(el.dataset.visual)][el.dataset.field] = el.value;
+  });
+  document.querySelectorAll('[data-check]').forEach(el => {
+    state.checklist[el.dataset.check] = el.checked;
+  });
 }
 
 function saveDraft(){
   captureState();
-  const ids = ['projectTitle','objectType','roomNumber','audience','uniqueness','projectGoal','noBudgetPlan','budgetPlan','tco','workplaceErgo','restZone','serverNode','safetyAccess','finalProjectConclusion','implementationPlan'];
+  const ids = [
+    'projectTitle','objectType','roomNumber','audience','uniqueness','projectGoal',
+    'noBudgetPlan','budgetPlan','tco','workplaceErgo','restZone','serverNode',
+    'safetyAccess','finalProjectConclusion','implementationPlan'
+  ];
   const fields = {};
-  ids.forEach(id=>fields[id]=byId(id).value);
+  ids.forEach(id => fields[id] = byId(id).value);
   localStorage.setItem(storageKey, JSON.stringify({...fields, dynamic:state}));
 }
 
@@ -1009,30 +1053,74 @@ function loadDraft(){
   if(!raw) return;
   try{
     const saved = JSON.parse(raw);
-    Object.entries(saved).forEach(([k,v])=>{if(k!=='dynamic') byId(k)&&(byId(k).value=v||'');});
-    if(saved.dynamic) state={...state,...saved.dynamic, photos:saved.dynamic.photos||state.photos, visuals:saved.dynamic.visuals||state.visuals};
-  }catch(e){}
+    Object.entries(saved).forEach(([key, value]) => {
+      if(key === 'dynamic') return;
+      const el = byId(key);
+      if(el) el.value = value || '';
+    });
+    if(saved.dynamic){
+      state = {
+        ...state,
+        ...saved.dynamic,
+        photos: saved.dynamic.photos && saved.dynamic.photos.length ? saved.dynamic.photos : state.photos,
+        visuals: saved.dynamic.visuals && saved.dynamic.visuals.length ? saved.dynamic.visuals : state.visuals
+      };
+    }
+  } catch(e){}
 }
 
-document.addEventListener('input', ()=>saveDraft());
-document.addEventListener('change', e=>{
-  if(e.target.matches('[data-check]')){captureState(); updateChecklistSummary(); saveDraft();}
+document.addEventListener('input', event => {
+  if(event.target.matches('input, textarea, select')){
+    saveDraft();
+  }
 });
-byId('saveBtn').addEventListener('click', ()=>{saveDraft(); alert('Черновик сохранён в браузере.');});
-byId('clearBtn').addEventListener('click', ()=>{if(confirm('Очистить сохранённый черновик?')){localStorage.removeItem(storageKey); location.reload();}});
 
-function forcePassportValues(){
+document.addEventListener('change', event => {
+  const target = event.target;
+  if(target.matches('[data-check]')){
+    captureState();
+    updateChecklistSummary();
+    saveDraft();
+  }
+});
+
+document.addEventListener('click', event => {
+  // Удаление элементов отключено
+});
+
+byId('saveBtn').addEventListener('click', () => {
+  saveDraft();
+  alert('Черновик сохранён в браузере.');
+});
+
+byId('clearBtn').addEventListener('click', () => {
+  if(confirm('Очистить сохранённый черновик этой страницы?')){
+    localStorage.removeItem(storageKey);
+    location.reload();
+  }
+});
+
+function forcePassportValues() {
   document.getElementById('projectTitle').value = 'Модернизация аудитории 6107';
-  const sel = document.getElementById('objectType');
-  for(let i=0;i<sel.options.length;i++) if(sel.options[i].text==='Учебная аудитория') sel.selectedIndex=i;
+  const objTypeSelect = document.getElementById('objectType');
+  for(let i = 0; i < objTypeSelect.options.length; i++) {
+    if(objTypeSelect.options[i].text === 'Учебная аудитория') {
+      objTypeSelect.selectedIndex = i;
+      break;
+    }
+  }
   document.getElementById('roomNumber').value = 'Корпус ФЭМ / аудитория 6107';
   document.getElementById('audience').value = 'Студенты, преподаватели';
   document.getElementById('uniqueness').value = 'Мы исследуем аудиторию номер 6107 на факультете экономики и менеджмента. Наш проект отличается тем, что мы хотим создать комфортные для работы условия не только для студентов, но также и для преподавателей.';
   document.getElementById('projectGoal').value = 'Цель: студентам будет удобно заниматься с новыми партами и телевизорами, с которых будет видно даже с последних парт, что написано на доске; производительность обучения станет выше с новым оборудованием для преподавателей, а с новой зоной для отдыха студенты будут всегда приходить вовремя на пары и будут совершенствовать свои навыки общения с сокурсниками.';
 }
 
-function setAllCheckboxes(){
-  document.querySelectorAll('[data-check]').forEach(cb=>{cb.checked=true; state.checklist[cb.dataset.check]=true;});
+function setAllCheckboxes() {
+  const allCheckboxes = document.querySelectorAll('[data-check]');
+  allCheckboxes.forEach(cb => {
+    cb.checked = true;
+    state.checklist[cb.dataset.check] = true;
+  });
   updateChecklistSummary();
 }
 
