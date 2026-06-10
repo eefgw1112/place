@@ -358,7 +358,7 @@
       font-weight: bold;
       color: white;
       text-shadow: 0 1px 2px black;
-      background-color: #2a2a4a; /* fallback цвет */
+      background-color: #2a2a4a;
     }
     .member-photo:hover {
       transform: scale(1.02);
@@ -518,15 +518,7 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2>Итог работы</h2>
-      <p class="lead">Финальный результат должен быть не набором общих советов, а проектным предложением, которое можно обсудить как реальное улучшение пространства.</p>
-      <div class="grid three">
-        <div class="card"><span class="pill">HTML-проект</span><h3>Своя страница и подстраницы</h3><p>Главная страница проекта, аудит объекта, закупка оборудования, эргономика/планировка, визуализации и личные выводы.</p></div>
-        <div class="card"><span class="pill">Доказательства</span><h3>Фото и наблюдения</h3><p>Реальные фотографии выбранного места, описание проблем, подтверждение выводов и ограничения реализации.</p></div>
-        <div class="card"><span class="pill">Реалистичность</span><h3>Смета и этапы</h3><p>Варианты без бюджета, с малым бюджетом и с закупкой оборудования, сроки, риски и ожидаемый эффект.</p></div>
-      </div>
-    </section>
+    <!-- Раздел "Итог работы" УДАЛЁН по требованию пользователя -->
 
     <section class="section">
       <h2>1. Паспорт проекта</h2>
@@ -757,7 +749,6 @@ function renderEquipment(){
   });
 }
 
-// Функция создания превью с реальной картинкой (если есть) или заглушкой
 function createImagePreview(src, alt, errorText) {
   const container = document.createElement('div');
   container.className = 'media-preview';
@@ -781,9 +772,7 @@ function renderPhotos(){
     const card = document.createElement('div');
     card.className = 'media-card';
     const preview = createImagePreview(photo.path, `Фото ${idx+1}`, `Файл не найден: ${photo.path}<br>Поместите фото в папку images/`);
-    card.innerHTML = `
-      <div class="row-head"><h3>Фото текущего состояния ${idx+1}</h3></div>
-    `;
+    card.innerHTML = `<div class="row-head"><h3>Фото текущего состояния ${idx+1}</h3></div>`;
     card.appendChild(preview);
     const pathInput = document.createElement('label');
     pathInput.className = 'caption';
@@ -826,9 +815,7 @@ function renderVisuals(){
     const card = document.createElement('div');
     card.className = 'media-card';
     const preview = createImagePreview(vis.path, `Визуализация ${idx+1}`, `Файл не найден: ${vis.path}<br>Поместите изображение в папку images/`);
-    card.innerHTML = `
-      <div class="row-head"><h3>AI-визуализация ${idx+1}</h3></div>
-    `;
+    card.innerHTML = `<div class="row-head"><h3>AI-визуализация ${idx+1}</h3></div>`;
     card.appendChild(preview);
     const pathLabel = document.createElement('label');
     pathLabel.className = 'caption';
