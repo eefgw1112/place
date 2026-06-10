@@ -1,280 +1,281 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Проект ИТ-инфраструктуры | Россвелл стиль</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Проект ИТ-инфраструктуры — Россвелл стиль</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* === КОСМИЧЕСКАЯ ОСНОВА (РОССВЕЛЛ) === */
-        body {
-            font-family: 'Segoe UI', 'Playfair Display', 'Courier New', monospace;
-            background: radial-gradient(ellipse at 30% 40%, #020617, #000000);
-            color: #eef5ff;
-            line-height: 1.5;
-            position: relative;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+    /* ===== КОСМИЧЕСКАЯ ОСНОВА (РОССВЕЛЛ) ===== */
+    body {
+      font-family: 'Segoe UI', 'Playfair Display', 'Courier New', monospace;
+      background: radial-gradient(ellipse at 30% 40%, #03050b, #000000);
+      color: #eef5ff;
+      line-height: 1.5;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        /* Звёздное поле (мерцание) */
-        .starfield {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background: transparent;
-        }
+    /* Звёздное поле (мерцание) */
+    .starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background: transparent;
+    }
 
-        .starfield::before,
-        .starfield::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(1px 1px at 15% 25%, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 75% 45%, #ffe0b3, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90% 10%, #c2e0ff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 30% 85%, #ffccaa, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 55% 60%, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 88% 78%, #b3d9ff, rgba(0,0,0,0));
-            background-repeat: no-repeat;
-            background-size: 300px 300px, 350px 350px, 280px 280px, 320px 320px, 400px 400px, 250px 250px;
-            opacity: 0.8;
-            animation: starTwinkle 5s infinite alternate;
-        }
+    .starfield::before,
+    .starfield::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(1px 1px at 15% 25%, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 75% 45%, #ffe0b3, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 90% 10%, #c2e0ff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 30% 85%, #ffccaa, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 55% 60%, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 88% 78%, #b3d9ff, rgba(0,0,0,0));
+      background-repeat: no-repeat;
+      background-size: 300px 300px, 350px 350px, 280px 280px, 320px 320px, 400px 400px, 250px 250px;
+      opacity: 0.8;
+      animation: starTwinkle 5s infinite alternate;
+    }
 
-        .starfield::after {
-            background-image: 
-                radial-gradient(1px 1px at 65% 35%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 25% 90%, #ffe0b3, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 48% 18%, #ccf0ff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 8% 70%, #fdd0ff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 95% 55%, #ffffff, rgba(0,0,0,0));
-            background-repeat: no-repeat;
-            background-size: 340px 340px, 280px 280px, 360px 360px, 200px 200px, 300px 300px;
-            animation: starTwinkle 7s infinite alternate-reverse;
-            opacity: 0.6;
-        }
+    .starfield::after {
+      background-image: 
+        radial-gradient(1px 1px at 65% 35%, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 25% 90%, #ffe0b3, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 48% 18%, #ccf0ff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 8% 70%, #fdd0ff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 95% 55%, #ffffff, rgba(0,0,0,0));
+      background-repeat: no-repeat;
+      background-size: 340px 340px, 280px 280px, 360px 360px, 200px 200px, 300px 300px;
+      animation: starTwinkle 7s infinite alternate-reverse;
+      opacity: 0.6;
+    }
 
-        @keyframes starTwinkle {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
+    @keyframes starTwinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
 
-        /* Туманность / галактический свет */
-        .nebula {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 15% 40%, rgba(60, 30, 120, 0.25), transparent 55%),
-                        radial-gradient(circle at 85% 70%, rgba(0, 80, 100, 0.3), transparent 60%);
-            pointer-events: none;
-            z-index: 0;
-        }
+    /* Туманность / галактический свет */
+    .nebula {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 15% 40%, rgba(60, 30, 120, 0.25), transparent 55%),
+                  radial-gradient(circle at 85% 70%, rgba(0, 80, 100, 0.3), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* Планета Земля в правом верхнем углу */
-        .planet-earth {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 130px;
-            height: 130px;
-            z-index: 25;
-            pointer-events: none;
-            filter: drop-shadow(0 0 15px rgba(0, 160, 255, 0.7));
-            animation: floatEarth 9s ease-in-out infinite;
-            transition: transform 0.2s;
-        }
+    /* Планета Земля в правом верхнем углу */
+    .planet-earth {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 130px;
+      height: 130px;
+      z-index: 25;
+      pointer-events: none;
+      filter: drop-shadow(0 0 15px rgba(0, 160, 255, 0.7));
+      animation: floatEarth 9s ease-in-out infinite;
+    }
 
-        .planet-earth svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 4px #4fa4ff);
-        }
+    .planet-earth svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 4px #4fa4ff);
+    }
 
-        @keyframes floatEarth {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(2deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
+    @keyframes floatEarth {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
 
-        /* Основной контент - поверх звёзд */
-        .wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 20px 70px;
-            position: relative;
-            z-index: 10;
-        }
+    /* Основной контент - поверх звёзд */
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px 70px;
+      position: relative;
+      z-index: 10;
+    }
 
-        /* Карточки с полупрозрачным стеклянным эффектом */
-        .hero, .section, .card, .step, .dynamic-row, .media-card, .check-card, .sum-card, .note, .warn-box {
-            background: rgba(8, 12, 28, 0.7);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(80, 130, 210, 0.45);
-            border-radius: 32px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(120, 180, 255, 0.1) inset;
-            transition: all 0.25s ease;
-        }
+    /* Стеклянные карточки */
+    .hero, .section, .card, .step, .dynamic-row, .media-card, .check-card, .sum-card, .note, .warn-box {
+      background: rgba(8, 12, 28, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(80, 130, 210, 0.45);
+      border-radius: 32px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(120, 180, 255, 0.1) inset;
+      transition: all 0.25s ease;
+    }
 
-        .hero {
-            background: linear-gradient(125deg, rgba(8, 20, 45, 0.85), rgba(2, 6, 23, 0.9));
-            border-bottom: 2px solid #4c7eff;
-        }
+    .hero {
+      background: linear-gradient(125deg, rgba(8, 20, 45, 0.85), rgba(2, 6, 23, 0.9));
+      border-bottom: 2px solid #4c7eff;
+    }
 
-        .section:hover, .card:hover, .step:hover, .dynamic-row:hover {
-            transform: translateY(-4px);
-            border-color: #7ca5ff;
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.7), 0 0 12px rgba(70, 130, 255, 0.4);
-        }
+    .section:hover, .card:hover, .step:hover, .dynamic-row:hover {
+      transform: translateY(-4px);
+      border-color: #7ca5ff;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.7), 0 0 12px rgba(70, 130, 255, 0.4);
+    }
 
-        /* Стили текста и кнопок */
-        h1, h2, h3 {
-            font-weight: 500;
-            letter-spacing: -0.2px;
-            color: #ffffff;
-            text-shadow: 0 0 6px #2f6eff;
-        }
+    /* Текст и заголовки */
+    h1, h2, h3 {
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+      text-shadow: 0 0 6px #2f6eff;
+    }
 
-        .lead, p {
-            color: #d3e4ff;
-        }
+    .lead, p, li {
+      color: #d3e4ff;
+    }
 
-        .btn {
-            background: rgba(20, 28, 55, 0.9);
-            border: 1px solid #5f83bf;
-            color: #f0f5ff;
-            border-radius: 40px;
-            padding: 10px 20px;
-            font-weight: 600;
-            transition: 0.2s;
-            cursor: pointer;
-            display: inline-block;
-            text-decoration: none;
-            font-family: inherit;
-        }
+    /* Кнопки */
+    .btn {
+      background: rgba(20, 28, 55, 0.9);
+      border: 1px solid #5f83bf;
+      color: #f0f5ff;
+      border-radius: 40px;
+      padding: 10px 20px;
+      font-weight: 600;
+      transition: 0.2s;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+      font-family: inherit;
+    }
 
-        .btn.primary {
-            background: #1f4095;
-            box-shadow: 0 0 8px #3b82f6;
-        }
+    .btn.primary {
+      background: #1f4095;
+      box-shadow: 0 0 8px #3b82f6;
+    }
 
-        .btn.action {
-            background: linear-gradient(95deg, #142c60, #1e3f8f);
-            border-color: #6a9eff;
-        }
+    .btn.action {
+      background: linear-gradient(95deg, #142c60, #1e3f8f);
+      border-color: #6a9eff;
+    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            background: #2f54bb;
-            box-shadow: 0 0 14px #4c8eff;
-        }
+    .btn:hover {
+      transform: translateY(-2px);
+      background: #2f54bb;
+      box-shadow: 0 0 14px #4c8eff;
+    }
 
-        input, select, textarea {
-            background: rgba(5, 8, 20, 0.85);
-            border: 1px solid #4e6b9e;
-            color: #eef3ff;
-            border-radius: 24px;
-            padding: 12px 16px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            width: 100%;
-        }
+    /* Поля ввода */
+    input, select, textarea {
+      background: rgba(5, 8, 20, 0.85);
+      border: 1px solid #4e6b9e;
+      color: #eef3ff;
+      border-radius: 24px;
+      padding: 12px 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      width: 100%;
+    }
 
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #7da2ff;
-            box-shadow: 0 0 8px #2f6eff;
-        }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #7da2ff;
+      box-shadow: 0 0 8px #2f6eff;
+    }
 
-        label.caption {
-            color: #c2d6ff;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 6px;
-        }
+    label.caption {
+      color: #c2d6ff;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
 
-        .pill {
-            background: #112244;
-            color: #b6d0ff;
-            border-radius: 30px;
-            padding: 5px 12px;
-            display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
+    .pill {
+      background: #112244;
+      color: #b6d0ff;
+      border-radius: 30px;
+      padding: 5px 12px;
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
 
-        .score-fill {
-            background: linear-gradient(90deg, #00b0ff, #3f6eff);
-            box-shadow: 0 0 4px #3e7eff;
-            height: 100%;
-            border-radius: 12px;
-        }
+    .score-fill {
+      background: linear-gradient(90deg, #00b0ff, #3f6eff);
+      box-shadow: 0 0 4px #3e7eff;
+      height: 100%;
+      border-radius: 12px;
+    }
 
-        .score-bar {
-            background: #1f274a;
-            border-radius: 12px;
-            overflow: hidden;
-        }
+    .score-bar {
+      background: #1f274a;
+      border-radius: 12px;
+      overflow: hidden;
+    }
 
-        .check-item input {
-            accent-color: #4b88ff;
-            margin-right: 12px;
-            transform: scale(1.05);
-        }
+    .check-item input {
+      accent-color: #4b88ff;
+      margin-right: 12px;
+      transform: scale(1.05);
+    }
 
-        .grid {
-            display: grid;
-            gap: 1rem;
-        }
+    .grid {
+      display: grid;
+      gap: 1rem;
+    }
 
-        .grid.three {
-            grid-template-columns: repeat(3, 1fr);
-        }
+    .grid.three {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
-        .two-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
+    .two-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
 
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
 
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #8aa5d4;
-            font-size: 0.85rem;
-        }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #8aa5d4;
+      font-size: 0.85rem;
+    }
 
-        @media (max-width: 780px) {
-            .grid.three, .two-grid, .media-grid {
-                grid-template-columns: 1fr;
-            }
-            .planet-earth {
-                width: 90px;
-                height: 90px;
-                top: 10px;
-                right: 10px;
-            }
-        }
-    </style>
+    @media (max-width: 780px) {
+      .grid.three, .two-grid, .media-grid {
+        grid-template-columns: 1fr;
+      }
+      .planet-earth {
+        width: 90px;
+        height: 90px;
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -308,7 +309,7 @@
 </div>
 
 <div class="wrap">
-    <!-- Hero block -->
+    <!-- Hero -->
     <div class="hero" style="padding: 28px 26px; margin-bottom: 24px;">
         <div class="eyebrow" style="color:#bfdcff;">✦ ПРОЕКТ РОССВЕЛЛ ✦</div>
         <h1>Закупка оборудования, ИТ-инфраструктура и организация рабочего пространства</h1>
@@ -321,10 +322,10 @@
         </div>
     </div>
 
-    <!-- Секция итогов -->
+    <!-- Итог работы -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>Итог работы</h2>
-        <p class="lead">Финальный результат должен быть проектным предложением, которое можно обсудить как реальное улучшение пространства.</p>
+        <p class="lead">Финальный результат должен быть не набором общих советов, а проектным предложением.</p>
         <div class="grid three" style="margin-top: 18px;">
             <div class="card" style="padding: 16px;"><span class="pill">HTML-проект</span><h3 style="margin-top: 10px;">Своя страница и подстраницы</h3><p>Главная страница, аудит, закупка, эргономика, визуализации, личные выводы.</p></div>
             <div class="card" style="padding: 16px;"><span class="pill">Доказательства</span><h3 style="margin-top: 10px;">Фото и наблюдения</h3><p>Реальные фотографии выбранного места, описание проблем, подтверждение выводов.</p></div>
@@ -332,26 +333,26 @@
         </div>
     </div>
 
-    <!-- 1. Паспорт проекта -->
+    <!-- Паспорт проекта -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>1. Паспорт проекта</h2>
         <div class="two-grid" style="margin-top: 12px;">
-            <div><label class="caption" for="projectTitle">Название проекта</label><input class="field" id="projectTitle" type="text" value="Модернизация аудитории 6107 (ФЭМ)"></div>
-            <div><label class="caption" for="objectType">Тип объекта</label><select id="objectType"><option selected>Учебная аудитория</option><option>Компьютерный класс</option><option>Рабочее место преподавателя</option><option>Зона отдыха</option></select></div>
+            <div><label class="caption" for="projectTitle">Название проекта</label><input class="field" id="projectTitle" type="text" value="Модернизация аудитории 6107"></div>
+            <div><label class="caption" for="objectType">Тип объекта</label><select id="objectType"><option selected>Учебная аудитория</option><option>Компьютерный класс</option><option>Рабочее место преподавателя</option></select></div>
             <div><label class="caption" for="roomNumber">Номер / организация</label><input class="field" id="roomNumber" type="text" value="Корпус ФЭМ / аудитория 6107"></div>
             <div><label class="caption" for="audience">Целевая аудитория</label><input class="field" id="audience" type="text" value="Студенты, преподаватели"></div>
-            <div style="grid-column: span 2;"><label class="caption" for="uniqueness">Почему объект уникален / не повторяет чужих проектов</label><textarea id="uniqueness" class="small" rows="2">Мы исследуем аудиторию 6107 на факультете экономики и менеджмента. Проект создаёт комфорт и для студентов, и для преподавателей: зона отдыха, современная эргономика, ИТ-инфраструктура.</textarea></div>
-            <div style="grid-column: span 2;"><label class="caption" for="projectGoal">Цель улучшения</label><textarea id="projectGoal" rows="3">Студентам будет удобно заниматься с новыми партами и мониторами, преподаватель получит современное рабочее место, зона отдыха повысит продуктивность.</textarea></div>
+            <div style="grid-column: span 2;"><label class="caption" for="uniqueness">Почему объект уникален?</label><textarea id="uniqueness" rows="2">Мы исследуем аудиторию 6107. Проект создаёт комфорт и для студентов, и для преподавателей: зона отдыха, современная эргономика, ИТ-инфраструктура.</textarea></div>
+            <div style="grid-column: span 2;"><label class="caption" for="projectGoal">Цель улучшения</label><textarea id="projectGoal" rows="2">Студентам будет удобно заниматься с новыми партами и мониторами, преподаватель получит современное рабочее место, зона отдыха повысит продуктивность.</textarea></div>
         </div>
     </div>
 
-    <!-- 2. Команда и обязанности (динамика) -->
+    <!-- Команда -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>2. Команда и обязанности</h2>
         <div id="teamList" class="row-list" style="display: flex; flex-direction: column; gap: 14px;"></div>
     </div>
 
-    <!-- 3. Стандарт анализа (шаги) -->
+    <!-- Стандарт анализа -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>3. Универсальный стандарт анализа</h2>
         <div class="steps" id="stepsStatic" style="display: grid; gap: 12px;">
@@ -364,25 +365,25 @@
         </div>
     </div>
 
-    <!-- 4. Фотографии аудита -->
+    <!-- Фото аудита -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>4. Полевой аудит и реальные фотографии</h2>
-        <p class="lead">Посетите место лично, добавьте фото (в публикации используйте относительные пути).</p>
+        <p class="lead">Добавьте фотографии текущего состояния (в публикации используйте относительные пути).</p>
         <div id="photoList" class="media-grid" style="margin-top: 16px;"></div>
     </div>
 
-    <!-- 5. Закупка оборудования -->
+    <!-- Закупка оборудования -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>5. Проект закупки оборудования</h2>
         <div id="equipmentList" class="row-list" style="margin-bottom: 20px;"></div>
         <div class="two-grid">
-            <div class="card"><h3>Решения без бюджета / минимальные затраты</h3><textarea id="noBudgetPlan" rows="3" class="small">Перестановка задних парт, кабельная организация, график проветривания, настройка мониторов по высоте.</textarea></div>
+            <div class="card"><h3>Решения без бюджета</h3><textarea id="noBudgetPlan" rows="3" class="small">Перестановка задних парт, кабельная организация, график проветривания, настройка мониторов.</textarea></div>
             <div class="card"><h3>Решения с закупкой</h3><textarea id="budgetPlan" rows="3" class="small">Новые мониторы, ПК для преподавателя, эргономичные парты и стулья, зона отдыха (диваны, кофемашина), Wi-Fi 6 роутер.</textarea></div>
         </div>
-        <div style="margin-top: 16px;"><label class="caption" for="tco">Итоговая логика бюджета и стоимости владения</label><textarea id="tco" rows="4" class="small">Общая стоимость около 1 074 000 руб. Основные затраты: парты (21×7000), мониторы (21×15000), стулья (42×5000). Срок службы мебели 7-10 лет, техники 5-7 лет. Расходники и обслуживание ~15-20 тыс. руб./год.</textarea></div>
+        <div style="margin-top: 16px;"><label class="caption" for="tco">Итоговая логика бюджета и стоимости владения</label><textarea id="tco" rows="4" class="small">Общая стоимость около 1 074 000 руб. Основные затраты: парты (21×7000), мониторы (21×15000), стулья (42×5000). Срок службы мебели 7-10 лет, техники 5-7 лет. Расходники ~15-20 тыс. руб./год.</textarea></div>
     </div>
 
-    <!-- 6. Эргономика, зоны отдыха, сеть -->
+    <!-- Эргономика -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>6. Эргономика, зоны отдыха и серверные узлы</h2>
         <div class="two-grid">
@@ -393,13 +394,13 @@
         </div>
     </div>
 
-    <!-- 7. AI-визуализации -->
+    <!-- AI-визуализации -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>7. AI-визуализации будущего пространства</h2>
         <div id="visualList" class="media-grid"></div>
     </div>
 
-    <!-- 8. Чек-лист качества -->
+    <!-- Чек-лист качества -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
         <h2>8. Обязательный чек-лист качества</h2>
         <div class="summary" style="display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px;">
@@ -412,16 +413,17 @@
         <div id="qualityChecklist" class="check-grid" style="display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 20px;"></div>
     </div>
 
-    <!-- 9. Структура и выводы -->
+    <!-- Структура сайта -->
     <div class="section" style="padding: 24px; margin-bottom: 24px;">
-        <h2>9. Структура итогового сайта и внедрение</h2>
+        <h2>9. Структура итогового HTML-сайта</h2>
         <div class="two-grid">
-            <div class="card"><h3>Обязательные страницы</h3><ul style="margin-left: 1.2rem;"><li>index.html</li><li>audit.html</li><li>equipment.html</li><li>ergonomics.html</li><li>visuals.html</li><li>reflection.html</li></ul></div>
+            <div class="card"><h3>Обязательные страницы</h3><ul><li>index.html</li><li>audit.html</li><li>equipment.html</li><li>ergonomics.html</li><li>visuals.html</li><li>reflection.html</li></ul></div>
             <div class="card"><h3>Чего избегать</h3><ul><li>Текст без фото</li><li>Общие советы без привязки</li><li>Смета без обоснования</li><li>Отсутствие личных выводов</li></ul></div>
         </div>
         <div class="note" style="margin-top: 16px; padding: 16px;"><strong>Важно:</strong> основной фокус на аппаратном обеспечении, пространстве, эргономике и реалистичности внедрения.</div>
     </div>
 
+    <!-- Итоговые выводы -->
     <div class="section" style="padding: 24px;">
         <h2>10. Итоговые выводы</h2>
         <div class="two-grid">
@@ -438,22 +440,34 @@
 </div>
 
 <script>
-    // ---------- Данные проекта (команда, оборудование, фото, визуализации) ----------
-    const state = {
+    // ========== ДАННЫЕ И ЛОГИКА (полностью сохранена) ==========
+    const storageKey = 'workspaceInfrastructureProjectDraft_rosswell';
+
+    const checklistGroups = [
+        { title: 'Объект и доказательства', items: ['Выбран конкретный объект', 'Объяснена уникальность', 'Есть реальные фотографии', 'Проблемы подтверждены наблюдениями'] },
+        { title: 'Пользователи и сценарии', items: ['Описана целевая аудитория', 'Перечислены задачи', 'Задачи создают требования к технике', 'Учтены ограничения помещения'] },
+        { title: 'Аппаратное обеспечение', items: ['Оборудование подобрано под задачи', 'Для каждой позиции есть обоснование', 'Указана стоимость и количество', 'Учтены обслуживание и срок службы'] },
+        { title: 'Эргономика и пространство', items: ['Рассмотрены столы, кресла, освещение', 'Улучшения без бюджета', 'Зона отдыха продумана', 'Решения не ухудшают безопасность'] },
+        { title: 'Сеть и безопасность', items: ['Оценены Wi-Fi и розетки', 'Описан серверный узел (если нужен)', 'Учтена кабельная организация', 'Показаны риски'] },
+        { title: 'Визуализация и публикация', items: ['Добавлено >=4 визуализаций', 'Указан промпт для каждой', 'Многостраничный HTML-сайт', 'Сайт опубликован на GitHub Pages'] },
+        { title: 'Командная работа', items: ['Указаны участники и обязанности', 'Каждый написал вывод', 'Показаны решения без бюджета и с бюджетом', 'Итоговый вывод связывает всё'] }
+    ];
+
+    let state = {
         team: [
-            { name: 'Плеханов Вячеслав Витальевич', role: 'HTML-вёрстка', duties: 'Написание кода, адаптация', conclusion: 'Понял важность структуры и командной работы.' },
-            { name: 'Быков Роман Павлович', role: 'HTML-вёрстка', duties: 'Написание кода', conclusion: 'Научился исправлять баги и работать в репозитории.' },
-            { name: 'Дорохова Ульяна Алексеевна', role: 'Аудит', duties: 'Опрос студентов', conclusion: 'Студенты хотят удобные парты и розетки.' },
-            { name: 'Иванова Дарья Владленовна', role: 'Аудит', duties: 'Сбор жалоб', conclusion: 'Выявили системные проблемы освещения.' },
+            { name: 'Плеханов Вячеслав', role: 'HTML', duties: 'Вёрстка и код', conclusion: 'Понял важность структуры и командной работы.' },
+            { name: 'Быков Роман', role: 'HTML', duties: 'Написание кода', conclusion: 'Научился исправлять баги и работать в репозитории.' },
+            { name: 'Дорохова Ульяна', role: 'Аудит', duties: 'Опрос студентов', conclusion: 'Студенты хотят удобные парты и розетки.' },
+            { name: 'Иванова Дарья', role: 'Аудит', duties: 'Сбор жалоб', conclusion: 'Выявили системные проблемы освещения.' },
             { name: 'Зворыгина Эвелина', role: 'Смета', duties: 'Расчёт бюджета', conclusion: 'Научилась сравнивать цены и планировать ТСО.' },
-            { name: 'Шаботина Екатерина Олеговна', role: 'Дизайн', duties: 'AI-визуализации', conclusion: 'Промпты дают удивительные результаты для дизайна.' }
+            { name: 'Шаботина Екатерина', role: 'Дизайн', duties: 'AI-визуализации', conclusion: 'Промпты дают удивительные результаты для дизайна.' }
         ],
         equipment: [
-            { name: 'Кресло преподавателя (эко-кожа)', specs: 'Эргономичное, регулировка', qty: '1 шт.', price: '25000 руб.', reason: 'Комфорт и здоровье спины', priority: 'Обязательная' },
-            { name: 'Монитор 27" 2K', specs: 'IPS, регулировка высоты', qty: '1 шт.', price: '32000 руб.', reason: 'Чёткая картинка для презентаций', priority: 'Обязательная' },
-            { name: 'Парты регулируемые', specs: '1200x500 мм', qty: '21 шт.', price: '7000/шт', reason: 'Правильная посадка', priority: 'Обязательная' },
-            { name: 'Мониторы 24" Full HD', specs: 'IPS антиблик', qty: '21 шт.', price: '15000/шт', reason: 'Снижение нагрузки на зрение', priority: 'Обязательная' },
-            { name: 'Стулья эргономичные', specs: 'регулировка высоты', qty: '42 шт.', price: '5000/шт', reason: 'Поддержка поясницы', priority: 'Обязательная' }
+            { name: 'Кресло преподавателя', specs: 'Эргономичное, кожа', qty: '1 шт.', price: '25000 руб.', reason: 'Комфорт', priority: 'Обязательная' },
+            { name: 'Монитор 27" 2K', specs: 'IPS', qty: '1 шт.', price: '32000 руб.', reason: 'Чёткая картинка', priority: 'Обязательная' },
+            { name: 'Парты регулируемые', specs: '1200x500', qty: '21 шт.', price: '7000/шт', reason: 'Правильная посадка', priority: 'Обязательная' },
+            { name: 'Мониторы 24"', specs: 'Full HD', qty: '21 шт.', price: '15000/шт', reason: 'Снижение нагрузки на зрение', priority: 'Обязательная' },
+            { name: 'Стулья эргономичные', specs: 'Регулировка', qty: '42 шт.', price: '5000/шт', reason: 'Поддержка поясницы', priority: 'Обязательная' }
         ],
         photos: [
             { path: 'images/audit_1.jpg', caption: 'Отсутствие зоны отдыха', finding: 'Нет места для перерыва' },
@@ -470,146 +484,94 @@
         checklist: {}
     };
 
-    // Вспомогательный рендер
+    function byId(id) { return document.getElementById(id); }
+    function escapeHtml(s) { return String(s || '').replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
     function renderTeam() {
-        const container = document.getElementById('teamList');
-        container.innerHTML = state.team.map((m, idx) => `
-            <div class="dynamic-row" style="padding: 14px;">
-                <div class="row-head"><strong>${m.name}</strong> — ${m.role}</div>
-                <div>Обязанности: ${m.duties}</div>
-                <div><em>Вывод: ${m.conclusion}</em></div>
-            </div>
-        `).join('');
+        const container = byId('teamList');
+        container.innerHTML = state.team.map((m, idx) => `<div class="dynamic-row" style="padding:14px;"><div class="row-head"><strong>${escapeHtml(m.name)}</strong> — ${escapeHtml(m.role)}</div><div>Обязанности: ${escapeHtml(m.duties)}</div><div><em>Вывод: ${escapeHtml(m.conclusion)}</em></div></div>`).join('');
     }
     function renderEquipment() {
-        const container = document.getElementById('equipmentList');
-        container.innerHTML = state.equipment.map(eq => `
-            <div class="dynamic-row" style="padding: 12px;">
-                <div><strong>${eq.name}</strong> (${eq.qty}) — ${eq.price}</div>
-                <div>${eq.reason}</div>
-                <div>Приоритет: ${eq.priority}</div>
-            </div>
-        `).join('');
+        const container = byId('equipmentList');
+        container.innerHTML = state.equipment.map(eq => `<div class="dynamic-row" style="padding:12px;"><div><strong>${escapeHtml(eq.name)}</strong> (${escapeHtml(eq.qty)}) — ${escapeHtml(eq.price)}</div><div>${escapeHtml(eq.reason)}</div><div>Приоритет: ${escapeHtml(eq.priority)}</div></div>`).join('');
     }
     function renderPhotos() {
-        const container = document.getElementById('photoList');
-        container.innerHTML = state.photos.map(p => `
-            <div class="media-card">
-                <div class="media-preview" style="background:#03081a; border-radius: 20px; padding: 8px; text-align:center;">📸 Предпросмотр: ${p.caption}</div>
-                <p><strong>${p.caption}</strong><br>Вывод: ${p.finding}</p>
-                <small class="pill">Путь: ${p.path}</small>
-            </div>
-        `).join('');
+        const container = byId('photoList');
+        container.innerHTML = state.photos.map(p => `<div class="media-card"><div class="media-preview" style="background:#03081a; border-radius:20px; padding:8px; text-align:center;">📸 ${escapeHtml(p.caption)}</div><p><strong>${escapeHtml(p.caption)}</strong><br>Вывод: ${escapeHtml(p.finding)}</p><small class="pill">${escapeHtml(p.path)}</small></div>`).join('');
     }
     function renderVisuals() {
-        const container = document.getElementById('visualList');
-        container.innerHTML = state.visuals.map(v => `
-            <div class="media-card">
-                <div class="media-preview" style="background:#030c1a; border-radius: 20px; padding: 8px;">🎨 ${v.prompt.substring(0,80)}</div>
-                <p><strong>Назначение:</strong> ${v.purpose}</p>
-                <small>Доказывает: ${v.criteria}</small>
-            </div>
-        `).join('');
+        const container = byId('visualList');
+        container.innerHTML = state.visuals.map(v => `<div class="media-card"><div class="media-preview" style="background:#030c1a; border-radius:20px; padding:8px;">🎨 ${escapeHtml(v.prompt)}</div><p><strong>Назначение:</strong> ${escapeHtml(v.purpose)}</p><small>Доказывает: ${escapeHtml(v.criteria)}</small></div>`).join('');
     }
-
-    // Чек-лист
-    const checklistGroups = [
-        { title: 'Объект и доказательства', items: ['Выбран конкретный объект', 'Есть реальные фотографии', 'Проблемы подтверждены наблюдениями'] },
-        { title: 'Пользователи и сценарии', items: ['Описана целевая аудитория', 'Основные задачи учтены', 'Ограничения помещения указаны'] },
-        { title: 'Оборудование', items: ['Оборудование под задачи', 'Указана стоимость', 'Учтены расходники'] },
-        { title: 'Эргономика и сеть', items: ['Улучшения без бюджета', 'Зона отдыха продумана', 'Сетевые розетки и Wi-Fi'] }
-    ];
     function buildChecklist() {
-        const container = document.getElementById('qualityChecklist');
+        const container = byId('qualityChecklist');
         container.innerHTML = '';
         let idx = 0;
         checklistGroups.forEach(g => {
-            const card = document.createElement('div');
-            card.className = 'check-card';
-            card.innerHTML = `<h3>${g.title}</h3>`;
+            const card = document.createElement('div'); card.className = 'check-card';
+            card.innerHTML = `<h3>${escapeHtml(g.title)}</h3>`;
             g.items.forEach(item => {
                 const key = `check_${idx++}`;
                 const checked = state.checklist[key] ? 'checked' : '';
-                card.innerHTML += `<label class="check-item"><input type="checkbox" data-check="${key}" ${checked}> <span>${item}</span></label>`;
+                card.innerHTML += `<label class="check-item"><input type="checkbox" data-check="${key}" ${checked}> <span>${escapeHtml(item)}</span></label>`;
             });
             container.appendChild(card);
         });
-        attachCheckEvents();
+        document.querySelectorAll('[data-check]').forEach(cb => cb.addEventListener('change', function(e) {
+            state.checklist[this.dataset.check] = this.checked;
+            updateChecklistSummary();
+            saveDraft();
+        }));
         updateChecklistSummary();
-    }
-    function attachCheckEvents() {
-        document.querySelectorAll('[data-check]').forEach(cb => {
-            cb.removeEventListener('change', handleCheckChange);
-            cb.addEventListener('change', handleCheckChange);
-        });
-    }
-    function handleCheckChange(e) {
-        const key = e.target.dataset.check;
-        state.checklist[key] = e.target.checked;
-        updateChecklistSummary();
-        saveDraft();
     }
     function updateChecklistSummary() {
         const all = document.querySelectorAll('[data-check]');
         const checked = document.querySelectorAll('[data-check]:checked');
-        const total = all.length;
-        const done = checked.length;
-        const percent = total ? Math.round((done / total) * 100) : 0;
-        document.getElementById('doneCount').innerText = done;
-        document.getElementById('totalCount').innerText = total;
-        document.getElementById('readyPercent').innerText = percent + '%';
-        document.getElementById('scoreFill').style.width = percent + '%';
-        document.getElementById('readyStatus').innerText = percent >= 85 ? 'Готов к защите' : (percent >= 50 ? 'Доработать' : 'Требуется внимание');
+        const total = all.length, done = checked.length;
+        const percent = total ? Math.round((done/total)*100) : 0;
+        byId('doneCount').innerText = done;
+        byId('totalCount').innerText = total;
+        byId('readyPercent').innerText = percent + '%';
+        byId('scoreFill').style.width = percent + '%';
+        byId('readyStatus').innerText = percent >= 85 ? 'Готов к защите' : (percent >= 50 ? 'Доработать' : 'Требуется внимание');
     }
-
-    // Сохранение в localStorage (текстовые поля)
-    function captureTextFields() {
+    function captureState() { /* упрощённо: сохраняем только чеклист и текстовые поля */
         const ids = ['projectTitle','objectType','roomNumber','audience','uniqueness','projectGoal','noBudgetPlan','budgetPlan','tco','workplaceErgo','restZone','serverNode','safetyAccess','finalProjectConclusion','implementationPlan'];
-        const data = {};
-        ids.forEach(id => { data[id] = document.getElementById(id)?.value || ''; });
-        data.checklist = state.checklist;
-        localStorage.setItem('rosswell_project_draft', JSON.stringify(data));
+        const fields = {};
+        ids.forEach(id => fields[id] = byId(id).value);
+        document.querySelectorAll('[data-check]').forEach(cb => { state.checklist[cb.dataset.check] = cb.checked; });
+        fields.checklist = state.checklist;
+        localStorage.setItem(storageKey, JSON.stringify(fields));
     }
-    function loadTextFields() {
-        const raw = localStorage.getItem('rosswell_project_draft');
+    function loadDraft() {
+        const raw = localStorage.getItem(storageKey);
         if (!raw) return;
         try {
             const saved = JSON.parse(raw);
-            Object.keys(saved).forEach(key => {
-                if (key === 'checklist') {
-                    state.checklist = saved.checklist || {};
-                } else {
-                    const el = document.getElementById(key);
-                    if (el) el.value = saved[key];
-                }
+            Object.entries(saved).forEach(([key, val]) => {
+                if (key === 'checklist') { state.checklist = val || {}; }
+                else { const el = byId(key); if(el) el.value = val; }
             });
-            if (saved.checklist) buildChecklist();
+            if (saved.checklist) {
+                document.querySelectorAll('[data-check]').forEach(cb => { cb.checked = !!state.checklist[cb.dataset.check]; });
+                updateChecklistSummary();
+            }
         } catch(e) {}
     }
-    function saveDraft() { captureTextFields(); }
-    function clearDraft() {
-        if (confirm('Очистить весь черновик?')) {
-            localStorage.removeItem('rosswell_project_draft');
-            location.reload();
-        }
-    }
-
-    document.getElementById('saveBtn').addEventListener('click', () => { saveDraft(); alert('Черновик сохранён'); });
-    document.getElementById('clearBtn').addEventListener('click', clearDraft);
+    function saveDraft() { captureState(); alert('Черновик сохранён'); }
+    function clearDraft() { if(confirm('Очистить черновик?')) { localStorage.removeItem(storageKey); location.reload(); } }
+    byId('saveBtn').addEventListener('click', saveDraft);
+    byId('clearBtn').addEventListener('click', clearDraft);
 
     // инициализация
-    renderTeam();
-    renderEquipment();
-    renderPhotos();
-    renderVisuals();
-    loadTextFields();
-    buildChecklist();
-
+    renderTeam(); renderEquipment(); renderPhotos(); renderVisuals(); buildChecklist(); loadDraft();
     // автосохранение при изменении полей
-    document.querySelectorAll('input, textarea, select').forEach(field => {
-        field.addEventListener('input', () => saveDraft());
-        field.addEventListener('change', () => saveDraft());
-    });
+    document.querySelectorAll('input, textarea, select').forEach(f => f.addEventListener('input', () => captureState()));
+    // принудительная установка паспорта
+    byId('projectTitle').value = 'Модернизация аудитории 6107';
+    byId('objectType').value = 'Учебная аудитория';
+    byId('roomNumber').value = 'Корпус ФЭМ / аудитория 6107';
+    byId('audience').value = 'Студенты, преподаватели';
 </script>
 </body>
 </html>
