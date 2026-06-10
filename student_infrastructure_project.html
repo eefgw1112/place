@@ -560,7 +560,7 @@
 
     <section class="section">
       <h2>4. Полевой аудит и реальные фотографии</h2>
-      <p class="lead">Посетите выбранное место лично. Добавьте фотографии текущего состояния, подписи и выводы.</p>
+      <p class="lead">Посетите выбранное место лично. Добавьте фотографии текущего состояния, подписи и выводы. Файлы должны лежать по указанным путям (папка <code>images</code>).</p>
       <div id="photoList" class="media-grid"></div>
     </section>
 
@@ -676,8 +676,8 @@ function escapeHtml(v){ return String(v||'').replace(/[&<>]/g, c => ({'&':'&amp;
 
 // Массив путей к фото для каждого участника (индексы 0..5)
 const memberPhotoPaths = [
-  'Cosmos/IMG_1416.webp',  // участник 1
-  'Cosmos/IMG_1416.webp',  // участник 2 (по условию такая же)
+  'Cosmos/IMG_1418.jpeg',  // участник 1 — изменено на IMG_1418.jpeg
+  'Cosmos/IMG_1416.webp',  // участник 2
   'Cosmos/IMG_1419.jpeg',  // участник 3
   'Cosmos/IMG_1420.jpeg',  // участник 4
   'Cosmos/IMG_1423.jpeg',  // участник 5
@@ -692,14 +692,12 @@ function renderTeam(){
     const row = document.createElement('div');
     row.className = 'dynamic-row';
     const photoUrl = memberPhotoPaths[idx];
-    // Создаём div с фоновым изображением и обработчиком ошибки
     const squareDiv = document.createElement('div');
     squareDiv.className = 'member-photo';
     squareDiv.style.backgroundImage = `url('${escapeHtml(photoUrl)}')`;
     squareDiv.style.backgroundSize = 'cover';
     squareDiv.style.backgroundPosition = 'center';
     squareDiv.title = `Фото: ${member.name}`;
-    // Обработчик ошибки: если фото не загрузилось, показываем инициалы и градиент
     squareDiv.onerror = function() {
       this.style.backgroundImage = 'none';
       this.classList.add('fallback');
@@ -710,12 +708,9 @@ function renderTeam(){
       this.style.fontSize = '28px';
       this.style.fontWeight = 'bold';
     };
-    // Для синхронного отображения: если изображение уже кешировано и загружено, то текст не нужен
-    // Но если загрузится позже, то onerror сработает. Также проверим complete.
     if (squareDiv.complete && (squareDiv.naturalWidth === 0 || squareDiv.naturalHeight === 0)) {
       squareDiv.onerror();
     }
-    
     const rowHead = document.createElement('div');
     rowHead.className = 'row-head';
     rowHead.appendChild(squareDiv);
@@ -723,7 +718,6 @@ function renderTeam(){
     titleSpan.className = 'row-title';
     titleSpan.textContent = `Участник ${idx+1}`;
     rowHead.appendChild(titleSpan);
-    
     const miniGrid = document.createElement('div');
     miniGrid.className = 'mini-grid';
     miniGrid.innerHTML = `
@@ -733,7 +727,6 @@ function renderTeam(){
     `;
     const conclusionDiv = document.createElement('div');
     conclusionDiv.innerHTML = `<label class="caption">Личный вывод</label><textarea class="small" data-team="${idx}" data-field="conclusion">${escapeHtml(member.conclusion)}</textarea>`;
-    
     row.appendChild(rowHead);
     row.appendChild(miniGrid);
     row.appendChild(conclusionDiv);
@@ -764,19 +757,64 @@ function renderEquipment(){
   });
 }
 
+// Функция создания превью с реальной картинкой (если есть) или заглушкой
+function createImagePreview(src, alt, errorText) {
+  const container = document.createElement('div');
+  container.className = 'media-preview';
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = alt;
+  img.style.maxWidth = '100%';
+  img.style.maxHeight = '200px';
+  img.onerror = () => {
+    container.innerHTML = `<div style="padding:20px;">⚠️ ${escapeHtml(errorText || 'Файл не найден')}<br>Путь: ${escapeHtml(src)}</div>`;
+    container.style.flexDirection = 'column';
+  };
+  container.appendChild(img);
+  return container;
+}
+
 function renderPhotos(){
   const list = byId('photoList');
   list.innerHTML = '';
   state.photos.forEach((photo, idx) => {
     const card = document.createElement('div');
     card.className = 'media-card';
+    const preview = createImagePreview(photo.path, `Фото ${idx+1}`, `Файл не найден: ${photo.path}<br>Поместите фото в папку images/`);
     card.innerHTML = `
       <div class="row-head"><h3>Фото текущего состояния ${idx+1}</h3></div>
-      <div class="media-preview">⚠️ Файл не найден: ${escapeHtml(photo.path)}<br>Поместите фото в папку images/</div>
-      <label class="caption">Путь к файлу</label><input class="field" data-photo="${idx}" data-field="path" value="${escapeHtml(photo.path)}">
-      <label class="caption">Подпись</label><input class="field" data-photo="${idx}" data-field="caption" value="${escapeHtml(photo.caption)}">
-      <label class="caption">Вывод</label><textarea class="small" data-photo="${idx}" data-field="finding">${escapeHtml(photo.finding)}</textarea>
     `;
+    card.appendChild(preview);
+    const pathInput = document.createElement('label');
+    pathInput.className = 'caption';
+    pathInput.textContent = 'Путь к файлу';
+    const pathField = document.createElement('input');
+    pathField.className = 'field';
+    pathField.setAttribute('data-photo', idx);
+    pathField.setAttribute('data-field', 'path');
+    pathField.value = photo.path;
+    const captionLabel = document.createElement('label');
+    captionLabel.className = 'caption';
+    captionLabel.textContent = 'Подпись';
+    const captionField = document.createElement('input');
+    captionField.className = 'field';
+    captionField.setAttribute('data-photo', idx);
+    captionField.setAttribute('data-field', 'caption');
+    captionField.value = photo.caption;
+    const findingLabel = document.createElement('label');
+    findingLabel.className = 'caption';
+    findingLabel.textContent = 'Вывод';
+    const findingField = document.createElement('textarea');
+    findingField.className = 'small';
+    findingField.setAttribute('data-photo', idx);
+    findingField.setAttribute('data-field', 'finding');
+    findingField.value = photo.finding;
+    card.appendChild(pathInput);
+    card.appendChild(pathField);
+    card.appendChild(captionLabel);
+    card.appendChild(captionField);
+    card.appendChild(findingLabel);
+    card.appendChild(findingField);
     list.appendChild(card);
   });
 }
@@ -787,14 +825,51 @@ function renderVisuals(){
   state.visuals.forEach((vis, idx) => {
     const card = document.createElement('div');
     card.className = 'media-card';
+    const preview = createImagePreview(vis.path, `Визуализация ${idx+1}`, `Файл не найден: ${vis.path}<br>Поместите изображение в папку images/`);
     card.innerHTML = `
       <div class="row-head"><h3>AI-визуализация ${idx+1}</h3></div>
-      <div class="media-preview">⚠️ Файл не найден: ${escapeHtml(vis.path)}<br>Поместите изображение в папку images/</div>
-      <label class="caption">Путь к файлу</label><input class="field" data-visual="${idx}" data-field="path" value="${escapeHtml(vis.path)}">
-      <label class="caption">Промпт</label><textarea class="small" data-visual="${idx}" data-field="prompt">${escapeHtml(vis.prompt)}</textarea>
-      <label class="caption">Назначение</label><input class="field" data-visual="${idx}" data-field="purpose" value="${escapeHtml(vis.purpose)}">
-      <label class="caption">Что доказывает</label><textarea class="small" data-visual="${idx}" data-field="criteria">${escapeHtml(vis.criteria)}</textarea>
     `;
+    card.appendChild(preview);
+    const pathLabel = document.createElement('label');
+    pathLabel.className = 'caption';
+    pathLabel.textContent = 'Путь к файлу';
+    const pathField = document.createElement('input');
+    pathField.className = 'field';
+    pathField.setAttribute('data-visual', idx);
+    pathField.setAttribute('data-field', 'path');
+    pathField.value = vis.path;
+    const promptLabel = document.createElement('label');
+    promptLabel.className = 'caption';
+    promptLabel.textContent = 'Промпт';
+    const promptField = document.createElement('textarea');
+    promptField.className = 'small';
+    promptField.setAttribute('data-visual', idx);
+    promptField.setAttribute('data-field', 'prompt');
+    promptField.value = vis.prompt;
+    const purposeLabel = document.createElement('label');
+    purposeLabel.className = 'caption';
+    purposeLabel.textContent = 'Назначение';
+    const purposeField = document.createElement('input');
+    purposeField.className = 'field';
+    purposeField.setAttribute('data-visual', idx);
+    purposeField.setAttribute('data-field', 'purpose');
+    purposeField.value = vis.purpose;
+    const criteriaLabel = document.createElement('label');
+    criteriaLabel.className = 'caption';
+    criteriaLabel.textContent = 'Что доказывает';
+    const criteriaField = document.createElement('textarea');
+    criteriaField.className = 'small';
+    criteriaField.setAttribute('data-visual', idx);
+    criteriaField.setAttribute('data-field', 'criteria');
+    criteriaField.value = vis.criteria;
+    card.appendChild(pathLabel);
+    card.appendChild(pathField);
+    card.appendChild(promptLabel);
+    card.appendChild(promptField);
+    card.appendChild(purposeLabel);
+    card.appendChild(purposeField);
+    card.appendChild(criteriaLabel);
+    card.appendChild(criteriaField);
     list.appendChild(card);
   });
 }
