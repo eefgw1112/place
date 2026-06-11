@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Инструкция по HTML и работе с ИИ</title>
+  <title>Два заголовка и места для фотографий</title>
   <style>
     :root{
       --bg:#0a0a1a; --card:#111128; --text:#e0e0ff; --muted:#8888aa; --line:#222244;
@@ -17,15 +17,16 @@
     *{box-sizing:border-box}
     body{
       margin:0;
+      min-height:100vh;
       font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
       color:var(--text);
+      position:relative;
       background: radial-gradient(ellipse at 20% 30%, #0d0d2b, #050510);
       line-height:1.58;
       overflow-x:hidden;
-      position:relative;
     }
     
-    /* Звёздный фон (статичные звёзды) */
+    /* Звёздный фон */
     body::before{
       content:"";
       position:fixed;
@@ -123,6 +124,37 @@
       100%{transform:translate(0,0) scale(1);}
     }
     
+    /* Плавающие частицы */
+    .floating-circles{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      z-index:-1;
+      pointer-events:none;
+    }
+    .circle{
+      position:absolute;
+      background:rgba(255,51,102,0.15);
+      border-radius:50%;
+      filter:blur(40px);
+      animation:drift 20s infinite linear;
+    }
+    .circle:nth-child(1){width:300px;height:300px;top:10%;left:-10%;opacity:0.5;animation-duration:25s;}
+    .circle:nth-child(2){width:200px;height:200px;bottom:15%;right:-5%;opacity:0.4;animation-duration:30s;animation-delay:-5s;}
+    .circle:nth-child(3){width:350px;height:350px;top:40%;left:60%;opacity:0.3;animation-duration:35s;animation-delay:-10s;}
+    .circle:nth-child(4){width:150px;height:150px;top:70%;left:20%;opacity:0.35;animation-duration:22s;animation-delay:-3s;}
+    .circle:nth-child(5){width:250px;height:250px;top:20%;right:20%;opacity:0.25;animation-duration:28s;animation-delay:-7s;}
+    .circle:nth-child(6){width:180px;height:180px;bottom:30%;left:40%;opacity:0.3;animation-duration:32s;}
+    
+    @keyframes drift{
+      0%{transform:translate(0,0) rotate(0deg);}
+      33%{transform:translate(2%,-2%) rotate(120deg);}
+      66%{transform:translate(-1%,1.5%) rotate(240deg);}
+      100%{transform:translate(0,0) rotate(360deg);}
+    }
+    
     /* Падающие звёзды */
     .shooting-stars{
       position:fixed;
@@ -184,142 +216,108 @@
     .shooting-star:nth-child(11){top:5%; left:45%; animation-delay:1s; animation-duration:2.6s; height:85px;}
     .shooting-star:nth-child(12){top:55%; left:85%; animation-delay:2.8s; animation-duration:3.3s; height:95px;}
     
-    /* МЕРКУРИЙ (локальная фотография) */
-    .mercury{
+    /* Декоративная планета (можно заменить на свою) */
+    .planet{
       position:fixed;
       top:40px;
       right:40px;
-      width:140px;
-      height:140px;
+      width:120px;
+      height:120px;
       border-radius:50%;
-      background-image:url('Cosmos/IMG_1430.webp');
+      background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png');
       background-size:cover;
       background-position:center;
-      box-shadow:0 0 20px rgba(200,180,140,0.5), 0 0 40px rgba(180,150,100,0.3);
+      box-shadow:0 0 20px rgba(255,200,100,0.5), 0 0 40px rgba(255,160,80,0.3);
       z-index:0;
       pointer-events:none;
       transition:transform 0.1s ease-out;
     }
     
     .wrap{
-      max-width:1100px;
+      max-width:1000px;
       margin:0 auto;
-      padding:28px 18px 56px;
+      padding:40px 24px 80px;
       position:relative;
       z-index:2;
     }
-    .hero{
-      background:linear-gradient(135deg, rgba(255,51,102,0.2) 0%, rgba(100,80,255,0.2) 100%);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,51,102,0.3);
-      color:#fff; border-radius:28px; padding:28px 26px; box-shadow:var(--shadow);
-      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    
+    /* Стили для заголовков и блоков с фото */
+    .title-block {
+      margin-bottom: 48px;
     }
-    .hero:hover{
-      transform:translateY(-3px);
-      box-shadow:0 20px 40px rgba(255,51,102,0.2);
+    .title-block h2 {
+      font-size: 32px;
+      margin: 0 0 20px 0;
+      color: #ffddaa;
+      border-left: 4px solid #ff6699;
+      padding-left: 20px;
+      letter-spacing: -0.3px;
     }
-    .eyebrow{
-      display:inline-block; padding:7px 12px; border-radius:999px;
-      background:rgba(255,51,102,0.2); border:1px solid rgba(255,51,102,0.4);
-      font-size:13px; font-weight:700; letter-spacing:.02em; margin-bottom:14px;
-      transition:background 0.2s ease, transform 0.2s ease;
+    .photo-place {
+      background: rgba(20, 20, 45, 0.6);
+      backdrop-filter: blur(8px);
+      border: 2px dashed rgba(255, 51, 102, 0.4);
+      border-radius: 28px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.25s ease;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    .hero:hover .eyebrow{
-      background:rgba(255,51,102,0.3);
-      transform:translateX(3px);
+    .photo-place:hover {
+      border-color: #ff6699;
+      background: rgba(30, 30, 70, 0.7);
+      transform: translateY(-4px);
     }
-    h1{margin:0;font-size:clamp(28px,4vw,42px);line-height:1.08;}
-    .hero p{margin:14px 0 0;max-width:860px;font-size:17px;opacity:.98;}
-    .nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
-    .btn{
-      text-decoration:none;display:inline-flex;align-items:center;justify-content:center;
-      padding:11px 16px;border-radius:14px;font-weight:700;transition:all 0.25s ease;
-      border:1px solid transparent;
+    .photo-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      opacity: 0.7;
     }
-    .btn.primary{background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%); color:#fff;}
-    .btn.secondary{background:rgba(20,20,45,0.8); color:#ff6699; border-color:rgba(255,51,102,0.4);}
-    .btn.secondary:hover{background:rgba(255,51,102,0.2); transform:translateY(-2px);}
-    .btn.primary:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(255,51,102,0.4);}
-    .section{
-      margin-top:18px; background:rgba(17,17,40,0.8);
-      backdrop-filter:blur(5px);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      border:1px solid rgba(100,80,255,0.2);
-      padding:24px 22px;
-      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    .photo-place p {
+      margin: 12px 0 0;
+      color: #aaaacc;
+      font-size: 15px;
     }
-    .section:hover{
-      transform:translateY(-2px);
-      box-shadow:0 18px 40px rgba(0,0,0,.3);
-      border-color:rgba(255,51,102,0.3);
+    .photo-place img {
+      max-width: 100%;
+      max-height: 280px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      display: block;
+      margin: 0 auto;
     }
-    .section h2{margin:0 0 10px;font-size:26px;line-height:1.15;}
-    .lead{margin:0 0 14px;color:var(--muted);font-size:16px;}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .card{
-      border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:16px;
-      background:rgba(20,20,45,0.6);
-      backdrop-filter:blur(4px);
-      transition:transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.25s ease, border-color 0.2s ease;
+    .photo-caption {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #ffccaa;
+      font-style: italic;
     }
-    .card:hover{
-      transform:translateY(-8px) scale(1.01);
-      box-shadow:0 24px 40px rgba(0,0,0,0.4);
-      border-color:#ff3366;
+    
+    /* Кнопка назад */
+    .back-link {
+      display: inline-block;
+      margin-top: 50px;
+      padding: 12px 24px;
+      background: rgba(20,20,45,0.7);
+      border: 1px solid rgba(255,51,102,0.4);
+      border-radius: 40px;
+      color: #ffb6c1;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
-    .card h3{margin:0 0 8px;font-size:19px;}
-    .card p{margin:0;color:var(--muted);}
-    .steps{display:grid;gap:12px;}
-    .step{
-      display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:flex-start;
-      border:1px solid rgba(100,80,255,0.2); border-radius:18px; padding:14px;
-      transition:all 0.25s ease;
-      background:rgba(17,17,40,0.5);
+    .back-link:hover {
+      background: rgba(255,51,102,0.2);
+      transform: translateY(-2px);
     }
-    .step:hover{
-      border-color:#ff3366;
-      background:rgba(30,30,60,0.7);
-      transform:translateX(6px);
-      box-shadow:0 8px 20px rgba(255,51,102,0.15);
-    }
-    .num{
-      width:52px;height:52px;border-radius:16px;
-      background:linear-gradient(135deg,#ff3366 0%, #ff6699 100%);
-      color:#fff;
-      display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;
-      box-shadow:0 2px 8px rgba(255,51,102,0.3);
-      transition:all 0.2s ease;
-    }
-    .step:hover .num{
-      transform:scale(1.05);
-      box-shadow:0 4px 14px rgba(255,51,102,0.5);
-    }
-    .note{
-      border-radius:18px; padding:16px 18px;
-      border:1px solid rgba(255,51,102,0.3);
-      background:rgba(255,51,102,0.1);
-      transition:all 0.25s ease;
-    }
-    .note:hover{
-      background:rgba(255,51,102,0.15);
-      transform:translateY(-3px);
-      box-shadow:0 12px 24px rgba(255,51,102,0.1);
-    }
-    .note strong{color:#ff6699;}
-    .warn{
-      border-radius:18px; padding:16px 18px;
-      border:1px solid rgba(80,80,120,0.5);
-      background:rgba(30,30,60,0.6);
-    }
-    .warn strong{color:#ffccaa;}
-    pre{white-space:pre-wrap;background:#0a0a20;color:#e0e0ff;padding:14px;border-radius:16px;overflow:auto;font-size:14px;border:1px solid #334;}
-    ul{margin:0;padding-left:20px;}
-    li{margin:8px 0;}
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr;}
-      .mercury{width:90px;height:90px;top:20px;right:20px;}
+    
+    @media (max-width: 700px){
+      .planet{width:80px;height:80px;top:20px;right:20px;}
+      .title-block h2{font-size:26px;}
+      .photo-place{padding:20px; min-height: 240px;}
     }
   </style>
 </head>
@@ -330,6 +328,13 @@
     <div class="gradient-2"></div>
     <div class="gradient-3"></div>
   </div>
+  
+  <!-- Плавающие частицы -->
+  <div class="floating-circles">
+    <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+    <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+  </div>
+  
   <!-- Падающие звёзды -->
   <div class="shooting-stars">
     <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
@@ -337,153 +342,53 @@
     <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
     <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
   </div>
-  <!-- МЕРКУРИЙ (локальная фотография) -->
-  <div class="mercury"></div>
+
+  <!-- Декоративная планета -->
+  <div class="planet"></div>
 
   <div class="wrap">
-    <section class="hero">
-      <div class="eyebrow">Инструкция</div>
-      <h1>Как редактировать HTML-файлы и использовать ИИ как помощника</h1>
-      <p>Эта страница поможет аккуратно работать с шаблонами, не ломать структуру HTML, правильно выбирать редактор и использовать ИИ для доработки текста, структуры и оформления.</p>
-      <div class="nav">
-        <a class="btn primary" href="student_checklist_interactive.html">Открыть чек-лист</a>
-        <a class="btn secondary" href="student_report_template.html">Открыть шаблон отчёта</a>
-        <a class="btn secondary" href="student_infrastructure_project.html">Проект оборудования</a>
-        <a class="btn secondary" href="index.html">Главная страница</a>
-        <a class="btn secondary" href="student_publish_site_guide.html">Публикация сайта</a>
+    
+    <!-- ПЕРВЫЙ ЗАГОЛОВОК -->
+    <div class="title-block">
+      <h2>✨ Первый заголовок: текущее состояние пространства</h2>
+      <div class="photo-place">
+        <div class="photo-icon">🖼️</div>
+        <!-- СЮДА ВСТАВЬТЕ ВАШУ ПЕРВУЮ ФОТОГРАФИЮ -->
+        <!-- Пример: <img src="images/my_photo_1.jpg" alt="Описание фото"> -->
+        <p><strong>Место для вашей первой фотографии</strong><br>Замените этот текст на тег &lt;img&gt; с путём к вашему файлу.</p>
+        <div class="photo-caption">Подпись к первому фото: что изображено, какие проблемы видны</div>
       </div>
-    </section>
-
-    <section class="section">
-      <h2>С чего начать</h2>
-      <div class="steps">
-        <div class="step"><div class="num">1</div><div><h3>Скачайте нужный HTML-файл</h3><p class="lead">Для итоговой работы используйте шаблон отчёта. Для анализа — интерактивный чек-лист.</p></div></div>
-        <div class="step"><div class="num">2</div><div><h3>Откройте файл в обычном текстовом редакторе</h3><p class="lead">Лучше использовать Visual Studio Code, Sublime Text, BBEdit, Notepad++ или аналогичный редактор, который работает с plain text.</p></div></div>
-        <div class="step"><div class="num">3</div><div><h3>Меняйте только содержательные блоки</h3><p class="lead">Заполняйте заголовки, абзацы, списки и подписи. Если вы пока не уверены в коде, не трогайте теги style, script и сложные структурные блоки.</p></div></div>
-        <div class="step"><div class="num">4</div><div><h3>Сохраняйте файл именно как .html</h3><p class="lead">Важно, чтобы редактор сохранял файл в plain text, а не в формате RTF или DOCX.</p></div></div>
-        <div class="step"><div class="num">5</div><div><h3>Открывайте файл в браузере</h3><p class="lead">После сохранения откройте HTML в браузере и проверьте, как он выглядит визуально.</p></div></div>
+    </div>
+    
+    <!-- ВТОРОЙ ЗАГОЛОВОК -->
+    <div class="title-block">
+      <h2>🚀 Второй заголовок: предложения по улучшению</h2>
+      <div class="photo-place">
+        <div class="photo-icon">📸</div>
+        <!-- СЮДА ВСТАВЬТЕ ВАШУ ВТОРУЮ ФОТОГРАФИЮ -->
+        <!-- Пример: <img src="images/my_photo_2.jpg" alt="Описание фото"> -->
+        <p><strong>Место для вашей второй фотографии</strong><br>Замените этот текст на тег &lt;img&gt; с путём к вашему файлу.</p>
+        <div class="photo-caption">Подпись ко второму фото: как должно стать или пример улучшения</div>
       </div>
-    </section>
-
-    <section class="section">
-      <h2>Какие редакторы подходят</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Подходящие варианты</h3>
-          <ul>
-            <li>Visual Studio Code</li>
-            <li>Sublime Text</li>
-            <li>BBEdit</li>
-            <li>Notepad++</li>
-            <li>CotEditor</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Что важно</h3>
-          <ul>
-            <li>Файл должен быть сохранён как plain text</li>
-            <li>Расширение файла — .html</li>
-            <li>Кодировка — UTF-8</li>
-            <li>После правок файл нужно проверить в браузере</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Чего лучше не делать</h2>
-      <div class="warn">
-        <strong>Осторожно:</strong> не редактируйте HTML как rich text документ. Если файл сохраняется как RTF, DOCX или Pages-документ, браузер не откроет его корректно как веб-страницу.
-      </div>
-      <div class="grid" style="margin-top:14px;">
-        <div class="card">
-          <h3>Неудачные действия</h3>
-          <ul>
-            <li>Сначала сохранить документ как rich text, а потом просто переименовать в .html</li>
-            <li>Удалять случайные теги вроде &lt;div&gt;, &lt;section&gt;, &lt;/body&gt;, &lt;/html&gt;</li>
-            <li>Редактировать CSS или JavaScript без понимания, что именно меняется</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Безопасные действия</h3>
-          <ul>
-            <li>Менять текст внутри абзацев, заголовков и списков</li>
-            <li>Добавлять свои ответы в специально выделенные блоки</li>
-            <li>Сохранять копию файла перед крупными правками</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Как использовать ИИ как помощника</h2>
-      <p class="lead">ИИ можно использовать как инструмент для формулировок, структуры, улучшения языка, помощи с HTML и проверки логики отчёта. При этом наблюдения, фотографии, выводы и смысловое содержание работы должны оставаться вашими.</p>
-      <div class="grid">
-        <div class="card">
-          <h3>Что можно поручить ИИ</h3>
-          <ul>
-            <li>Улучшить формулировки текста</li>
-            <li>Сделать выводы яснее и логичнее</li>
-            <li>Помочь вставить текст в HTML-шаблон</li>
-            <li>Подсказать, как оформить блоки или списки</li>
-            <li>Проверить, не слишком ли расплывчаты ваши выводы</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Что нельзя перекладывать на ИИ полностью</h3>
-          <ul>
-            <li>Реальный аудит пространства</li>
-            <li>Наблюдения по фотографии или месту</li>
-            <li>Собственные выводы по удобству и организации</li>
-            <li>Оценку пригодности пространства под конкретные задачи</li>
-          </ul>
-        </div>
-      </div>
-      <h3 style="margin-top:16px;">Универсальный промпт для любой ИИ-модели</h3>
-      <pre>Помоги мне оформить мой отчёт по анализу рабочего пространства.
-Сохрани академический стиль, но сделай текст понятным и логичным.
-Не выдумывай факты, а опирайся только на мои данные.
-Помоги:
-1) улучшить формулировки;
-2) сделать выводы более чёткими;
-3) при необходимости вставить текст в HTML-шаблон, не ломая его структуру.
-
-Вот мои материалы:
-[вставьте свои наблюдения, баллы, выводы и фрагмент HTML при необходимости]</pre>
-    </section>
-
-    <section class="section">
-      <h2>Как построить итоговую работу</h2>
-      <div class="steps">
-        <div class="step"><div class="num">1</div><div><h3>Опишите объект анализа</h3><p class="lead">Что это за рабочее место и для каких задач оно используется.</p></div></div>
-        <div class="step"><div class="num">2</div><div><h3>Покажите результат чек-листа</h3><p class="lead">Итоговый балл, интерпретация, сильные стороны, проблемы.</p></div></div>
-        <div class="step"><div class="num">3</div><div><h3>Предложите улучшения</h3><p class="lead">Разделите их на быстрые решения без бюджета и решения, требующие вложений.</p></div></div>
-        <div class="step"><div class="num">4</div><div><h3>Добавьте визуальные материалы</h3><p class="lead">Фотографии, схему, примеры или референсы — так, чтобы они усиливали анализ, а не заменяли его.</p></div></div>
-      </div>
-      <div class="note" style="margin-top:14px;"><strong>Хороший результат</strong> — это не просто “красивый HTML”, а связный, самостоятельный и осмысленный анализ рабочего пространства.</div>
-    </section>
-  
-    <section class="section">
-      <h2>Следующий шаг: публикация готовой работы</h2>
-      <p class="lead">Когда HTML-страница уже собрана и проверена в браузере, её можно превратить в настоящий опубликованный мини-сайт.</p>
-      <div class="note"><strong>Продолжение маршрута:</strong> откройте отдельную инструкцию по созданию репозитория и публикации сайта через GitHub Pages.</div>
-      <div class="nav" style="margin-top:14px;">
-        <a class="btn primary" href="student_publish_site_guide.html">Открыть инструкцию по публикации</a>
-      </div>
-    </section>
-
+    </div>
+    
+    <!-- Кнопка для возврата (опционально) -->
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="index.html" class="back-link">← Вернуться на главную</a>
+    </div>
+    
   </div>
 
   <script>
-    // Параллакс-эффект для Меркурия
+    // Параллакс-эффект для планеты
     document.addEventListener('mousemove', (e) => {
       const x = e.clientX / window.innerWidth;
       const y = e.clientY / window.innerHeight;
-      const mercury = document.querySelector('.mercury');
-      if(mercury){
+      const planet = document.querySelector('.planet');
+      if(planet){
         const moveX = (x - 0.5) * 15;
         const moveY = (y - 0.5) * 10;
-        mercury.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        planet.style.transform = `translate(${moveX}px, ${moveY}px)`;
       }
     });
   </script>
