@@ -241,7 +241,7 @@
       justify-content:center;
       align-items:center;
     }
-    /* СОЛНЦЕ В ЦЕНТРЕ (уменьшено) */
+    /* СОЛНЦЕ В ЦЕНТРЕ (уменьшено, кликабельно) */
     .orbit-center{
       position:absolute;
       width:80px;
@@ -255,6 +255,12 @@
       top:50%;
       transform:translate(-50%, -50%);
       z-index:1;
+      cursor:pointer;                      /* курсор-указатель */
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .orbit-center:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 35px rgba(255,200,50,0.9);
     }
     /* Карточка планеты (уменьшена) */
     .planet-card{
@@ -298,7 +304,7 @@
     .planet5{top:50%; left:50%; transform:translate(-50%, -50%) translate(-147px, 85px);}
     .planet6{top:50%; left:50%; transform:translate(-50%, -50%) translate(-147px, -85px);}
     
-    /* ПЛАНЕТЫ (без изменений) */
+    /* ПЛАНЕТЫ */
     .planet-mercury{background-image:url('Cosmos/IMG_1430.webp');}
     .planet-mars{background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png');}
     .planet-saturn{background-image:url('Cosmos/IMG_1411.jpeg');}
@@ -427,7 +433,7 @@
     <section class="hero">
       <div class="eyebrow">Практическая работа</div>
       <h1>Аудит рабочего пространства и проект его улучшения</h1>
-      <p>Перед вами учебная мини-система, которая поможет пройти путь от анализа рабочего места до оформления собственного цифрового отчёта. Нажмите на любую планету, чтобы перейти к нужному разделу.</p>
+      <p>Перед вами учебная мини-система, которая поможет пройти путь от анализа рабочего места до оформления собственного цифрового отчёта. Нажмите на любую планету, чтобы перейти к нужному разделу. <strong>А если нажмёте на Солнце — попадёте на страницу владельца проекта.</strong></p>
     </section>
 
     <section class="section">
@@ -435,8 +441,8 @@
       <p class="lead">Нажмите на планету, чтобы перейти к соответствующему этапу</p>
       
       <div class="planets-orbit">
-        <!-- СОЛНЦЕ В ЦЕНТРЕ -->
-        <div class="orbit-center"></div>
+        <!-- СОЛНЦЕ В ЦЕНТРЕ (кликабельно, ведёт на owner.html) -->
+        <div class="orbit-center" data-sun-link="owner.html"></div>
         
         <!-- Меркурий - Инструкция -->
         <div class="planet-card planet1" data-link="student_html_guide.html">
@@ -505,11 +511,11 @@
       <div class="note"><strong>Ключевая идея:</strong> важно не просто перечислить недостатки рабочего места, а показать, как технические, эргономические и организационные решения влияют на удобство, эффективность и рациональность использования пространства.</div>
     </section>
 
-    <div class="footer">Работайте последовательно: инструкция → чек-лист → отчёт → проект → публикация.</div>
+    <div class="footer">Работайте последовательно: инструкция → чек-лист → отчёт → проект → публикация. <strong>☀️ Солнце ведёт на страницу владельца.</strong></div>
   </div>
 
   <script>
-    // Обработка кликов по планетам
+    // Обработка кликов по планетам (орбитальным карточкам)
     document.querySelectorAll('.planet-card').forEach(card => {
       card.addEventListener('click', function(e) {
         const link = this.getAttribute('data-link');
@@ -518,6 +524,17 @@
         }
       });
     });
+    
+    // Обработка клика по СОЛНЦУ — переход на owner.html
+    const sunElement = document.querySelector('.orbit-center');
+    if (sunElement) {
+      sunElement.addEventListener('click', function(e) {
+        const sunLink = this.getAttribute('data-sun-link');
+        if (sunLink) {
+          window.location.href = sunLink;
+        }
+      });
+    }
     
     // Параллакс-эффект для луны
     document.addEventListener('mousemove', (e) => {
