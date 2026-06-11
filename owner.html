@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Два заголовка и места для фотографий</title>
+  <title>Создатель и преподаватель</title>
   <style>
     :root{
       --bg:#0a0a1a; --card:#111128; --text:#e0e0ff; --muted:#8888aa; --line:#222244;
@@ -216,23 +216,6 @@
     .shooting-star:nth-child(11){top:5%; left:45%; animation-delay:1s; animation-duration:2.6s; height:85px;}
     .shooting-star:nth-child(12){top:55%; left:85%; animation-delay:2.8s; animation-duration:3.3s; height:95px;}
     
-    /* Декоративная планета (можно заменить на свою) */
-    .planet{
-      position:fixed;
-      top:40px;
-      right:40px;
-      width:120px;
-      height:120px;
-      border-radius:50%;
-      background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png');
-      background-size:cover;
-      background-position:center;
-      box-shadow:0 0 20px rgba(255,200,100,0.5), 0 0 40px rgba(255,160,80,0.3);
-      z-index:0;
-      pointer-events:none;
-      transition:transform 0.1s ease-out;
-    }
-    
     .wrap{
       max-width:1000px;
       margin:0 auto;
@@ -315,7 +298,6 @@
     }
     
     @media (max-width: 700px){
-      .planet{width:80px;height:80px;top:20px;right:20px;}
       .title-block h2{font-size:26px;}
       .photo-place{padding:20px; min-height: 240px;}
     }
@@ -343,14 +325,11 @@
     <div class="shooting-star"></div><div class="shooting-star"></div><div class="shooting-star"></div>
   </div>
 
-  <!-- Декоративная планета -->
-  <div class="planet"></div>
-
   <div class="wrap">
     
     <!-- ПЕРВЫЙ ЗАГОЛОВОК -->
     <div class="title-block">
-      <h2>✨ Первый заголовок: текущее состояние пространства</h2>
+      <h2>👨‍💻 Создатель этого прекрасного сайта: Плеханов В.В.</h2>
       <div class="photo-place">
         <div class="photo-icon">🖼️</div>
         <!-- СЮДА ВСТАВЬТЕ ВАШУ ПЕРВУЮ ФОТОГРАФИЮ -->
@@ -362,7 +341,7 @@
     
     <!-- ВТОРОЙ ЗАГОЛОВОК -->
     <div class="title-block">
-      <h2>🚀 Второй заголовок: предложения по улучшению</h2>
+      <h2>👑 Царь, бог и просто наш любимый преподаватель: Морозов А.М.</h2>
       <div class="photo-place">
         <div class="photo-icon">📸</div>
         <!-- СЮДА ВСТАВЬТЕ ВАШУ ВТОРУЮ ФОТОГРАФИЮ -->
@@ -380,16 +359,17 @@
   </div>
 
   <script>
-    // Параллакс-эффект для планеты
+    // Параллакс-эффект для частиц (лёгкое движение)
     document.addEventListener('mousemove', (e) => {
       const x = e.clientX / window.innerWidth;
       const y = e.clientY / window.innerHeight;
-      const planet = document.querySelector('.planet');
-      if(planet){
-        const moveX = (x - 0.5) * 15;
-        const moveY = (y - 0.5) * 10;
-        planet.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      }
+      const circles = document.querySelectorAll('.circle');
+      circles.forEach((circle, i) => {
+        const speed = 0.02 + (i * 0.003);
+        const moveX = (x - 0.5) * 30 * speed;
+        const moveY = (y - 0.5) * 30 * speed;
+        circle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
     });
   </script>
 </body>
