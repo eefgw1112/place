@@ -280,6 +280,23 @@
       font-style: italic;
     }
     
+    /* Стили для блока с просьбой */
+    .request-block {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .request-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffddaa;
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .request-title .emoji {
+      font-size: 32px;
+    }
+    
     /* Кнопка назад */
     .back-link {
       display: inline-block;
@@ -300,6 +317,7 @@
     @media (max-width: 700px){
       .title-block h2{font-size:26px;}
       .photo-place{padding:20px; min-height: 240px;}
+      .request-title{font-size:22px;}
     }
   </style>
 </head>
@@ -346,6 +364,19 @@
         <div class="photo-icon" style="display:none;">📸</div>
         <p style="display:none;"><strong>Место для вашей второй фотографии</strong><br>Замените этот текст на тег &lt;img&gt; с путём к вашему файлу.</p>
         <div class="photo-caption">Фото Морозова А.М. — любимого преподавателя</div>
+      </div>
+    </div>
+    
+    <!-- ТРЕТИЙ БЛОК: Просьба о троечке -->
+    <div class="title-block request-block">
+      <div class="request-title">
+        <span class="emoji">🙏</span> Поставьте троечку пожалуйста <span class="emoji">🙏</span>
+      </div>
+      <div class="photo-place">
+        <img src="visual/ad86cc72c74a58761efc42baadcfacaa.png" alt="Картинка с просьбой" onerror="this.style.display='none'; this.parentElement.querySelector('.photo-icon').style.display='inline'; this.parentElement.querySelector('p').style.display='block';">
+        <div class="photo-icon" style="display:none;">🖼️</div>
+        <p style="display:none;"><strong>Картинка не найдена</strong><br>Проверьте путь: visual/ad86cc72c74a58761efc42baadcfacaa.png</p>
+        <div class="photo-caption">🙏 Спасибо за внимание к нашей работе! 🙏</div>
       </div>
     </div>
     
