@@ -24,6 +24,23 @@
       overflow-x:hidden;
     }
     
+    /* Фоновая картинка справа от луны */
+    .bg-image-right{
+      position:fixed;
+      top:0;
+      right:0;
+      width:300px;
+      height:100vh;
+      background-image:url('people/oRAA6wMwro.jpg');
+      background-size:cover;
+      background-position:center;
+      opacity:0.15;
+      z-index:0;
+      pointer-events:none;
+      mask-image: linear-gradient(to left, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    }
+    
     /* Звёздный фон */
     body::before{
       content:"";
@@ -226,7 +243,7 @@
       background-size:cover;
       background-position:center;
       box-shadow:0 0 20px rgba(255,240,200,0.5), 0 0 40px rgba(255,220,120,0.3);
-      z-index:0;
+      z-index:1;
       pointer-events:none;
       transition:transform 0.1s ease-out;
     }
@@ -393,6 +410,7 @@
     }
     @media (max-width:900px){
       .moon{width:90px;height:90px;top:20px;right:20px;}
+      .bg-image-right{width:150px; opacity:0.1;}
       .planets-orbit{width:280px;height:280px; margin:20px auto; transform:scale(0.9);}
       .orbit-center{width:60px;height:60px;}
       .planet-icon{width:55px;height:55px;}
@@ -402,6 +420,9 @@
   </style>
 </head>
 <body>
+  <!-- Фоновая картинка справа от луны -->
+  <div class="bg-image-right"></div>
+  
   <div class="animated-bg">
     <div class="gradient-1"></div>
     <div class="gradient-2"></div>
